@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "offline-site",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["serve.mjs", "offline-site", "8081"],
+      "port": 8081
+    },
+    {
+      "name": "website",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["serve.mjs", "website", "8080"],
+      "port": 8080
+    }
+  ]
+}
