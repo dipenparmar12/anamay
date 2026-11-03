@@ -1,0 +1,14 @@
+{
+  "name": "anamay-ashram-website",
+  "private": true,
+  "description": "Redesigned static website for Anāmay Ashram, Kausani",
+  "type": "module",
+  "scripts": {
+    "images": "node src/images.mjs",
+    "build": "node src/build.mjs",
+    "serve": "node ../serve.mjs . 8080"
+  },
+  "devDependencies": {
+    "sharp": "0.33.5"
+  }
+}
