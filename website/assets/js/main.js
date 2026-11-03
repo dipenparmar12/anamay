@@ -25,12 +25,15 @@
   const lock = on => { root.classList.toggle('locked', on); if (lenis) on ? lenis.stop() : lenis.start(); };
   const goTo = y => lenis ? lenis.scrollTo(y) : scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
 
-  /* header: frosted once scrolled, steps aside while reading down, returns when scrolling up */
+  /* header: frosted once scrolled, steps aside while reading down, returns when scrolling up.
+     At the very top it takes light colours when it sits over a photograph marked data-nav="light". */
   const header = $('.site-header');
+  const lightUnder = () => { const el = document.elementsFromPoint(innerWidth / 2, header.offsetHeight / 2).find(n => !header.contains(n)); return !!(el && el.closest('[data-nav="light"]')); };
   let lastY = scrollY;
   const onScroll = () => {
     const y = scrollY, d = y - lastY;
     header.classList.toggle('solid', y > 40);
+    header.classList.toggle('light', y <= 40 && lightUnder());
     if (Math.abs(d) > 4) {
       header.classList.toggle('hide', d > 0 && y > 240 && !document.body.classList.contains('nav-open') && !header.matches(':focus-within'));
       lastY = y;
@@ -56,35 +59,32 @@
     matchMedia('(min-width: 1081px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
   }
 
-  /* home: step through the doorway. Pinned scenes are set up in page order, top first,
-     so the ones further down measure their start after the extra scroll length above them. */
-  const th = $('.threshold');
-  if (th && motion) {
-    const q = s => $$(s, th), img = $('.door-img', th);
-    const v = n => parseFloat(getComputedStyle(th).getPropertyValue(n));
-    gsap.from(q('.tt span'), { yPercent: 35, opacity: 0, duration: 1.8, ease: 'expo.out', stagger: 0.12, delay: 0.15 });
-    gsap.from(q('.door'), { opacity: 0, y: 40, duration: 1.6, ease: 'expo.out' });
-    gsap.from(q('.th-intro > *'), { opacity: 0, y: 16, duration: 1.2, ease: 'power3.out', stagger: 0.1, delay: 0.5 });
-    gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: th, start: 'top top', end: '+=110%', pin: true, scrub: 0.9, invalidateOnRefresh: true } })
-      .fromTo(th, { '--dw': () => v('--dw0'), '--dh': () => v('--dh0') }, { '--dw': 420, '--dh': 250, ease: 'power2.in', duration: 1 }, 0)
-      .fromTo(img, { scale: 1.18 }, { scale: 1, duration: 1 }, 0)
-      .to(q('.tt-l'), { xPercent: -45, duration: 0.55 }, 0)
-      .to(q('.tt-r'), { xPercent: 45, duration: 0.55 }, 0)
-      .to(q('.tt, .th-intro, .th-cue'), { opacity: 0, duration: 0.4 }, 0)
-      .to(q('.door-shade, .door .hero-ridges'), { opacity: 1, duration: 0.5 }, 0.45)
-      .fromTo(q('.th-inner'), { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' }, 0.62);
+  /* home: the Himalaya hero. The photograph settles, the name rises from behind the hills, and as the
+     page scrolls the layers move at different speeds so the hills carry the reader into the next section. */
+  const hh = $('.hero-hima');
+  if (hh && motion) {
+    const img = $('.hh-img', hh), word = $('.hh-word', hh), content = $('.hh-content', hh), mist = $('.hh-mist', hh);
+    gsap.from(img, { scale: 1.14, duration: 3.2, ease: 'power2.out' });
+    gsap.from(word, { yPercent: 70, opacity: 0, duration: 2.2, ease: 'expo.out', delay: 0.35 });
+    gsap.from([$('.hh-kicker', hh), $('.lead', hh), $('.hero-actions', hh)], { opacity: 0, y: 24, duration: 1.4, ease: 'power3.out', stagger: 0.12, delay: 0.6 });
+    const st = { trigger: hh, start: 'top top', end: 'bottom top', scrub: true };
+    gsap.to(img, { yPercent: 14, scale: 1.08, ease: 'none', scrollTrigger: st });
+    gsap.to(mist, { xPercent: 12, yPercent: 8, ease: 'none', scrollTrigger: st });
+    gsap.to(content, { y: -90, opacity: 0.15, ease: 'none', scrollTrigger: st });
+    gsap.to(word, { yPercent: -45, ease: 'none', scrollTrigger: st });
     if (finePointer) {
-      const ix = gsap.quickTo(img, 'xPercent', { duration: 1.4, ease: 'power3' }), iy = gsap.quickTo(img, 'yPercent', { duration: 1.4, ease: 'power3' });
-      const tx = gsap.quickTo(q('.tt'), 'x', { duration: 1.6, ease: 'power3' }), ty = gsap.quickTo(q('.tt'), 'y', { duration: 1.6, ease: 'power3' });
-      th.addEventListener('pointermove', e => { const nx = e.clientX / innerWidth - 0.5, ny = e.clientY / innerHeight - 0.5; ix(nx * -2.5); iy(ny * -2.5); tx(nx * 22); ty(ny * 12); });
+      const ix = gsap.quickTo(img, 'xPercent', { duration: 1.6, ease: 'power3' }), mx = gsap.quickTo(mist, 'x', { duration: 2, ease: 'power3' });
+      hh.addEventListener('pointermove', e => { const nx = e.clientX / innerWidth - 0.5; ix(nx * -1.6); mx(nx * 40); });
     }
   }
 
   /* headings are split into lines so they can rise line by line (CSS does the motion) */
   if (motion && window.SplitText) {
-    $$('main h2, .page-hero h1').forEach(h => {
+    $$('main h2, .page-hero h1, .hero-hima h1').forEach(h => {
       if (!h.closest('.reveal')) h.classList.add('reveal');
       SplitText.create(h, { type: 'lines', mask: 'lines', linesClass: 'ln', autoSplit: true, onSplit: s => s.lines.forEach((l, i) => l.style.setProperty('--li', i)) });
+      // page titles are on screen from the start: reveal them on load rather than waiting for the observer
+      if (h.closest('.hero-hima, .page-hero')) requestAnimationFrame(() => requestAnimationFrame(() => h.classList.add('in')));
     });
   }
 
@@ -269,7 +269,7 @@
   }
 
   /* the thread: page progress, with a knot for each chapter of the page */
-  const chapters = $$('main > section, main > .pin-spacer > section').filter(s => !s.matches('.threshold, .page-hero'))
+  const chapters = $$('main > section, main > .pin-spacer > section').filter(s => !s.matches('.hero-hima, .page-hero'))
     .map(s => ({ s, label: (s.dataset.chapter || $('.eyebrow', s)?.textContent || $('h2', s)?.textContent || '').split('·')[0].trim().slice(0, 32) }))
     .filter(c => c.label);
   if (chapters.length || document.querySelector('main')) {
@@ -349,11 +349,51 @@
     if (document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());
   }
 
-  /* YouTube: load the player only when asked (keeps pages light and private) */
-  $$('.yt').forEach(el => el.addEventListener('click', () => {
-    el.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${el.dataset.id}?autoplay=1&rel=0" title="${el.dataset.title || 'Video'}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
-    el.classList.add('playing');
-  }));
+  /* films: a thumbnail opens a modal with the YouTube player (privacy-enhanced youtube-nocookie.com).
+     The player reports "ready" and errors through postMessage once we say we are listening. */
+  const vm = $('.vmodal');
+  if (vm) {
+    const YT_ORIGIN = 'https://www.youtube-nocookie.com';
+    const holder = $('.vm-player', vm), msg = $('.vm-state p', vm), title = $('.vm-title', vm), out = $('.vm-out', vm), closeBtn = $('.vm-close', vm);
+    let frame = null, opener = null, timer;
+    const ERRORS = { 2: 'This film link is not valid.', 5: 'This film cannot be played in this browser.', 100: 'This film is no longer available on YouTube.', 101: 'Its owner allows it to be played only on YouTube.', 150: 'Its owner allows it to be played only on YouTube.', 153: 'YouTube could not confirm which website is playing the film.' };
+    const fail = text => { clearTimeout(timer); vm.classList.remove('loading'); vm.classList.add('failed'); msg.textContent = text + ' You can still watch it on YouTube.'; };
+    const ready = () => { clearTimeout(timer); vm.classList.remove('loading'); };
+    const clear = () => { clearTimeout(timer); if (frame) frame.remove(); frame = null; };
+    addEventListener('message', e => {
+      if (!frame || e.source !== frame.contentWindow || e.origin !== YT_ORIGIN) return;
+      let d; try { d = JSON.parse(e.data); } catch (err) { return; }
+      if (d.event === 'onReady' || d.event === 'initialDelivery') ready();
+      if (d.event === 'onError') fail(ERRORS[d.info] || 'This film could not be played here.');
+    });
+    const openFilm = (id, name, from) => {
+      opener = from; title.textContent = name; out.href = `https://www.youtube.com/watch?v=${id}`;
+      clear(); vm.classList.remove('failed'); vm.classList.add('open', 'loading'); msg.textContent = 'Loading the film…';
+      lock(true); closeBtn.focus({ preventScroll: true });
+      // YouTube refuses to play inside pages opened straight from the disk (file://), which send no web address
+      if (location.protocol === 'file:') return fail('Films play here when the site is opened from a web address, not from a file on this computer.');
+      if (!navigator.onLine) return fail('You seem to be offline. Films need an internet connection.');
+      frame = document.createElement('iframe');
+      frame.title = name; frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; frame.allowFullscreen = true;
+      frame.referrerPolicy = 'strict-origin-when-cross-origin';
+      frame.src = `${YT_ORIGIN}/embed/${id}?autoplay=1&rel=0&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(location.origin)}`;
+      frame.addEventListener('load', () => {
+        frame && frame.contentWindow.postMessage(JSON.stringify({ event: 'listening', id: 'film', channel: 'widget' }), YT_ORIGIN);
+        clearTimeout(timer); timer = setTimeout(() => { if (vm.classList.contains('loading')) fail('The film could not be loaded. Please check your internet connection.'); }, 8000);
+      });
+      holder.prepend(frame);
+      timer = setTimeout(() => { if (vm.classList.contains('loading')) fail('The film is taking a long time to load. Please check your internet connection.'); }, 20000);
+    };
+    const closeFilm = () => {
+      if (!vm.classList.contains('open')) return;
+      clear(); vm.classList.remove('open', 'loading', 'failed'); lock(false);
+      opener && opener.focus({ preventScroll: true });
+    };
+    $$('.yt').forEach(b => b.addEventListener('click', () => openFilm(b.dataset.id, b.dataset.title || 'Film', b)));
+    closeBtn.addEventListener('click', closeFilm);
+    vm.addEventListener('click', e => { if (e.target === vm) closeFilm(); });
+    addEventListener('keydown', e => { if (e.key === 'Escape') closeFilm(); });
+  }
 
   /* course dates: mark past ones, highlight the next upcoming */
   const today = new Date(); today.setHours(0, 0, 0, 0);

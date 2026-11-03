@@ -1,0 +1,269 @@
+{
+ "stay": [
+  {
+   "full": "assets/img/retreat/stay-01.webp",
+   "thumb": "assets/img/retreat/stay-01-sm.webp",
+   "caption": "The terrace, looking out to the Himalaya",
+   "w": 720,
+   "h": 540
+  },
+  {
+   "full": "assets/img/retreat/stay-02.webp",
+   "thumb": "assets/img/retreat/stay-02-sm.webp",
+   "caption": "Sunrise above the clouds",
+   "w": 720,
+   "h": 540
+  },
+  {
+   "full": "assets/img/retreat/stay-03.webp",
+   "thumb": "assets/img/retreat/stay-03-sm.webp",
+   "caption": "Yoga on the terrace",
+   "w": 720,
+   "h": 586
+  },
+  {
+   "full": "assets/img/retreat/stay-04.webp",
+   "thumb": "assets/img/retreat/stay-04-sm.webp",
+   "caption": "Guests and the ashram family at a meal",
+   "w": 720,
+   "h": 540
+  },
+  {
+   "full": "assets/img/retreat/stay-05.webp",
+   "thumb": "assets/img/retreat/stay-05-sm.webp",
+   "caption": "The guest house in the forest",
+   "w": 720,
+   "h": 480
+  },
+  {
+   "full": "assets/img/retreat/stay-06.webp",
+   "thumb": "assets/img/retreat/stay-06-sm.webp",
+   "caption": "A quiet hour on the terrace",
+   "w": 600,
+   "h": 800
+  },
+  {
+   "full": "assets/img/retreat/stay-07.webp",
+   "thumb": "assets/img/retreat/stay-07-sm.webp",
+   "caption": "Morning practice at sunrise",
+   "w": 720,
+   "h": 540
+  },
+  {
+   "full": "assets/img/retreat/stay-08.webp",
+   "thumb": "assets/img/retreat/stay-08-sm.webp",
+   "caption": "Carved wood in the guest house",
+   "w": 600,
+   "h": 800
+  },
+  {
+   "full": "assets/img/retreat/stay-09.webp",
+   "thumb": "assets/img/retreat/stay-09-sm.webp",
+   "caption": "A puja with Ashutosh ji and the students",
+   "w": 720,
+   "h": 433
+  },
+  {
+   "full": "assets/img/retreat/stay-10.webp",
+   "thumb": "assets/img/retreat/stay-10-sm.webp",
+   "caption": "The buildings and gardens",
+   "w": 720,
+   "h": 405
+  },
+  {
+   "full": "assets/img/retreat/stay-11.webp",
+   "thumb": "assets/img/retreat/stay-11-sm.webp",
+   "caption": "Resting on the veranda",
+   "w": 720,
+   "h": 540
+  },
+  {
+   "full": "assets/img/retreat/stay-12.webp",
+   "thumb": "assets/img/retreat/stay-12-sm.webp",
+   "caption": "Yoga mats on the roof terrace",
+   "w": 600,
+   "h": 800
+  },
+  {
+   "full": "assets/img/retreat/stay-13.webp",
+   "thumb": "assets/img/retreat/stay-13-sm.webp",
+   "caption": "The staircase of the guest house",
+   "w": 600,
+   "h": 800
+  },
+  {
+   "full": "assets/img/retreat/stay-14.webp",
+   "thumb": "assets/img/retreat/stay-14-sm.webp",
+   "caption": "A sattvic meal",
+   "w": 720,
+   "h": 405
+  }
+ ],
+ "rooms": [
+  {
+   "full": "assets/img/retreat/rooms-01.webp",
+   "thumb": "assets/img/retreat/rooms-01-sm.webp",
+   "caption": "A room with a wide window onto the valley",
+   "w": 720,
+   "h": 480
+  },
+  {
+   "full": "assets/img/retreat/rooms-02.webp",
+   "thumb": "assets/img/retreat/rooms-02-sm.webp",
+   "caption": "Double room",
+   "w": 720,
+   "h": 480
+  },
+  {
+   "full": "assets/img/retreat/rooms-03.webp",
+   "thumb": "assets/img/retreat/rooms-03-sm.webp",
+   "caption": "The view from a room",
+   "w": 720,
+   "h": 480
+  },
+  {
+   "full": "assets/img/retreat/rooms-04.webp",
+   "thumb": "assets/img/retreat/rooms-04-sm.webp",
+   "caption": "Sitting corner in a suite",
+   "w": 720,
+   "h": 480
+  },
+  {
+   "full": "assets/img/retreat/rooms-05.webp",
+   "thumb": "assets/img/retreat/rooms-05-sm.webp",
+   "caption": "Suite with a view of the hills",
+   "w": 720,
+   "h": 480
+  },
+  {
+   "full": "assets/img/retreat/rooms-06.webp",
+   "thumb": "assets/img/retreat/rooms-06-sm.webp",
+   "caption": "A loft room under the roof",
+   "w": 720,
+   "h": 1080
+  },
+  {
+   "full": "assets/img/retreat/rooms-07.webp",
+   "thumb": "assets/img/retreat/rooms-07-sm.webp",
+   "caption": "Room with a door to the balcony",
+   "w": 720,
+   "h": 480
+  },
+  {
+   "full": "assets/img/retreat/rooms-08.webp",
+   "thumb": "assets/img/retreat/rooms-08-sm.webp",
+   "caption": "Kitchen corner and sitting area of a larger suite",
+   "w": 720,
+   "h": 480
+  },
+  {
+   "full": "assets/img/retreat/rooms-09.webp",
+   "thumb": "assets/img/retreat/rooms-09-sm.webp",
+   "caption": "Room with twin beds",
+   "w": 720,
+   "h": 480
+  },
+  {
+   "full": "assets/img/retreat/rooms-10.webp",
+   "thumb": "assets/img/retreat/rooms-10-sm.webp",
+   "caption": "Writing desk by the window",
+   "w": 720,
+   "h": 480
+  },
+  {
+   "full": "assets/img/retreat/rooms-11.webp",
+   "thumb": "assets/img/retreat/rooms-11-sm.webp",
+   "caption": "Sitting room opening onto the balcony",
+   "w": 720,
+   "h": 480
+  },
+  {
+   "full": "assets/img/retreat/rooms-12.webp",
+   "thumb": "assets/img/retreat/rooms-12-sm.webp",
+   "caption": "Suite with sitting area",
+   "w": 720,
+   "h": 480
+  },
+  {
+   "full": "assets/img/retreat/rooms-13.webp",
+   "thumb": "assets/img/retreat/rooms-13-sm.webp",
+   "caption": "Room in the morning light",
+   "w": 720,
+   "h": 480
+  },
+  {
+   "full": "assets/img/retreat/rooms-14.webp",
+   "thumb": "assets/img/retreat/rooms-14-sm.webp",
+   "caption": "Sofa in a larger suite",
+   "w": 720,
+   "h": 480
+  },
+  {
+   "full": "assets/img/retreat/rooms-15.webp",
+   "thumb": "assets/img/retreat/rooms-15-sm.webp",
+   "caption": "Kitchen corner of a larger suite",
+   "w": 720,
+   "h": 480
+  },
+  {
+   "full": "assets/img/retreat/rooms-16.webp",
+   "thumb": "assets/img/retreat/rooms-16-sm.webp",
+   "caption": "Armchairs by the window",
+   "w": 720,
+   "h": 480
+  }
+ ],
+ "care": [
+  {
+   "full": "assets/img/retreat/care-01.webp",
+   "thumb": "assets/img/retreat/care-01-sm.webp",
+   "caption": "An Ayurvedic head treatment",
+   "w": 464,
+   "h": 556
+  },
+  {
+   "full": "assets/img/retreat/care-02.webp",
+   "thumb": "assets/img/retreat/care-02-sm.webp",
+   "caption": "A treatment with our technicians",
+   "w": 720,
+   "h": 480
+  },
+  {
+   "full": "assets/img/retreat/care-03.webp",
+   "thumb": "assets/img/retreat/care-03-sm.webp",
+   "caption": "Our therapists in a rejuvenation room",
+   "w": 720,
+   "h": 540
+  },
+  {
+   "full": "assets/img/retreat/care-04.webp",
+   "thumb": "assets/img/retreat/care-04-sm.webp",
+   "caption": "A rejuvenation room",
+   "w": 667,
+   "h": 499
+  },
+  {
+   "full": "assets/img/retreat/care-05.webp",
+   "thumb": "assets/img/retreat/care-05-sm.webp",
+   "caption": "The second rejuvenation room",
+   "w": 666,
+   "h": 498
+  }
+ ],
+ "food": [
+  {
+   "full": "assets/img/retreat/food-01.webp",
+   "thumb": "assets/img/retreat/food-01-sm.webp",
+   "caption": "A sattvic lunch from the ashram kitchen",
+   "w": 431,
+   "h": 640
+  },
+  {
+   "full": "assets/img/retreat/food-02.webp",
+   "thumb": "assets/img/retreat/food-02-sm.webp",
+   "caption": "Rice, dal, vegetables and roti",
+   "w": 720,
+   "h": 405
+  }
+ ]
+}

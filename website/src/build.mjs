@@ -6,13 +6,17 @@ const CONTENT = path.resolve('../content/pages');
 const credits = JSON.parse(fs.readFileSync('src/credits.json', 'utf8'));
 const gallery = JSON.parse(fs.readFileSync('src/gallery.json', 'utf8'));
 const videos = Object.fromEntries(JSON.parse(fs.readFileSync('../content/videos.json', 'utf8')).map(v => [v.id, v.title]));
+// photographs from the Anāmay Vedic Retreat website, grouped by set (see src/retreat.json)
+const retreat = JSON.parse(fs.readFileSync('src/retreat.json', 'utf8'));
 
 const SITE = {
   name: 'Anāmay Ashram', email: 'anamayashram@gmail.com', whatsapp: '919917248154',
+  retreatEmail: 'anamayvedicretreat@gmail.com',
   phones: ['+91 98102 07429', '+91 75993 67331', '+91 99172 48154'],
   address: 'Anāmay Vedic Ashram, Kausani Estate, District Bageshwar, Uttarakhand 263620, India',
   facebook: 'https://www.facebook.com/anamayvedicashram/', instagram: 'https://www.instagram.com/anamayashram/',
-  youtube: 'https://www.youtube.com/channel/UCcxnAEWJmbQxaA0FXpYI8vA', retreat: 'https://anamayretreat.com/',
+  retreatFacebook: 'https://www.facebook.com/pages/Anamay-Vedic-Resort/146831818790054',
+  youtube: 'https://www.youtube.com/channel/UCcxnAEWJmbQxaA0FXpYI8vA',
   donate: 'https://anamayashram.org/donation/',
 };
 
@@ -38,6 +42,11 @@ const NAV = [
     ['volunteer.html', 'Volunteer & 1-week Course', 'Seva and the TM introduction week'],
     ['gallery.html', 'Gallery', 'Photographs and films'],
     ['journal.html', 'Journal & Magazine', 'Stories, testimonials and our quarterly'],
+  ] },
+  { label: 'Stay', items: [
+    ['retreat.html', 'Anāmay Vedic Retreat', 'The guest house beside the ashram'],
+    ['rooms.html', 'Rooms & Suites', 'Eighteen rooms built by Vāstu'],
+    ['visit.html', 'Visit & Travel', 'How to reach Kausani, and how to write to us'],
   ] },
   { href: 'contribute.html', label: 'Contribute' },
 ];
@@ -142,15 +151,19 @@ const VIDEO_GROUPS = {
   recitation: ['SyvbJv38088', 'WNRvTLTnXIA', 'DfUyKjOdG9k'],
   founder: ['AnbB1qRbric', '_zCujII8iqs', '8CpxrfQnxIU', 'k2F4z6y3liU', 'WpvWMFGC-VY'],
   meditation: ['RK1kbJiisLk', '8CpxrfQnxIU'],
+  retreat: ['nP_lb0YjA1c', 'AEs7XcbLifw', 'Oc6q0t-mta8'],
+  arrival: ['Xk6SwyLn8Fw'],
 };
-const galleryGrid = (n = gallery.length) => `<div class="gallery" data-stagger>${gallery.slice(0, n).map(g => `<a href="${g.full}" data-lightbox="photos" data-caption="${g.caption}"><img src="${g.thumb}" alt="${g.caption}" width="${g.w}" height="${g.h}" loading="lazy"><span>${g.caption}</span></a>`).join('')}</div>`;
+// {{gallery}} / {{strip}} show the ashram photographs; {{gallery:rooms}} / {{strip:stay}} a set from src/retreat.json
+const photoSet = (key, n) => (/^\d+$/.test(key || '') || !key ? gallery.slice(0, key ? +key : n) : retreat[key]);
+const galleryGrid = (key, set = photoSet(key, gallery.length)) => `<div class="gallery" data-stagger>${set.map(g => `<a href="${g.full}" data-lightbox="${key || 'photos'}" data-caption="${g.caption}"><img src="${g.thumb}" alt="${g.caption}" width="${g.w}" height="${g.h}" loading="lazy"><span>${g.caption}</span></a>`).join('')}</div>`;
 // a draggable film strip of photographs, each keeping its own proportions
-const strip = (n = 12) => `<div class="strip" data-strip data-lenis-prevent-horizontal>${gallery.slice(0, n).map((g, i) => `<a class="strip-item" href="${g.full}" data-lightbox="strip" data-caption="${g.caption}" style="--ar:${g.w}/${g.h}"><img src="${g.thumb}" alt="${g.caption}" width="${g.w}" height="${g.h}" loading="lazy" draggable="false"><span><i>${String(i + 1).padStart(2, '0')}</i>${g.caption}</span></a>`).join('')}</div>`;
+const strip = (key, set = photoSet(key, 12)) => `<div class="strip" data-strip data-lenis-prevent-horizontal>${set.map((g, i) => `<a class="strip-item" href="${g.full}" data-lightbox="strip-${key || 'photos'}" data-caption="${g.caption}" style="--ar:${g.w}/${g.h}"><img src="${g.thumb}" alt="${g.caption}" width="${g.w}" height="${g.h}" loading="lazy" draggable="false"><span><i>${String(i + 1).padStart(2, '0')}</i>${g.caption}</span></a>`).join('')}</div>`;
 const creditsTable = () => `<table class="credits-table"><thead><tr><th>Image</th><th>Subject</th><th>Author</th><th>Licence</th></tr></thead><tbody>${Object.entries(credits).map(([k, c]) => `<tr><td><img src="${c.file}" alt="" loading="lazy"></td><td>${c.caption}</td><td>${c.author}</td><td><a href="${c.page}" target="_blank" rel="noopener">${c.license}</a></td></tr>`).join('')}</tbody></table>`;
 
-function contactForm(subject = 'Enquiry from the website', interest = '') {
-  const opts = ['Visiting / staying at the ashram', 'Panchakarma or Ayurveda consultation', 'Kshar Sutra treatment', 'Meditation or yoga course', '1-week TM course / volunteering', 'Vedic Vidyapeeth', 'Jyotish consultation', 'Donation or support', 'Something else'];
-  return `<form class="form" data-enquiry="${SITE.email}" data-subject="${subject}" novalidate>
+function contactForm(subject = 'Enquiry from the website', interest = '', to = SITE.email) {
+  const opts = ['Visiting / staying at the ashram', 'A stay at the Anāmay Vedic Retreat', 'Panchakarma or Ayurveda consultation', 'Kshar Sutra treatment', 'Meditation or yoga course', '1-week TM course / volunteering', 'Vedic Vidyapeeth', 'Jyotish consultation', 'Donation or support', 'Something else'];
+  return `<form class="form" data-enquiry="${to}" data-subject="${subject}" novalidate>
   <div class="field"><input id="f-name" name="name" data-label="Name" placeholder=" " required autocomplete="name"><label for="f-name">Your name</label><span class="error">Please tell us your name.</span></div>
   <div class="field"><input id="f-phone" name="phone" data-label="Mobile" placeholder=" " type="tel" autocomplete="tel" pattern="[0-9 +()-]{7,}"><label for="f-phone">Mobile number</label><span class="error">Please check the number.</span></div>
   <div class="field"><input id="f-email" name="email" data-label="Email" placeholder=" " type="email" required autocomplete="email"><label for="f-email">Email</label><span class="error">Please enter a valid email.</span></div>
@@ -180,7 +193,7 @@ ${menu(current)}`;
 }
 // full-screen menu for phones and tablets; it lives outside the header so it always covers the whole screen
 function menu(current) {
-  const num = ['१', '२', '३', '४', '५'];
+  const num = ['१', '२', '३', '४', '५', '६'];
   const cur = h => h === current ? ' aria-current="page"' : '';
   const groups = NAV.map((g, i) => g.href
     ? `<div class="menu-group"><p class="menu-label"><span>${num[i]}</span>Support</p><a href="${g.href}"${cur(g.href)}>${g.label}</a></div>`
@@ -205,11 +218,17 @@ function footer() {
     <div class="socials"><a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Facebook">${icon('facebook')}</a><a href="${SITE.instagram}" target="_blank" rel="noopener" aria-label="Instagram">${icon('instagram')}</a><a href="${SITE.youtube}" target="_blank" rel="noopener" aria-label="YouTube">${icon('youtube')}</a><a href="https://wa.me/${SITE.whatsapp}" target="_blank" rel="noopener" aria-label="WhatsApp">${icon('whatsapp')}</a></div></div>
   ${links('Knowledge', [['vedas.html', 'The Vedas'], ['vidyapeeth.html', 'Vedic Vidyapeeth'], ['yagya-jyotish.html', 'Yagya & Jyotish'], ['meditation.html', 'Meditation'], ['yoga.html', 'Yoga']])}
   ${links('Healing & Life', [['ayurveda.html', 'Āyurveda'], ['panchakarma.html', 'Panchakarma'], ['kshar-sutra.html', 'Kshar Sutra'], ['sattvic-life.html', 'Sattvic Life'], ['volunteer.html', 'Volunteer']])}
+  ${links('Stay', [['retreat.html', 'Anāmay Vedic Retreat'], ['rooms.html', 'Rooms & Suites'], ['visit.html', 'Visit & Travel'], ['contribute.html', 'Contribute']])}
   <div><h4>Reach us</h4><ul><li>Kausani Estate, District Bageshwar,<br>Uttarakhand 263620</li>${SITE.phones.map(p => `<li><a href="tel:${p.replace(/\s/g, '')}">${p}</a></li>`).join('')}<li><a href="mailto:${SITE.email}">${SITE.email}</a></li><li>Every day, 9:30 am – 6:30 pm</li></ul></div>
 </div>
-<div class="footer-bottom"><span>© <span data-year>2026</span> Shree Anamay Nyas. All rights reserved.</span><nav><a href="policies.html">Privacy &amp; policies</a><a href="credits.html">Image credits</a><a href="${SITE.retreat}" target="_blank" rel="noopener">Anamay Vedic Retreat</a></nav></div></div></footer>
+<div class="footer-bottom"><span>© <span data-year>2026</span> Shree Anamay Nyas. All rights reserved.</span><nav><a href="policies.html">Privacy &amp; policies</a><a href="credits.html">Image credits</a><a href="retreat.html">Anāmay Vedic Retreat</a></nav></div></div></footer>
 <a class="whatsapp-float" href="https://wa.me/${SITE.whatsapp}" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">${icon('whatsapp')}</a>
-<div class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" data-lenis-prevent><span class="lb-count"></span><figure><img alt=""><figcaption></figcaption></figure><button class="close" aria-label="Close">×</button><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button></div>`;
+<div class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" data-lenis-prevent><span class="lb-count"></span><figure><img alt=""><figcaption></figcaption></figure><button class="close" aria-label="Close">×</button><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button></div>
+<div class="vmodal" role="dialog" aria-modal="true" aria-label="Film player" data-lenis-prevent>
+  <div class="vm-frame"><div class="vm-player"><div class="vm-state" role="status"><span class="vm-spin"></span><p>Loading the film…</p></div></div>
+    <div class="vm-meta"><p class="vm-title"></p><a class="vm-out" href="${SITE.youtube}" target="_blank" rel="noopener">Watch on YouTube ↗</a></div></div>
+  <button class="vm-close" aria-label="Close the film">×</button>
+</div>`;
 }
 // inner pages open on a temple doorway: text on the parchment, the photograph framed in an arch
 function pageHero(m) {
@@ -234,6 +253,7 @@ function layout(m, body, file) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>${title}</title>
 <meta name="description" content="${m.description || ''}">
 <meta name="theme-color" content="#1b2140">
@@ -267,14 +287,15 @@ function expand(s) {
     .replace(/\{\{ridges\}\}/g, ridges)
     .replace(/\{\{lotus\}\}/g, lotusRule)
     .replace(/\{\{icon:(\w+)\}\}/g, (_, n) => icon(n))
-    .replace(/\{\{img:([\w-]+)(?:\|([^|}]*))?(?:\|([^}]*))?\}\}/g, (_, n, a, c) => img(n, a, c))
+    .replace(/\{\{img:([\w/-]+)(?:\|([^|}]*))?(?:\|([^}]*))?\}\}/g, (_, n, a, c) => img(n, a, c))
     .replace(/\{\{credit:([\w-]+)\}\}/g, (_, n) => credit(n))
     .replace(/\{\{md:([^}]+)\}\}/g, (_, slug) => md(slug))
     .replace(/\{\{videos:(\w+)\}\}/g, (_, g) => `<div class="video-grid" data-stagger>${VIDEO_GROUPS[g].map(videoCard).join('')}</div>`)
-    .replace(/\{\{gallery(?::(\d+))?\}\}/g, (_, n) => galleryGrid(n ? +n : undefined))
-    .replace(/\{\{strip(?::(\d+))?\}\}/g, (_, n) => strip(n ? +n : undefined))
+    .replace(/\{\{gallery(?::([\w-]+))?\}\}/g, (_, k) => galleryGrid(k))
+    .replace(/\{\{strip(?::([\w-]+))?\}\}/g, (_, k) => strip(k))
     .replace(/\{\{dial-ridges\}\}/g, dialRidges)
-    .replace(/\{\{contact-form(?::([^|}]*))?(?:\|([^}]*))?\}\}/g, (_, subj, interest) => contactForm(subj || undefined, interest || ''))
+    // {{contact-form:subject|interest|siteKeyOfAddress}}
+    .replace(/\{\{contact-form(?::([^|}]*))?(?:\|([^|}]*))?(?:\|([^}]*))?\}\}/g, (_, subj, interest, to) => contactForm(subj || undefined, interest || '', to ? SITE[to] : undefined))
     .replace(/\{\{credits-table\}\}/g, creditsTable)
     .replace(/\{\{site:(\w+)\}\}/g, (_, k) => SITE[k]);
 }
