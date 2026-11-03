@@ -1,0 +1,959 @@
+{
+  "crawled": "2026-11-03T03:49:36.079Z",
+  "pages": [
+    {
+      "url": "https://anamayashram.org/",
+      "file": "index.html",
+      "status": 200,
+      "title": "Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/?page_id=3031http://anamayashram.org/?page_id=153",
+      "file": "_q_page_id-3031http-anamayashram-org-page_id-153/index.html",
+      "status": 200,
+      "title": "Terms &#038; Conditions &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/?page_id=368",
+      "file": "_q_page_id-368/index.html",
+      "status": 404,
+      "title": "Page not found &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/%e0%a4%85%e0%a4%a8%e0%a4%be%e0%a4%ae%e0%a4%af-%e0%a4%86%e0%a4%b6%e0%a5%8d%e0%a4%b0%e0%a4%ae-%e0%a4%b8%e0%a5%8d%e0%a4%b5%e0%a4%af%e0%a4%82%e0%a4%b8%e0%a5%87%e0%a4%b5%e0%a4%95-%e0%a4%95/",
+      "file": "अनामय-आश्रम-स्वयंसेवक-क/index.html",
+      "status": 200,
+      "title": "अनामय आश्रम  स्वयंसेवक के लिए विशेष अवसर &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/about-us/",
+      "file": "about-us/index.html",
+      "status": 200,
+      "title": "About Us &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/all-posts/",
+      "file": "all-posts/index.html",
+      "status": 200,
+      "title": "All Posts &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/all-posts/page/2/",
+      "file": "all-posts/page/2/index.html",
+      "status": 200,
+      "title": "All Posts &#8211; Page 2 &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/anamay-ashram/",
+      "file": "anamay-ashram/index.html",
+      "status": 200,
+      "title": "Anamay Ashram &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/application-form/",
+      "file": "application-form/index.html",
+      "status": 200,
+      "title": "Application Form &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/author/anamay/",
+      "file": "author/anamay/index.html",
+      "status": 200,
+      "title": "anamay &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/author/anamay/page/2/",
+      "file": "author/anamay/page/2/index.html",
+      "status": 200,
+      "title": "anamay &#8211; Page 2 &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/awl_filter_gallery/",
+      "file": "awl_filter_gallery/index.html",
+      "status": 200,
+      "title": "Portfolio Filter Gallery &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/awl_filter_gallery/gallery/",
+      "file": "awl_filter_gallery/gallery/index.html",
+      "status": 200,
+      "title": "Gallery &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/ayurveda/",
+      "file": "ayurveda/index.html",
+      "status": 200,
+      "title": "Ayurveda &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/blog/",
+      "file": "blog/index.html",
+      "status": 200,
+      "title": "Blog &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/cart/",
+      "file": "cart/index.html",
+      "status": 200,
+      "title": "Cart &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/category/ashram/",
+      "file": "category/ashram/index.html",
+      "status": 200,
+      "title": "ashram &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/category/other/",
+      "file": "category/other/index.html",
+      "status": 200,
+      "title": "Other &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/category/other/page/2/",
+      "file": "category/other/page/2/index.html",
+      "status": 200,
+      "title": "Other &#8211; Page 2 &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/category/uncategorized/",
+      "file": "category/uncategorized/index.html",
+      "status": 200,
+      "title": "Uncategorized &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/checkout/",
+      "file": "checkout/index.html",
+      "status": 200,
+      "title": "Checkout &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/chess-2-columns/",
+      "file": "chess-2-columns/index.html",
+      "status": 200,
+      "title": "Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/chess-4-columns/",
+      "file": "chess-4-columns/index.html",
+      "status": 200,
+      "title": "Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/chess-6-columns/",
+      "file": "chess-6-columns/index.html",
+      "status": 200,
+      "title": "Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/classic-2-columns/",
+      "file": "classic-2-columns/index.html",
+      "status": 200,
+      "title": "Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/classic-3-columns/",
+      "file": "classic-3-columns/index.html",
+      "status": 200,
+      "title": "Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/dhyana/",
+      "file": "dhyana/index.html",
+      "status": 200,
+      "title": "Dhyana &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/donation-causes/",
+      "file": "donation-causes/index.html",
+      "status": 200,
+      "title": "Donation Causes &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/donation-confirmation/",
+      "file": "donation-confirmation/index.html",
+      "status": 200,
+      "title": "Donation Confirmation &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/donation-failed/",
+      "file": "donation-failed/index.html",
+      "status": 200,
+      "title": "Donation Failed &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/donation-history/",
+      "file": "donation-history/index.html",
+      "status": 200,
+      "title": "Donation History &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/donation/",
+      "file": "donation/index.html",
+      "status": 200,
+      "title": "Donation &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/donor-dashboard/",
+      "file": "donor-dashboard/index.html",
+      "status": 200,
+      "title": "Donor Dashboard &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/events-list/",
+      "file": "events-list/index.html",
+      "status": 200,
+      "title": "Events List &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/gallery/",
+      "file": "gallery/index.html",
+      "status": 200,
+      "title": "Gallery &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/home-1/",
+      "file": "home-1/index.html",
+      "status": 200,
+      "title": "Home 1 &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/home-2/",
+      "file": "home-2/index.html",
+      "status": 200,
+      "title": "Home 2 &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/how-can-i-contribute/",
+      "file": "how-can-i-contribute/index.html",
+      "status": 200,
+      "title": "How Can I Contribute &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/interview-with-ashutosh/",
+      "file": "interview-with-ashutosh/index.html",
+      "status": 200,
+      "title": "Interview with Ashutosh &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/jyotish/",
+      "file": "jyotish/index.html",
+      "status": 200,
+      "title": "Jyotish &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/kshar-sutra/",
+      "file": "kshar-sutra/index.html",
+      "status": 200,
+      "title": "Kshar Sutra &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/layouts/footer-2/",
+      "file": "layouts/footer-2/index.html",
+      "status": 200,
+      "title": "Footer 2 &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/layouts/footer-donation/",
+      "file": "layouts/footer-donation/index.html",
+      "status": 200,
+      "title": "Footer donation &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/layouts/footer-main/",
+      "file": "layouts/footer-main/index.html",
+      "status": 200,
+      "title": "Footer Main &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/layouts/header-fullwidth-2/",
+      "file": "layouts/header-fullwidth-2/index.html",
+      "status": 200,
+      "title": "Header Fullwidth 2 &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/layouts/header-fullwidth-3/",
+      "file": "layouts/header-fullwidth-3/index.html",
+      "status": 200,
+      "title": "Header Fullwidth 3 &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/layouts/header-fullwidth-simple/",
+      "file": "layouts/header-fullwidth-simple/index.html",
+      "status": 200,
+      "title": "Header Fullwidth Simple &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/layouts/header-fullwidth/",
+      "file": "layouts/header-fullwidth/index.html",
+      "status": 200,
+      "title": "Header Fullwidth &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/let-go-of-stress/",
+      "file": "let-go-of-stress/index.html",
+      "status": 200,
+      "title": "Yagyas &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/magazine/",
+      "file": "magazine/index.html",
+      "status": 200,
+      "title": "Magazine &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/my-account/",
+      "file": "my-account/index.html",
+      "status": 200,
+      "title": "My account &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/new-vedic-organic-green-house/",
+      "file": "new-vedic-organic-green-house/index.html",
+      "status": 200,
+      "title": "New Vedic Organic Green House &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/organic-farming/",
+      "file": "organic-farming/index.html",
+      "status": 200,
+      "title": "Organic Farming &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/our-trustees/",
+      "file": "our-trustees/index.html",
+      "status": 200,
+      "title": "Our  Trustees &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/our-vaidya/",
+      "file": "our-vaidya/index.html",
+      "status": 200,
+      "title": "Our Vaidya &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/panchakarma/",
+      "file": "panchakarma/index.html",
+      "status": 200,
+      "title": "Panchakarma &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/photos/",
+      "file": "photos/index.html",
+      "status": 200,
+      "title": "Photos &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/portfolio-2-columns/",
+      "file": "portfolio-2-columns/index.html",
+      "status": 200,
+      "title": "Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/portfolio-3-columns/",
+      "file": "portfolio-3-columns/index.html",
+      "status": 200,
+      "title": "Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/portfolio-4-columns/",
+      "file": "portfolio-4-columns/index.html",
+      "status": 200,
+      "title": "Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/privacy-policy/",
+      "file": "privacy-policy/index.html",
+      "status": 200,
+      "title": "Privacy Policy &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/purpose-and-procedure/",
+      "file": "purpose-and-procedure/index.html",
+      "status": 200,
+      "title": "Purpose and Procedure &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/refund-cancelation/",
+      "file": "refund-cancelation/index.html",
+      "status": 200,
+      "title": "Refund/Cancelations &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/registration-form/",
+      "file": "registration-form/index.html",
+      "status": 200,
+      "title": "Registration Form &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/retreat/",
+      "file": "retreat/index.html",
+      "status": 200,
+      "title": "Retreat &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/review-from-a-volunteer-at-our-ashram/",
+      "file": "review-from-a-volunteer-at-our-ashram/index.html",
+      "status": 200,
+      "title": "Experience of a volunteer at our ashram &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/sattvic-life/",
+      "file": "sattvic-life/index.html",
+      "status": 200,
+      "title": "Sattvic Life &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/schedules/",
+      "file": "schedules/index.html",
+      "status": 200,
+      "title": "Schedules &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/service-plus/",
+      "file": "service-plus/index.html",
+      "status": 200,
+      "title": "Service Plus &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/shipping-delivery-policy/",
+      "file": "shipping-delivery-policy/index.html",
+      "status": 200,
+      "title": "Shipping &#038; Delivery Policy &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/shop/",
+      "file": "shop/index.html",
+      "status": 200,
+      "title": "Shop &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/shortcodes/",
+      "file": "shortcodes/index.html",
+      "status": 200,
+      "title": "Shortcodes &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/special-opportunity-for-volunteer-applicants/",
+      "file": "special-opportunity-for-volunteer-applicants/index.html",
+      "status": 200,
+      "title": "Special Opportunity for Volunteer Applicants &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/sustainable-living-in-the-himalayas/",
+      "file": "sustainable-living-in-the-himalayas/index.html",
+      "status": 200,
+      "title": "Sustainable Living in the Himalayas &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/tag/ashram/",
+      "file": "tag/ashram/index.html",
+      "status": 200,
+      "title": "ashram &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/tag/inspiration/",
+      "file": "tag/inspiration/index.html",
+      "status": 200,
+      "title": "inspiration &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/tag/meditation/",
+      "file": "tag/meditation/index.html",
+      "status": 200,
+      "title": "meditation &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/teachingtraining/",
+      "file": "teachingtraining/index.html",
+      "status": 200,
+      "title": "Teaching&#038;Training &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/team_group/trustees/",
+      "file": "team_group/trustees/index.html",
+      "status": 200,
+      "title": "Trustees &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/team/",
+      "file": "team/index.html",
+      "status": 200,
+      "title": "Team &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/team/amar-nath-joshi/",
+      "file": "team/amar-nath-joshi/index.html",
+      "status": 200,
+      "title": "AMAR NATH JOSHI &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/team/neeraj-chhimwal/",
+      "file": "team/neeraj-chhimwal/index.html",
+      "status": 200,
+      "title": "NEERAJ CHHIMWAL &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/team/pradee-kumar-lohani/",
+      "file": "team/pradee-kumar-lohani/index.html",
+      "status": 200,
+      "title": "PRADEEP KUMAR LOHANI &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/terms-conditions/",
+      "file": "terms-conditions/index.html",
+      "status": 200,
+      "title": "Terms &#038; Conditions &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/testimonial-by-visitor/",
+      "file": "testimonial-by-visitor/index.html",
+      "status": 200,
+      "title": "Testimonial by Visitor &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/thank-you/",
+      "file": "thank-you/index.html",
+      "status": 200,
+      "title": "Thank You &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/the-glory-of-kausani-and-the-vedas/",
+      "file": "the-glory-of-kausani-and-the-vedas/index.html",
+      "status": 200,
+      "title": "The Glory of Kausani and the Vedas &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/the-vidyapeeth/",
+      "file": "the-vidyapeeth/index.html",
+      "status": 200,
+      "title": "Vidyapeeth &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/timetable/column/",
+      "file": "timetable/column/index.html",
+      "status": 200,
+      "title": "Columns &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/timetable/column/friday/",
+      "file": "timetable/column/friday/index.html",
+      "status": 200,
+      "title": "Friday &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/timetable/column/monday/",
+      "file": "timetable/column/monday/index.html",
+      "status": 200,
+      "title": "Monday &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/timetable/column/saturday/",
+      "file": "timetable/column/saturday/index.html",
+      "status": 200,
+      "title": "Saturday &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/timetable/column/sunday/",
+      "file": "timetable/column/sunday/index.html",
+      "status": 200,
+      "title": "Sunday &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/timetable/column/thursday/",
+      "file": "timetable/column/thursday/index.html",
+      "status": 200,
+      "title": "Thursday &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/timetable/column/tuesday/",
+      "file": "timetable/column/tuesday/index.html",
+      "status": 200,
+      "title": "Tuesday &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/timetable/column/wednesday/",
+      "file": "timetable/column/wednesday/index.html",
+      "status": 200,
+      "title": "Wednesday &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/type/image/",
+      "file": "type/image/index.html",
+      "status": 200,
+      "title": "Image &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/typography/",
+      "file": "typography/index.html",
+      "status": 200,
+      "title": "Typography &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/vedas/",
+      "file": "vedas/index.html",
+      "status": 200,
+      "title": "Vedas &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/vedic-living-in-the-himalayas/",
+      "file": "vedic-living-in-the-himalayas/index.html",
+      "status": 200,
+      "title": "Vedic Living in the Himalayas &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/vedic-schools/",
+      "file": "vedic-schools/index.html",
+      "status": 200,
+      "title": "Vedic Schools &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/vedic-vidyapeeth/",
+      "file": "vedic-vidyapeeth/index.html",
+      "status": 200,
+      "title": "Vedic Vidyapeeth &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/video-gallery/",
+      "file": "video-gallery/index.html",
+      "status": 200,
+      "title": "Video Gallery &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/videos/",
+      "file": "videos/index.html",
+      "status": 200,
+      "title": "Videos &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/visiting/",
+      "file": "visiting/index.html",
+      "status": 200,
+      "title": "Contact Us &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/volunteer/",
+      "file": "volunteer/index.html",
+      "status": 200,
+      "title": "Volunteer &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/who-we-are/",
+      "file": "who-we-are/index.html",
+      "status": 200,
+      "title": "Who We Are &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/who-we-are/anamayashram@gmail.com",
+      "file": "who-we-are/anamayashram@gmail.com/index.html",
+      "status": 404,
+      "title": "Page not found &#8211; Anāmay Ashram"
+    },
+    {
+      "url": "https://anamayashram.org/yoga-training/",
+      "file": "yoga-training/index.html",
+      "status": 200,
+      "title": "Yoga Training &#8211; Anāmay Ashram"
+    }
+  ],
+  "redirects": {
+    "/?p=300": "/sustainable-living-in-the-himalayas/",
+    "/?page_id=153": "/privacy-policy/",
+    "/?p=296": "/new-vedic-organic-green-house/",
+    "/?p=254": "/the-vidyapeeth/",
+    "/?p=303": "/vedic-living-in-the-himalayas/",
+    "/?p=605": "/testimonial-by-visitor/",
+    "/?p=705": "/vedic-schools/",
+    "/?p=710": "/let-go-of-stress/",
+    "/?p=599": "/the-glory-of-kausani-and-the-vedas/",
+    "/?p=712": "/yoga-training/",
+    "/?p=708": "/vedas/",
+    "/?p=876": "/review-from-a-volunteer-at-our-ashram/",
+    "/?p=2899": "/ayurveda/",
+    "/?p=2901": "/panchakarma/",
+    "/?p=2888": "/dhyana/",
+    "/?p=2902": "/organic-farming/",
+    "/?p=2910": "/sattvic-life/",
+    "/?p=3937": "/interview-with-ashutosh/",
+    "/?p=4525": "/special-opportunity-for-volunteer-applicants/",
+    "/?p=3024": "/jyotish/",
+    "/?p=4551": "/%e0%a4%85%e0%a4%a8%e0%a4%be%e0%a4%ae%e0%a4%af-%e0%a4%86%e0%a4%b6%e0%a5%8d%e0%a4%b0%e0%a4%ae-%e0%a4%b8%e0%a5%8d%e0%a4%b5%e0%a4%af%e0%a4%82%e0%a4%b8%e0%a5%87%e0%a4%b5%e0%a4%95-%e0%a4%95/",
+    "/?p=62": "/home-2/",
+    "/?p=66": "/who-we-are/",
+    "/?p=74": "/schedules/",
+    "/?p=80": "/application-form/",
+    "/?p=82": "/typography/",
+    "/?p=86": "/our-trustees/",
+    "/?p=60": "/home-1/",
+    "/?p=90": "/teachingtraining/",
+    "/?p=72": "/events-list/",
+    "/?p=88": "/donation-causes/",
+    "/?p=84": "/shortcodes/",
+    "/?p=151": "/service-plus/",
+    "/?p=110": "/shop/",
+    "/?p=112": "/visiting/",
+    "/?p=700": "/gallery/",
+    "/?p=153": "/privacy-policy/",
+    "/?p=1034": "/cart/",
+    "/?p=1035": "/checkout/",
+    "/?p=2018": "/donation-failed/",
+    "/?p=2680": "/video-gallery/",
+    "/?p=2014": "/donation-confirmation/",
+    "/?p=2019": "/donation-history/",
+    "/?p=543": "/retreat/",
+    "/?p=1036": "/my-account/",
+    "/?p=2695": "/photos/",
+    "/?p=2817": "/thank-you/",
+    "/?p=2812": "/how-can-i-contribute/",
+    "/?p=2865": "/donation/",
+    "/?p=2705": "/purpose-and-procedure/",
+    "/?p=3031": "/terms-conditions/",
+    "/?p=2933": "/volunteer/",
+    "/?p=2738": "/donor-dashboard/",
+    "/?p=3541": "/refund-cancelation/",
+    "/?p=3511": "/videos/",
+    "/?p=3614": "/vedic-vidyapeeth/",
+    "/?p=3648": "/about-us/",
+    "/?p=3707": "/kshar-sutra/",
+    "/?p=3944": "/blog/",
+    "/?p=3702": "/registration-form/",
+    "/?p=3886": "/our-vaidya/",
+    "/?p=4565": "/shipping-delivery-policy/",
+    "/?p=10": "/layouts/header-fullwidth/",
+    "/?p=4646": "/magazine/",
+    "/?p=942": "/layouts/footer-main/",
+    "/?p=1351": "/layouts/footer-donation/",
+    "/?p=4351": "/anamay-ashram/",
+    "/?p=11": "/layouts/header-fullwidth-simple/",
+    "/?p=1526": "/layouts/header-fullwidth-3/",
+    "/?p=975": "/layouts/footer-2/",
+    "/?p=1562": "/layouts/header-fullwidth-2/",
+    "/?p=556": "/timetable/column/monday/",
+    "/?p=563": "/timetable/column/friday/",
+    "/?p=564": "/timetable/column/saturday/",
+    "/?p=565": "/timetable/column/sunday/",
+    "/?p=561": "/timetable/column/wednesday/",
+    "/?p=4166": "/awl_filter_gallery/gallery/",
+    "/?p=557": "/timetable/column/tuesday/",
+    "/?p=421": "/team/pradee-kumar-lohani/",
+    "/?p=434": "/team/amar-nath-joshi/",
+    "/?p=439": "/team/neeraj-chhimwal/",
+    "/?p=562": "/timetable/column/thursday/"
+  },
+  "assetsOk": 1036,
+  "assetsFailed": [
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2012/06/Sustainable-Living-in-the-Himalayas.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2019/03/WhatsApp-Image-2022-03-27-at-5.26.27-PM.jpeg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads",
+      "status": 403
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/plugins/animated-fullscreen-menu/frontend/img/svg/menu.svg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/*",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/*",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/plugins/*",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/themes/samadhi/*",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2012/06/414423_354305804615826_196268726_o.jpeg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2012/06/414423_354305804615826_196268726_o-1024x501.jpeg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2012/06/Vedic-Living-in-the-Himalayas.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2012/04/Asutoshs-Pundit-boys-001.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2012/04/Asutoshs-Pundit-boys-007.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/30625_100545719991837_1408574_n.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/31825_104457516267324_1541214_n.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/37488_412598582010_6827452_n.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/72854_476419312404474_347237732_n.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/1.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/polyhouse-inside.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/30625_100545739991835_7254615_n.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/30625_100545713325171_8154158_n.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/580652_474757802570625_1734340750_n.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/pbpano.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/30625_100545719991837_1408574_n-300x168.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/31825_104457516267324_1541214_n-300x168.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/37488_412598582010_6827452_n-225x300.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/72854_476419312404474_347237732_n-300x225.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/1-300x225.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/polyhouse-inside-300x253.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/30625_100545739991835_7254615_n-300x168.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/30625_100545713325171_8154158_n-300x168.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/580652_474757802570625_1734340750_n-225x300.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/09/pbpano-300x168.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/08/228386_10150251775196280_683541279_9106251_3369856_n.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/08/j%C3%B6jkl%C3%B6j.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/08/vishwamitra.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/08/Paper-and-Palm-leaf-manuscripts.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/08/1453323_331748583631709_1072133747_n.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/08/228386_10150251775196280_683541279_9106251_3369856_n-300x198.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/08/j%C3%B6jkl%C3%B6j-300x173.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/08/vishwamitra-300x250.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/08/Paper-and-Palm-leaf-manuscripts-300x298.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2014/08/1453323_331748583631709_1072133747_n-200x300.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/2017/01/576966_526153837401103_1562545493_n.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/elementor/css/post-543.css?ver=1768004753",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-includes/js/plupload/plupload.flash.swf",
+      "status": 403
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/themes/samadhi/css/images/testimonials.png",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/uploads/img/bg.jpg",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/plugins/xpro-elementor-addons/assets/vendor/img/cbp-sprite.png",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/plugins/xpro-elementor-addons/assets/vendor/lg.ttf?n1z373",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/plugins/xpro-elementor-addons/assets/xpro-gallery/img/vimeo-play.png",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/plugins/xpro-elementor-addons/assets/xpro-gallery/img/video-play.png",
+      "status": 404
+    },
+    {
+      "url": "https://anamayashram.org/wp-content/plugins/xpro-elementor-addons/assets/xpro-gallery/img/youtube-play.png",
+      "status": 404
+    }
+  ],
+  "assetBytes": 307578728
+}
