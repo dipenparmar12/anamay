@@ -1,23 +1,47 @@
 <!--{"title":"Home","description":"Anāmay Ashram is a Vedic ashram and Gurukul at Kausani in the Kumaon Himalaya, Uttarakhand. Vedic education, Transcendental Meditation, yoga, Āyurveda, Panchakarma and a sattvic life.","bodyClass":"home"}-->
-<section class="hero">
-  <div class="hero-media"><img data-parallax="0.22" src="assets/img/hero-moon.webp" alt="The full moon rising over the snow peaks of the Himalaya at dusk, seen from Kausani" fetchpriority="high"></div>
-  {{mandala:hero-mandala mandala-spin}}
-  <div class="wrap hero-inner">
-    <span class="sanskrit reveal">पदं गच्छन्त्यनामयम्</span>
-    <h1 class="reveal" style="--d:.12s">Arrive at <em>Anāmaya</em>, the state beyond suffering</h1>
-    <p class="lead reveal" style="--d:.24s">A Vedic ashram and Gurukul at 6,000 ft in Kausani, in the Kumaon Himalaya. Here the Vedas are chanted, taught and lived every day, and guests come for meditation, yoga, Āyurveda and Panchakarma.</p>
-    <div class="hero-actions reveal" style="--d:.36s"><a class="btn" href="about.html">Discover the ashram <span class="arrow">→</span></a><a class="btn ghost" href="visit.html">Plan your visit</a></div>
-    <p class="hero-cite reveal" style="--d:.48s">Padaṃ gacchanty anāmayam — Bhagavad Gītā 2.51</p>
+<section class="threshold" aria-label="Welcome">
+  <div class="door">
+    <img class="door-img" src="assets/img/hero-moon.webp" alt="The full moon rising over the snow peaks of the Himalaya at dusk, seen from Kausani" fetchpriority="high">
+    <span class="door-shade"></span>
+    {{ridges}}
   </div>
-  {{ridges}}
+  <p class="tt" aria-hidden="true"><span class="tt-l">Anā</span><span class="tt-r">may</span></p>
+  <div class="th-intro">
+    <span class="sanskrit">अनामय आश्रम</span>
+    <p>A Vedic ashram &amp; Gurukul<br>Kausani · Kumaon Himalaya</p>
+  </div>
+  <p class="th-cue" aria-hidden="true">Scroll to enter</p>
+  <div class="th-inner wrap">
+    <span class="sanskrit">पदं गच्छन्त्यनामयम्</span>
+    <h1>Arrive at <em>Anāmaya</em>, the state beyond suffering</h1>
+    <p class="lead">A Vedic ashram and Gurukul at 6,000 ft in Kausani, in the Kumaon Himalaya. Here the Vedas are chanted, taught and lived every day, and guests come for meditation, yoga, Āyurveda and Panchakarma.</p>
+    <div class="hero-actions"><a class="btn" href="about.html">Discover the ashram <span class="arrow">→</span></a><a class="btn ghost" href="visit.html">Plan your visit</a></div>
+  </div>
 </section>
 
-<section class="section" id="intro">
-  <div class="wrap split">
+<section class="section anamaya" data-chapter="The name">
+  <div class="wrap">
+    <div class="gloss" data-gloss>
+      <span class="eyebrow">The name · Bhagavad Gītā 2.51</span>
+      <p class="gloss-verse sanskrit">पदं गच्छन्त्यनामयम्</p>
+      <div class="gloss-words" role="group" aria-label="The verse word by word">
+        <button type="button" data-i="0"><span class="sanskrit">पदम्</span><span class="translit">padam</span></button>
+        <button type="button" data-i="1"><span class="sanskrit">गच्छन्ति</span><span class="translit">gacchanti</span></button>
+        <button type="button" data-i="2"><span class="sanskrit">अनामयम्</span><span class="translit">anāmayam</span></button>
+      </div>
+      <div class="gloss-means" aria-live="polite">
+        <p data-i="0">the state, the abode</p>
+        <p data-i="1">they go, they reach</p>
+        <p data-i="2">free from all ills: <i>an-āmaya</i>, without disease</p>
+      </div>
+      <p class="gloss-sum">“…they reach the state free from all suffering.”</p>
+    </div>
+    <p class="statement" data-words>Anāmay means perfect, integrated health in enlightenment: a life free from disease.</p>
+  </div>
+  <div class="wrap split who">
     <div class="reveal">
       <span class="eyebrow">Who we are</span>
       <h2>A home for the Veda in the Himalaya</h2>
-      <p class="lead">Anāmay means perfect, integrated health in enlightenment: a life free from disease.</p>
       <p>Shree Anamay Nyas is a trust registered in 2006 in Uttarakhand for the training, development and support of Vedic tradition, knowledge and culture. Since November 2006 the ashram has stood on the Kausani Estate. Students from across North India train here as Vedic pandits in the Vedas, Upavedas, Vedāṅgas and Upāṅgas.</p>
       <p>Our founder, Ashutosh Urs Strobel, came to the Himalaya at the request of his teacher, Maharishi Mahesh Yogi. His aim is to <em>create again a Vedic atmosphere in the home of the Veda</em>.</p>
       <a class="link-arrow" href="about.html">Read our story</a>
@@ -33,14 +57,35 @@
   </div>
 </section>
 
-<section class="section tint kolam">
-  <div class="wrap">
-    <div class="section-head center reveal"><span class="eyebrow">What we offer</span><h2>Three paths, one way of life</h2><p class="lead">Everything at Anāmay grows from a Vedic understanding: knowledge, health and daily life form one whole.</p></div>
-    <div class="pillars" data-stagger>
-      <a class="pillar" href="vedas.html"><span class="num">प्रथम · I</span>{{icon:book}}<h3>Vedic Knowledge</h3><p>We preserve and teach the Vedas through our Gurukul, Vedic performances and Jyotish, so the oldest living tradition of knowledge stays alive.</p><ul><li>Vedas</li><li>Vidyapeeth</li><li>Yagya</li><li>Jyotish</li></ul><span class="link-arrow">Explore</span></a>
-      <a class="pillar" href="meditation.html"><span class="num">द्वितीय · II</span>{{icon:lotus}}<h3>Wellbeing</h3><p>Meditation for the mind, yoga for the body, Āyurveda and Panchakarma to restore balance. All of it is guided by our Vaidya and practised daily by everyone here.</p><ul><li>Meditation</li><li>Yoga</li><li>Āyurveda</li><li>Panchakarma</li><li>Kshar Sutra</li></ul><span class="link-arrow">Explore</span></a>
-      <a class="pillar" href="sattvic-life.html"><span class="num">तृतीय · III</span>{{icon:seed}}<h3>Sattvic Living</h3><p>A day shaped by the rhythm of nature. Organic food from our own greenhouses, milk from our cows, buildings designed by Vāstu, and seva.</p><ul><li>Daily routine</li><li>Organic farm</li><li>Goshala</li><li>Seva</li></ul><span class="link-arrow">Explore</span></a>
+<section class="walk" id="paths" data-chapter="Three paths">
+  <div class="walk-scroller" data-lenis-prevent-horizontal>
+    <div class="walk-track">
+      <div class="walk-intro">
+        <span class="eyebrow">What we offer</span>
+        <h2>Three paths, one way of life</h2>
+        <p class="lead">Everything at Anāmay grows from a Vedic understanding: knowledge, health and daily life form one whole.</p>
+        <p class="walk-hint" aria-hidden="true">Walk the paths <span></span></p>
+      </div>
+      <a class="path-panel" href="vedas.html" data-group="0"><span class="pp-num">०१</span><div class="pp-media arch">{{img:veda-recitation|A young pandit reciting the Veda}}</div><div class="pp-body"><span class="sanskrit">वेद</span><h3>The Vedas</h3><p>The eternal sounds at the source of creation, chanted and memorised in the traditional way.</p><span class="link-arrow">Learn more</span></div></a>
+      <a class="path-panel" href="vidyapeeth.html" data-group="0"><span class="pp-num">०२</span><div class="pp-media arch">{{img:students-group|Students of the Vedic Vidyapeeth}}</div><div class="pp-body"><span class="sanskrit">विद्यापीठ</span><h3>Vedic Vidyapeeth</h3><p>Our Gurukul, where boys from the Himalaya and beyond become Vedic pandits.</p><span class="link-arrow">Learn more</span></div></a>
+      <a class="path-panel" href="yagya-jyotish.html" data-group="0"><span class="pp-num">०३</span><div class="pp-media arch">{{img:yagya|A yagya performed by the ashram's pandits}}</div><div class="pp-body"><span class="sanskrit">यज्ञ · ज्योतिष</span><h3>Yagya &amp; Jyotish</h3><p>Vedic performances and Vedic astrology for the individual, the community and the world.</p><span class="link-arrow">Learn more</span></div></a>
+      <a class="path-panel" href="meditation.html" data-group="1"><span class="pp-num">०४</span><div class="pp-media arch">{{img:meditation-navaratri|Ashutosh ji with students during Navaratri}}</div><div class="pp-body"><span class="sanskrit">ध्यान</span><h3>Meditation</h3><p>Transcendental Meditation: effortless transcending to the silent Self.</p><span class="link-arrow">Learn more</span></div></a>
+      <a class="path-panel" href="yoga.html" data-group="1"><span class="pp-num">०५</span><div class="pp-media arch">{{img:yoga-mountain|Yoga pose against the Himalayan range}}</div><div class="pp-body"><span class="sanskrit">योग</span><h3>Yoga</h3><p>Raja Yoga: āsana and prāṇāyāma for mind–body coordination, for beginners to teachers.</p><span class="link-arrow">Learn more</span></div></a>
+      <a class="path-panel" href="ayurveda.html" data-group="1"><span class="pp-num">०६</span><div class="pp-media arch">{{img:ayurveda-herbs|Medicinal herbs and spices of Āyurveda}}</div><div class="pp-body"><span class="sanskrit">आयुर्वेद</span><h3>Āyurveda</h3><p>Pulse diagnosis, organic in-house preparations and classical treatments with our Vaidya.</p><span class="link-arrow">Learn more</span></div></a>
+      <a class="path-panel" href="panchakarma.html" data-group="1"><span class="pp-num">०७</span><div class="pp-media arch">{{img:panchakarma|Shirodhara treatment}}</div><div class="pp-body"><span class="sanskrit">पञ्चकर्म</span><h3>Panchakarma</h3><p>The fivefold Ayurvedic cleansing, in a customised plan over 2–3 weeks.</p><span class="link-arrow">Learn more</span></div></a>
+      <a class="path-panel" href="kshar-sutra.html" data-group="1"><span class="pp-num">०८</span><div class="pp-media arch">{{img:ext-sushruta|Statue of Sushruta}}</div><div class="pp-body"><span class="sanskrit">क्षारसूत्र</span><h3>Kshar Sutra</h3><p>Sushruta's medicated-thread therapy for piles, fissure and fistula.</p><span class="link-arrow">Learn more</span></div></a>
+      <a class="path-panel" href="sattvic-life.html" data-group="2"><span class="pp-num">०९</span><div class="pp-media arch">{{img:sattvic-cows|Ashutosh ji with the ashram cows}}</div><div class="pp-body"><span class="sanskrit">सात्त्विक जीवन</span><h3>Sattvic Life</h3><p>A day in tune with nature: organic food, cows, greenhouses and silence.</p><span class="link-arrow">Learn more</span></div></a>
     </div>
+  </div>
+  <div class="walk-hud wrap" aria-hidden="true">
+    <ol class="hud-groups"><li data-g="0"><span>I</span>Vedic Knowledge</li><li data-g="1"><span>II</span>Wellbeing</li><li data-g="2"><span>III</span>Sattvic Living</li></ol>
+    <div class="hud-desc">
+      <p data-g="0">We preserve and teach the Vedas through our Gurukul, Vedic performances and Jyotish, so the oldest living tradition of knowledge stays alive.</p>
+      <p data-g="1">Meditation for the mind, yoga for the body, Āyurveda and Panchakarma to restore balance, guided by our Vaidya.</p>
+      <p data-g="2">A day shaped by the rhythm of nature: organic food from our greenhouses, milk from our cows, Vāstu buildings and seva.</p>
+    </div>
+    <div class="hud-thread"><i></i></div>
+    <span class="hud-count"><b>01</b> / 09</span>
   </div>
 </section>
 
@@ -49,10 +94,10 @@
   <span>पदं गच्छन्त्यनामयम्</span><span>तद्विद्धि प्रणिपातेन परिप्रश्नेन सेवया</span><span>समदोषः समाग्निश्च समधातुमलक्रियः</span><span>हेयं दुःखमनागतम्</span><span>तक्रं शक्रस्य दुर्लभम्</span><span>निवर्तध्वम्</span>
 </div></div>
 
-<section class="section on-dark feature-dark">
+<section class="section on-dark feature-dark" data-chapter="Meditation">
   {{mandala:hero-mandala mandala-spin}}
   <div class="wrap split">
-    <div class="breath reveal" aria-hidden="true"><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="orb"></span></div>
+    <div class="breath" aria-hidden="true"><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="orb"></span><span class="label"><span>breathe in</span><span>breathe out</span></span></div>
     <div class="reveal">
       <span class="eyebrow">Dhyāna · Meditation</span>
       <h2>The quiet centre of every day</h2>
@@ -64,45 +109,38 @@
   </div>
 </section>
 
-<section class="section">
-  <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow">The paths of knowledge</span><h2>What you can learn and receive here</h2></div>
-    <div class="paths" data-stagger>
-      <a class="path-card" href="vedas.html"><div class="media">{{img:veda-recitation|A young pandit reciting the Veda}}</div><div class="body"><span class="sanskrit">वेद</span><h3>The Vedas</h3><p>The eternal sounds at the source of creation, chanted and memorised in the traditional way.</p><span class="link-arrow">Learn more</span></div></a>
-      <a class="path-card" href="vidyapeeth.html"><div class="media">{{img:students-group|Students of the Vedic Vidyapeeth}}</div><div class="body"><span class="sanskrit">विद्यापीठ</span><h3>Vedic Vidyapeeth</h3><p>Our Gurukul, where boys from the Himalaya and beyond become Vedic pandits.</p><span class="link-arrow">Learn more</span></div></a>
-      <a class="path-card" href="yagya-jyotish.html"><div class="media">{{img:yagya|A yagya performed by the ashram's pandits}}</div><div class="body"><span class="sanskrit">यज्ञ · ज्योतिष</span><h3>Yagya &amp; Jyotish</h3><p>Vedic performances and Vedic astrology for the individual, the community and the world.</p><span class="link-arrow">Learn more</span></div></a>
-      <a class="path-card" href="meditation.html"><div class="media">{{img:meditation-navaratri|Ashutosh ji with students during Navaratri}}</div><div class="body"><span class="sanskrit">ध्यान</span><h3>Meditation</h3><p>Transcendental Meditation: effortless transcending to the silent Self.</p><span class="link-arrow">Learn more</span></div></a>
-      <a class="path-card" href="yoga.html"><div class="media">{{img:yoga-mountain|Yoga pose against the Himalayan range}}</div><div class="body"><span class="sanskrit">योग</span><h3>Yoga</h3><p>Raja Yoga: āsana and prāṇāyāma for mind–body coordination, for beginners to teachers.</p><span class="link-arrow">Learn more</span></div></a>
-      <a class="path-card" href="ayurveda.html"><div class="media">{{img:ayurveda-herbs|Medicinal herbs and spices of Āyurveda}}</div><div class="body"><span class="sanskrit">आयुर्वेद</span><h3>Āyurveda</h3><p>Pulse diagnosis, organic in-house preparations and classical treatments with our Vaidya.</p><span class="link-arrow">Learn more</span></div></a>
-      <a class="path-card" href="panchakarma.html"><div class="media">{{img:panchakarma|Shirodhara treatment}}</div><div class="body"><span class="sanskrit">पञ्चकर्म</span><h3>Panchakarma</h3><p>The fivefold Ayurvedic cleansing, in a customised plan over 2–3 weeks.</p><span class="link-arrow">Learn more</span></div></a>
-      <a class="path-card" href="kshar-sutra.html"><div class="media">{{img:ext-sushruta|Statue of Sushruta}}</div><div class="body"><span class="sanskrit">क्षारसूत्र</span><h3>Kshar Sutra</h3><p>Sushruta's medicated-thread therapy for piles, fissure and fistula.</p><span class="link-arrow">Learn more</span></div></a>
-      <a class="path-card" href="sattvic-life.html"><div class="media">{{img:sattvic-cows|Ashutosh ji with the ashram cows}}</div><div class="body"><span class="sanskrit">सात्त्विक जीवन</span><h3>Sattvic Life</h3><p>A day in tune with nature: organic food, cows, greenhouses and silence.</p><span class="link-arrow">Learn more</span></div></a>
+<section class="section tint day" data-chapter="A day here">
+  <div class="wrap day-grid">
+    <div class="day-dial" aria-hidden="true">
+      <div class="dial-window arch">
+        <span class="sky sky-night"></span><span class="sky sky-dawn"></span><span class="sky sky-day"></span><span class="sky sky-dusk"></span>
+        <span class="stars"></span><span class="moon"></span>
+        <span class="sun-arm"><span class="sun"></span></span>
+        {{dial-ridges}}
+      </div>
+      <p class="dial-time"><b>Dawn</b><span>Brahma-muhūrta</span></p>
     </div>
-  </div>
-</section>
-
-<section class="section tint">
-  <div class="wrap split reverse">
-    <div class="reveal">
-      <span class="eyebrow">Dinacharyā · A day at the ashram</span>
-      <h2>From Brahma-muhūrta to evening Ārati</h2>
-      <ol class="timeline">
-        <li><time>Dawn</time><div><b>Brahma-muhūrta</b><span>Meditation in the hours before sunrise, the time most suited to diving deep.</span></div></li>
-        <li><time>7:00</time><div><b>Āsana on the roof terrace</b><span>Yoga with the Vidyapeeth students as the Himalaya appears.</span></div></li>
-        <li><time>7:30</time><div><b>Prāṇāyāma &amp; meditation</b><span>With a freshly brewed kāḍhā, the ashram's herbal tea.</span></div></li>
-        <li><time>8:30</time><div><b>Breakfast</b><span>Idli, poha or upma with fruit.</span></div></li>
-        <li><time>9:00</time><div><b>Seva, Panchakarma, excursions</b><span>Volunteers work, guests take treatments or join knowledge programmes.</span></div></li>
-        <li><time>12:00</time><div><b>Lunch</b><span>Madua rotis, dal, red organic rice and fresh chaach from our cows.</span></div></li>
-        <li><time>5:00</time><div><b>Yoga, group meditation, Ārati</b><span>The evening routine, ending in light and song.</span></div></li>
-        <li><time>8:00</time><div><b>Āyurveda class</b><span>Knowledge programmes, then early to rest.</span></div></li>
+    <div class="day-text">
+      <div class="reveal">
+        <span class="eyebrow">Dinacharyā · A day at the ashram</span>
+        <h2>From Brahma-muhūrta to evening Ārati</h2>
+      </div>
+      <ol class="timeline" data-day>
+        <li data-h="4.5"><time>Dawn</time><div><b>Brahma-muhūrta</b><span>Meditation in the hours before sunrise, the time most suited to diving deep.</span></div></li>
+        <li data-h="7"><time>7:00</time><div><b>Āsana on the roof terrace</b><span>Yoga with the Vidyapeeth students as the Himalaya appears.</span></div></li>
+        <li data-h="7.5"><time>7:30</time><div><b>Prāṇāyāma &amp; meditation</b><span>With a freshly brewed kāḍhā, the ashram's herbal tea.</span></div></li>
+        <li data-h="8.5"><time>8:30</time><div><b>Breakfast</b><span>Idli, poha or upma with fruit.</span></div></li>
+        <li data-h="9.5"><time>9:00</time><div><b>Seva, Panchakarma, excursions</b><span>Volunteers work, guests take treatments or join knowledge programmes.</span></div></li>
+        <li data-h="12"><time>12:00</time><div><b>Lunch</b><span>Madua rotis, dal, red organic rice and fresh chaach from our cows.</span></div></li>
+        <li data-h="17.5"><time>5:00</time><div><b>Yoga, group meditation, Ārati</b><span>The evening routine, ending in light and song.</span></div></li>
+        <li data-h="20"><time>8:00</time><div><b>Āyurveda class</b><span>Knowledge programmes, then early to rest.</span></div></li>
       </ol>
       <a class="link-arrow" href="sattvic-life.html">Sattvic life at Anāmay</a>
     </div>
-    <div class="media arch-frame reveal-img"><div class="arch">{{img:room-view|The Himalaya seen through a window of the ashram guest house|img-cover}}</div></div>
   </div>
 </section>
 
-<section class="section">
+<section class="section founder-feature" data-chapter="Our founder">
   <div class="wrap split">
     <div class="media arch-frame reveal-img"><div class="arch">{{img:founder-lake|Ashutosh Urs Strobel|img-cover}}</div></div>
     <div class="reveal">
@@ -116,49 +154,53 @@
   </div>
 </section>
 
-<section class="image-band">
-  <div class="band-media">{{img:ext-kausani-panorama|The Kumaon Himalaya range seen from Kausani}}</div>
-  <div class="wrap band-inner reveal">
+<section class="pan-band" data-chapter="Kausani">
+  <div class="pan-media">{{img:ext-trishul|Trishul peak seen across the Kausani horizon}}</div>
+  <div class="band-inner reveal">
     <span class="eyebrow">Kausani · the land of the Kauśikas</span>
     <h2>Where the first hymn of the Ṛg Veda was cognized</h2>
     <p>Tradition holds that the family of the seer Madhucchandas, who cognized the opening hymns of the Ṛg Veda, came from Kausani, near the source of the Koshi river. Mahatma Gandhi stayed here in 1929, before a panorama of Himalayan peaks some 300 km wide: Trishul, Nanda Devi and Panchachuli.</p>
     <a class="btn ghost" href="kausani.html">The glory of Kausani <span class="arrow">→</span></a>
   </div>
-  <div class="wrap">{{credit:ext-kausani-panorama}}</div>
+  <div class="wrap pan-credit">{{credit:ext-trishul}}</div>
 </section>
 
-<section class="section on-dark">
+<section class="section on-dark take-part" data-chapter="Take part">
   <div class="wrap">
-    <div class="section-head center reveal"><span class="eyebrow">Take part</span><h2>How you can be part of Anāmay</h2><p class="lead">Come for a week, a season or a lifetime, or support the work from wherever you are.</p></div>
-    <div class="ways" data-stagger>
-      <a class="way" href="{{site:retreat}}" target="_blank" rel="noopener">{{icon:home}}<h3>Stay with us</h3><p>Rooms with a view of the Himalaya at the Anamay Vedic Retreat guest house. Fully vegetarian, alcohol- and smoke-free.</p><span class="link-arrow">Anamay Retreat</span></a>
-      <a class="way" href="panchakarma.html">{{icon:drop}}<h3>Heal &amp; renew</h3><p>Panchakarma and Ayurvedic treatment over 2–3 weeks, with a customised plan from our Vaidya.</p><span class="link-arrow">Panchakarma</span></a>
-      <a class="way" href="volunteer.html">{{icon:bindu}}<h3>Learn meditation</h3><p>The 1-week course: Transcendental Meditation, yoga, Āyurveda and Vedic science, all inclusive.</p><span class="link-arrow">Course dates</span></a>
-      <a class="way" href="volunteer.html#volunteer">{{icon:seed}}<h3>Volunteer</h3><p>Seva in our greenhouses, with the cows and around the ashram, from two weeks.</p><span class="link-arrow">Volunteering</span></a>
-      <a class="way" href="contribute.html">{{icon:gift}}<h3>Contribute</h3><p>Support the young Vedic pandits and the Goshala, and help keep a living tradition alive.</p><span class="link-arrow">Contribute</span></a>
+    <div class="section-head reveal"><span class="eyebrow">Take part</span><h2>How you can be part of Anāmay</h2><p class="lead">Come for a week, a season or a lifetime, or support the work from wherever you are.</p></div>
+    <div class="ways-list" data-ways>
+      <a class="way-row" href="{{site:retreat}}" target="_blank" rel="noopener" data-img="assets/img/guesthouse.webp"><span class="wr-num">०१</span><span class="wr-title">Stay with us</span><span class="wr-text">Rooms with a view of the Himalaya at the Anamay Vedic Retreat guest house. Fully vegetarian, alcohol- and smoke-free.</span><span class="wr-go">Anamay Retreat</span><img class="wr-thumb" src="assets/img/guesthouse.webp" alt="" loading="lazy"></a>
+      <a class="way-row" href="panchakarma.html" data-img="assets/img/panchakarma.webp"><span class="wr-num">०२</span><span class="wr-title">Heal &amp; renew</span><span class="wr-text">Panchakarma and Ayurvedic treatment over 2–3 weeks, with a customised plan from our Vaidya.</span><span class="wr-go">Panchakarma</span><img class="wr-thumb" src="assets/img/panchakarma.webp" alt="" loading="lazy"></a>
+      <a class="way-row" href="volunteer.html" data-img="assets/img/meditation-hall.webp"><span class="wr-num">०३</span><span class="wr-title">Learn meditation</span><span class="wr-text">The 1-week course: Transcendental Meditation, yoga, Āyurveda and Vedic science, all inclusive.</span><span class="wr-go">Course dates</span><img class="wr-thumb" src="assets/img/meditation-hall.webp" alt="" loading="lazy"></a>
+      <a class="way-row" href="volunteer.html#volunteer" data-img="assets/img/volunteer-garden.webp"><span class="wr-num">०४</span><span class="wr-title">Volunteer</span><span class="wr-text">Seva in our greenhouses, with the cows and around the ashram, from two weeks.</span><span class="wr-go">Volunteering</span><img class="wr-thumb" src="assets/img/volunteer-garden.webp" alt="" loading="lazy"></a>
+      <a class="way-row" href="contribute.html" data-img="assets/img/students-orange.webp"><span class="wr-num">०५</span><span class="wr-title">Contribute</span><span class="wr-text">Support the young Vedic pandits and the Goshala, and help keep a living tradition alive.</span><span class="wr-go">Contribute</span><img class="wr-thumb" src="assets/img/students-orange.webp" alt="" loading="lazy"></a>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section voices-section" data-chapter="Voices">
   <div class="wrap">
     <div class="section-head center reveal"><span class="eyebrow">Voices</span><h2>What visitors carry home</h2></div>
-    <div class="voices" data-stagger>
-      <figure class="voice"><blockquote>I felt completely refreshed by the power of silence, harmony, joy and peace, which are permeating the Ashram.</blockquote><figcaption>A. C. — visitor from France · <a href="testimonial.html">Read</a></figcaption></figure>
-      <figure class="voice"><blockquote>Every day you can hear, resonating in the whole ashram, the traditional Vedic ślokas recited by these young Vedic Pandits.</blockquote><figcaption>A. C. — visitor from France</figcaption></figure>
-      <figure class="voice"><blockquote>The quietness and peace of the place… it was right where I needed to be for this particular December of my life.</blockquote><figcaption>Meleah — volunteer · <a href="volunteer-story.html">Read</a></figcaption></figure>
+    <div class="voices-slider" data-slider>
+      <div class="vs-track" data-lenis-prevent-horizontal>
+        <figure class="vs-slide"><blockquote>I felt completely refreshed by the power of silence, harmony, joy and peace, which are permeating the Ashram.</blockquote><figcaption>A. C. — visitor from France · <a href="testimonial.html">Read</a></figcaption></figure>
+        <figure class="vs-slide"><blockquote>Every day you can hear, resonating in the whole ashram, the traditional Vedic ślokas recited by these young Vedic Pandits.</blockquote><figcaption>A. C. — visitor from France</figcaption></figure>
+        <figure class="vs-slide"><blockquote>The quietness and peace of the place… it was right where I needed to be for this particular December of my life.</blockquote><figcaption>Meleah — volunteer · <a href="volunteer-story.html">Read</a></figcaption></figure>
+      </div>
+      <div class="vs-controls"><button class="vs-prev" type="button" aria-label="Previous quote">←</button><div class="vs-knots"></div><button class="vs-next" type="button" aria-label="Next quote">→</button></div>
     </div>
   </div>
 </section>
 
-<section class="section tint">
+<section class="section tint strip-section" data-chapter="Gallery">
   <div class="wrap">
     <div class="section-head reveal split-head"><div><span class="eyebrow">Gallery</span><h2>Life at the ashram</h2></div><a class="link-arrow" href="gallery.html">All photographs &amp; films</a></div>
-    {{gallery:9}}
   </div>
+  {{strip:14}}
+  <p class="wrap strip-hint" aria-hidden="true">Drag or swipe to look around</p>
 </section>
 
-<section class="section on-dark cta-band">
+<section class="section on-dark cta-band" data-chapter="Welcome">
   {{mandala:hero-mandala mandala-spin}}
   <div class="narrow reveal">
     {{lotus}}

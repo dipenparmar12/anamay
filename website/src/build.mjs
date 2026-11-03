@@ -87,17 +87,20 @@ function mandala(cls = '') {
 ${ring(16, petal(60, 104, 14))}<circle r="108"/><circle r="112"/>${ring(24, arch(114, 146, 15))}${dots(24, 152, 1.8)}
 <circle r="158"/>${ring(48, petal(160, 182, 5))}<circle r="186"/>${dots(96, 192, .9)}</svg>`;
 }
+// a Himalayan ridge silhouette across a 1440×240 box
+const ridgeLine = (seed, base, amp, step) => {
+  let pts = []; for (let x = 0; x <= 1440; x += step) {
+    const y = base - amp * (0.55 * Math.sin(x / 210 + seed) + 0.3 * Math.sin(x / 83 + seed * 2.1) + 0.15 * Math.abs(Math.sin(x / 31 + seed * 3.7)));
+    pts.push(`${x},${y.toFixed(1)}`);
+  } return `M0,240L${pts.join('L')}L1440,240Z`;
+};
 function ridges() {
-  const line = (seed, base, amp, step) => {
-    let pts = []; for (let x = 0; x <= 1440; x += step) {
-      const y = base - amp * (0.55 * Math.sin(x / 210 + seed) + 0.3 * Math.sin(x / 83 + seed * 2.1) + 0.15 * Math.abs(Math.sin(x / 31 + seed * 3.7)));
-      pts.push(`${x},${y.toFixed(1)}`);
-    } return `M0,240L${pts.join('L')}L1440,240Z`;
-  };
   return `<div class="hero-ridges" aria-hidden="true"><svg viewBox="0 0 1440 240" preserveAspectRatio="none">
-<path data-parallax="-0.06" d="${line(1.3, 120, 56, 16)}" style="fill:var(--paper);opacity:.28"/>
-<path d="${line(4.2, 176, 34, 12)}" style="fill:var(--paper)"/></svg></div>`;
+<path data-parallax="-0.06" d="${ridgeLine(1.3, 120, 56, 16)}" style="fill:var(--paper);opacity:.28"/>
+<path d="${ridgeLine(4.2, 176, 34, 12)}" style="fill:var(--paper)"/></svg></div>`;
 }
+// the mountains seen through the window of the day dial
+const dialRidges = () => `<svg class="dial-ridges" viewBox="0 0 1440 240" preserveAspectRatio="none" aria-hidden="true"><path d="${ridgeLine(2.2, 120, 70, 18)}" fill="#3b3f63" opacity=".55"/><path d="${ridgeLine(5.1, 170, 46, 14)}" fill="#20253f"/></svg>`;
 const lotusRule = () => `<div class="lotus-rule" aria-hidden="true"><svg viewBox="0 0 46 26" fill="none" stroke="currentColor" stroke-width="1"><path d="M23 24C19 20 17.5 15 23 3c5.5 12 4 17 0 21zM23 24c-4-1-9-4-11-11 6 0 9.5 4 11 11zM23 24c4-1 9-4 11-11-6 0-9.5 4-11 11zM23 24C17 25 9 23 3 18c7-2 14 1 20 6zM23 24c6 1 14-1 20-6-7-2-14 1-20 6z"/></svg></div>`;
 
 /* ---------- images ---------- */
@@ -140,7 +143,9 @@ const VIDEO_GROUPS = {
   founder: ['AnbB1qRbric', '_zCujII8iqs', '8CpxrfQnxIU', 'k2F4z6y3liU', 'WpvWMFGC-VY'],
   meditation: ['RK1kbJiisLk', '8CpxrfQnxIU'],
 };
-const galleryGrid = (n = gallery.length) => `<div class="gallery">${gallery.slice(0, n).map(g => `<a href="${g.full}" data-lightbox="photos" data-caption="${g.caption}"><img src="${g.thumb}" alt="${g.caption}" width="${g.w}" height="${g.h}" loading="lazy"></a>`).join('')}</div>`;
+const galleryGrid = (n = gallery.length) => `<div class="gallery" data-stagger>${gallery.slice(0, n).map(g => `<a href="${g.full}" data-lightbox="photos" data-caption="${g.caption}"><img src="${g.thumb}" alt="${g.caption}" width="${g.w}" height="${g.h}" loading="lazy"><span>${g.caption}</span></a>`).join('')}</div>`;
+// a draggable film strip of photographs, each keeping its own proportions
+const strip = (n = 12) => `<div class="strip" data-strip data-lenis-prevent-horizontal>${gallery.slice(0, n).map((g, i) => `<a class="strip-item" href="${g.full}" data-lightbox="strip" data-caption="${g.caption}" style="--ar:${g.w}/${g.h}"><img src="${g.thumb}" alt="${g.caption}" width="${g.w}" height="${g.h}" loading="lazy" draggable="false"><span><i>${String(i + 1).padStart(2, '0')}</i>${g.caption}</span></a>`).join('')}</div>`;
 const creditsTable = () => `<table class="credits-table"><thead><tr><th>Image</th><th>Subject</th><th>Author</th><th>Licence</th></tr></thead><tbody>${Object.entries(credits).map(([k, c]) => `<tr><td><img src="${c.file}" alt="" loading="lazy"></td><td>${c.caption}</td><td>${c.author}</td><td><a href="${c.page}" target="_blank" rel="noopener">${c.license}</a></td></tr>`).join('')}</tbody></table>`;
 
 function contactForm(subject = 'Enquiry from the website', interest = '') {
@@ -168,9 +173,25 @@ function header(current) {
   }).join('');
   return `<header class="site-header"><div class="wrap">
   <a class="brand" href="index.html" aria-label="Anāmay Ashram home">${emblem()}<span class="brand-text"><b>Anāmay Ashram</b><small>अनामय आश्रम · Kausani</small></span></a>
-  <button class="menu-toggle" aria-label="Menu" aria-expanded="false"><span></span></button>
+  <button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="site-menu"><span></span></button>
   <nav class="nav" aria-label="Main">${groups}<a class="btn" href="visit.html">Visit &amp; Contact</a></nav>
-</div></header>`;
+</div></header>
+${menu(current)}`;
+}
+// full-screen menu for phones and tablets; it lives outside the header so it always covers the whole screen
+function menu(current) {
+  const num = ['१', '२', '३', '४', '५'];
+  const cur = h => h === current ? ' aria-current="page"' : '';
+  const groups = NAV.map((g, i) => g.href
+    ? `<div class="menu-group"><p class="menu-label"><span>${num[i]}</span>Support</p><a href="${g.href}"${cur(g.href)}>${g.label}</a></div>`
+    : `<div class="menu-group"><p class="menu-label"><span>${num[i]}</span>${g.label}</p>${g.items.map(([h, t]) => `<a href="${h}"${cur(h)}>${t}</a>`).join('')}</div>`).join('');
+  return `<div class="menu" id="site-menu" data-lenis-prevent inert>
+  <div class="menu-inner wrap">
+    <nav class="menu-nav" aria-label="Main menu"><a class="menu-home" href="index.html"${cur('index.html')}>Home</a>${groups}</nav>
+    <div class="menu-aside"><p class="sanskrit">पदं गच्छन्त्यनामयम्</p><a class="btn" href="visit.html">Visit &amp; Contact <span class="arrow">→</span></a>
+      <ul><li><a href="https://wa.me/${SITE.whatsapp}" target="_blank" rel="noopener">${icon('whatsapp')} WhatsApp</a></li><li><a href="mailto:${SITE.email}">${icon('mail')} ${SITE.email}</a></li><li><a href="tel:${SITE.phones[0].replace(/\s/g, '')}">${icon('phone')} ${SITE.phones[0]}</a></li></ul></div>
+  </div>
+</div>`;
 }
 function emblem() {
   return `<svg class="emblem" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="24" cy="24" r="22.5" opacity=".5"/><circle cx="24" cy="24" r="19" stroke-dasharray="1 3"/><path d="M24 35c-3.6-2.6-5-7-5-11.2 0-4 2-8 5-11.8 3 3.8 5 7.8 5 11.8 0 4.2-1.4 8.6-5 11.2z"/><path d="M24 35c-4.5 0-10-2.6-12-7.8 4.4-.4 8.4 1.6 10.6 4.8M24 35c4.5 0 10-2.6 12-7.8-4.4-.4-8.4 1.6-10.6 4.8"/><circle cx="24" cy="10" r="1.3" fill="currentColor" stroke="none"/></svg>`;
@@ -188,18 +209,23 @@ function footer() {
 </div>
 <div class="footer-bottom"><span>© <span data-year>2026</span> Shree Anamay Nyas. All rights reserved.</span><nav><a href="policies.html">Privacy &amp; policies</a><a href="credits.html">Image credits</a><a href="${SITE.retreat}" target="_blank" rel="noopener">Anamay Vedic Retreat</a></nav></div></div></footer>
 <a class="whatsapp-float" href="https://wa.me/${SITE.whatsapp}" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">${icon('whatsapp')}</a>
-<div class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer"><figure><img alt=""><figcaption></figcaption></figure><button class="close" aria-label="Close">×</button><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button></div>`;
+<div class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" data-lenis-prevent><span class="lb-count"></span><figure><img alt=""><figcaption></figcaption></figure><button class="close" aria-label="Close">×</button><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button></div>`;
 }
+// inner pages open on a temple doorway: text on the parchment, the photograph framed in an arch
 function pageHero(m) {
   return `<section class="page-hero">
-  <div class="hero-media"><img data-parallax="0.18" src="assets/img/${m.hero}.webp" alt="" fetchpriority="high"></div>
-  <div class="wrap">
-    ${m.crumb ? `<p class="crumbs"><a href="index.html">Home</a> · ${m.crumb}</p>` : ''}
-    ${m.sanskrit ? `<span class="sanskrit">${m.sanskrit}</span>` : ''}
-    <h1>${m.heading || m.title}</h1>
-    ${m.lead ? `<p class="lead">${m.lead}</p>` : ''}
-  </div>${ridges()}
-</section>${m.heroCredit ? `<div class="wrap hero-credit">${credit(m.hero)}</div>` : ''}`;
+  ${m.sanskrit ? `<span class="ph-glyph" aria-hidden="true">${m.sanskrit}</span>` : ''}
+  <div class="wrap ph-grid">
+    <div class="ph-text">
+      ${m.crumb ? `<p class="crumbs"><a href="index.html">Home</a><span>${m.crumb}</span></p>` : ''}
+      ${m.sanskrit ? `<span class="sanskrit">${m.sanskrit}</span>` : ''}
+      <h1>${m.heading || m.title}</h1>
+      ${m.lead ? `<p class="lead">${m.lead}</p>` : ''}
+      <span class="ph-cue" aria-hidden="true"></span>
+    </div>
+    <figure class="ph-media"><div class="arch"><img data-parallax="0.05" src="assets/img/${m.hero}.webp" alt="" fetchpriority="high"></div>${m.heroCredit ? credit(m.hero) : ''}</figure>
+  </div>
+</section>`;
 }
 function layout(m, body, file) {
   const title = file === 'index.html' ? `${SITE.name} · Vedic Ashram & Gurukul in the Himalayas, Kausani` : `${m.title} · ${SITE.name}`;
@@ -217,7 +243,7 @@ function layout(m, body, file) {
 <link rel="preload" href="assets/fonts/CormorantGaramond-500-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/css/style.css">
-<script>document.documentElement.classList.add('js')</script>
+<script>(function (c) { c.add('js'); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) c.add('motion'); if ('onpagereveal' in window) c.add('vt'); })(document.documentElement.classList)</script>
 </head>
 <body class="${m.bodyClass || ''}">
 <a class="skip" href="#main">Skip to content</a>
@@ -227,6 +253,7 @@ ${m.hero && file !== 'index.html' ? pageHero(m) : ''}
 ${body}
 </main>
 ${footer()}
+${VENDOR.map(f => `<script src="assets/vendor/${f}" defer></script>`).join('\n')}
 <script src="assets/js/main.js" defer></script>
 </body>
 </html>
@@ -245,12 +272,21 @@ function expand(s) {
     .replace(/\{\{md:([^}]+)\}\}/g, (_, slug) => md(slug))
     .replace(/\{\{videos:(\w+)\}\}/g, (_, g) => `<div class="video-grid" data-stagger>${VIDEO_GROUPS[g].map(videoCard).join('')}</div>`)
     .replace(/\{\{gallery(?::(\d+))?\}\}/g, (_, n) => galleryGrid(n ? +n : undefined))
+    .replace(/\{\{strip(?::(\d+))?\}\}/g, (_, n) => strip(n ? +n : undefined))
+    .replace(/\{\{dial-ridges\}\}/g, dialRidges)
     .replace(/\{\{contact-form(?::([^|}]*))?(?:\|([^}]*))?\}\}/g, (_, subj, interest) => contactForm(subj || undefined, interest || ''))
     .replace(/\{\{credits-table\}\}/g, creditsTable)
     .replace(/\{\{site:(\w+)\}\}/g, (_, k) => SITE[k]);
 }
 
 /* ---------- build ---------- */
+// animation libraries, copied from node_modules so the site keeps working offline
+const VENDOR = ['gsap.min.js', 'ScrollTrigger.min.js', 'SplitText.min.js', 'lenis.min.js'];
+fs.mkdirSync('assets/vendor', { recursive: true });
+for (const f of VENDOR) {
+  const from = path.join('node_modules', f.startsWith('lenis') ? 'lenis' : 'gsap', 'dist', f);
+  if (fs.existsSync(from)) fs.copyFileSync(from, path.join('assets/vendor', f));
+}
 fs.writeFileSync('assets/img/favicon.svg', emblem().replace('class="emblem" ', 'xmlns="http://www.w3.org/2000/svg" ').replace('stroke="currentColor"', 'stroke="#c2652a"').replace('fill="currentColor"', 'fill="#c2652a"'));
 let count = 0;
 for (const f of fs.readdirSync('src/pages').filter(f => f.endsWith('.html'))) {
