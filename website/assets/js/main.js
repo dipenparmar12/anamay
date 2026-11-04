@@ -356,7 +356,7 @@
     const YT_ORIGIN = 'https://www.youtube-nocookie.com';
     const holder = $('.vm-player', vm), msg = $('.vm-state p', vm), title = $('.vm-title', vm), out = $('.vm-out', vm), closeBtn = $('.vm-close', vm);
     let frame = null, opener = null, timer;
-    const ERRORS = { 2: 'This film link is not valid.', 5: 'This film cannot be played in this browser.', 100: 'This film is no longer available on YouTube.', 101: 'Its owner allows it to be played only on YouTube.', 150: 'Its owner allows it to be played only on YouTube.', 153: 'YouTube could not confirm which website is playing the film.' };
+    const ERRORS = { 2: 'This film link is not valid.', 5: 'This film cannot be played in this browser.', 100: 'This film is no longer available on YouTube.', 101: 'Its owner allows it to be played only on YouTube.', 150: 'Its owner allows it to be played only on YouTube.', 153: location.protocol === 'file:' ? 'YouTube does not play films inside a page opened from a file. Open the website from its web address.' : 'YouTube could not confirm which website is playing the film.' };
     const fail = text => { clearTimeout(timer); vm.classList.remove('loading'); vm.classList.add('failed'); msg.textContent = text + ' You can still watch it on YouTube.'; };
     const ready = () => { clearTimeout(timer); vm.classList.remove('loading'); };
     const clear = () => { clearTimeout(timer); if (frame) frame.remove(); frame = null; };
@@ -366,13 +366,13 @@
       if (d.event === 'onReady' || d.event === 'initialDelivery') ready();
       if (d.event === 'onError') fail(ERRORS[d.info] || 'This film could not be played here.');
     });
+    let current = null;
     const openFilm = (id, name, from) => {
+      current = { id, name, from };
       opener = from; title.textContent = name; out.href = `https://www.youtube.com/watch?v=${id}`;
       clear(); vm.classList.remove('failed'); vm.classList.add('open', 'loading'); msg.textContent = 'Loading the film…';
       lock(true); closeBtn.focus({ preventScroll: true });
-      // YouTube refuses to play inside pages opened straight from the disk (file://), which send no web address
-      if (location.protocol === 'file:') return fail('Films play here when the site is opened from a web address, not from a file on this computer.');
-      if (!navigator.onLine) return fail('You seem to be offline. Films need an internet connection.');
+      if (!navigator.onLine) return fail('You are offline. This film plays as soon as your internet connection returns.');
       frame = document.createElement('iframe');
       frame.title = name; frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; frame.allowFullscreen = true;
       frame.referrerPolicy = 'strict-origin-when-cross-origin';
@@ -386,9 +386,15 @@
     };
     const closeFilm = () => {
       if (!vm.classList.contains('open')) return;
-      clear(); vm.classList.remove('open', 'loading', 'failed'); lock(false);
+      clear(); current = null; vm.classList.remove('open', 'loading', 'failed'); lock(false);
       opener && opener.focus({ preventScroll: true });
     };
+    // connection state: thumbnails show an offline note; an open film starts by itself when the connection returns
+    const setOnline = () => {
+      document.documentElement.classList.toggle('offline', !navigator.onLine);
+      if (navigator.onLine && current && vm.classList.contains('failed') && !frame) openFilm(current.id, current.name, current.from);
+    };
+    addEventListener('online', setOnline); addEventListener('offline', setOnline); setOnline();
     $$('.yt').forEach(b => b.addEventListener('click', () => openFilm(b.dataset.id, b.dataset.title || 'Film', b)));
     closeBtn.addEventListener('click', closeFilm);
     vm.addEventListener('click', e => { if (e.target === vm) closeFilm(); });
