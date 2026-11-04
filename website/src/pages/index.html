@@ -109,26 +109,13 @@
 </section>
 
 <section class="section tint day" data-chapter="A day here">
-  <div class="wrap day-grid">
-    <div class="day-dial" aria-hidden="true">
-      <div class="dial-window">
-        <span class="sky sky-night"></span><span class="sky sky-dawn"></span><span class="sky sky-day"></span><span class="sky sky-dusk"></span>
-        <span class="stars"></span><span class="moon"></span>
-        <span class="sun-arm"><span class="sun"></span></span>
-        {{dial-ridges}}
-      </div>
-      <p class="dial-time"><b>Dawn</b><span>Brahma-muhūrta</span></p>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Dinacharyā · A day at the ashram</span>
+      <h2>From Brahma-muhūrta to evening Ārati</h2>
     </div>
-    <div class="day-text">
-      <div class="reveal">
-        <span class="eyebrow">Dinacharyā · A day at the ashram</span>
-        <h2>From Brahma-muhūrta to evening Ārati</h2>
-      </div>
-      <ol class="timeline" data-day>
-        {{daily-schedule}}
-      </ol>
-      <a class="link-arrow" href="sattvic-life.html">Sattvic life at Anāmay</a>
-    </div>
+    {{schedule:daily-schedule|sky}}
+    <p class="day-more"><a class="link-arrow" href="sattvic-life.html">Sattvic life at Anāmay</a></p>
   </div>
 </section>
 
@@ -196,6 +183,7 @@
     <span class="sanskrit">स्वागतम्</span>
     <h2>You are welcome here</h2>
     <p class="lead">Tell us when you would like to come and what you are looking for. We reply personally.</p>
-    <div class="hero-actions center-actions"><a class="btn" href="visit.html#contact">Write to us <span class="arrow">→</span></a><a class="btn ghost" href="https://wa.me/{{site:contact.whatsapp}}" target="_blank" rel="noopener">WhatsApp</a></div>
+    <div class="hero-actions center-actions"><a class="btn" href="visit.html#contact">Write to us <span class="arrow">→</span></a><a class="btn ghost" href="{{wa:general}}" target="_blank" rel="noopener">WhatsApp</a></div>
+    <p class="form-note" style="margin-top:26px">Planning a stay? See the <a href="visiting.html">charges, daily schedule and course dates</a>.</p>
   </div>
 </section>

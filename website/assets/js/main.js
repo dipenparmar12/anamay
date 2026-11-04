@@ -177,35 +177,42 @@
     });
   }
 
-  /* a day at the ashram: the sky in the window follows the timeline item being read */
-  const day = $('[data-day]');
-  if (day) {
-    const sec = day.closest('.day'), win = $('.dial-window', sec), items = $$('li', day);
-    const timeB = $('.dial-time b', sec), timeS = $('.dial-time span', sec);
-    const [night, dawn, noon, dusk] = ['night', 'dawn', 'day', 'dusk'].map(n => $('.sky-' + n, win));
-    const stars = $('.stars', win), moon = $('.moon', win), arm = $('.sun-arm', win);
-    const ramp = (h, a, b) => Math.min(1, Math.max(0, (h - a) / (b - a)));
-    const render = h => {
-      const dark = Math.min(1, 1 - ramp(h, 4.8, 6.6) + ramp(h, 18.6, 19.8));
-      dawn.style.opacity = ramp(h, 4.8, 6.4) * (1 - ramp(h, 7.6, 9.4));
-      noon.style.opacity = ramp(h, 7.6, 9.6) * (1 - ramp(h, 15.6, 17.6));
-      dusk.style.opacity = ramp(h, 15.6, 17.4) * (1 - ramp(h, 18.6, 19.8));
-      night.style.opacity = 1;
-      stars.style.opacity = moon.style.opacity = dark;
-      arm.style.setProperty('--sun', ((h - 12) / 6.5 * 62).toFixed(2) + 'deg');
-    };
+  /* day schedules: the entry being read, hovered or tapped is highlighted; where the sky window is shown (wide screens)
+     it follows the entry's time of day. No entry is ever dimmed or covered. */
+  $$('[data-sched]').forEach(sched => {
+    const items = $$('li', sched), win = $('.dial-window', sched);
+    if (!items.length) return;
     const state = { h: +items[0].dataset.h };
+    let render = () => {};
+    if (win) {
+      const [night, dawn, noon, dusk] = ['night', 'dawn', 'day', 'dusk'].map(n => $('.sky-' + n, win));
+      const stars = $('.stars', win), moon = $('.moon', win), arm = $('.sun-arm', win);
+      const ramp = (h, a, b) => Math.min(1, Math.max(0, (h - a) / (b - a)));
+      render = h => {
+        const dark = Math.min(1, 1 - ramp(h, 4.8, 6.6) + ramp(h, 18.6, 19.8));
+        dawn.style.opacity = ramp(h, 4.8, 6.4) * (1 - ramp(h, 7.6, 9.4));
+        noon.style.opacity = ramp(h, 7.6, 9.6) * (1 - ramp(h, 15.6, 17.6));
+        dusk.style.opacity = ramp(h, 15.6, 17.4) * (1 - ramp(h, 18.6, 19.8));
+        night.style.opacity = 1;
+        stars.style.opacity = moon.style.opacity = dark;
+        arm.style.setProperty('--sun', ((h - 12) / 6.5 * 62).toFixed(2) + 'deg');
+      };
+    }
     const activate = i => {
       items.forEach((li, j) => li.classList.toggle('active', j === i));
-      timeB.textContent = $('time', items[i]).textContent; timeS.textContent = $('b', items[i]).textContent;
+      if (!win) return;
+      $('.dial-time b', sched).textContent = $('time', items[i]).textContent; $('.dial-time span', sched).textContent = $('b', items[i]).textContent;
       const h = +items[i].dataset.h;
       if (motion) gsap.to(state, { h, duration: 1.4, ease: 'power2.inOut', overwrite: true, onUpdate: () => render(state.h) });
       else render(state.h = h);
     };
-    render(state.h); activate(0);
-    const dayIO = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) activate(items.indexOf(e.target)); }), { rootMargin: '-40% 0px -55% 0px' });
-    items.forEach(li => dayIO.observe(li));
-  }
+    if (win) { render(state.h); if (win.offsetParent) activate(0); } // the sky window is not shown on small screens
+    items.forEach((li, i) => ['pointerenter', 'click'].forEach(ev => li.addEventListener(ev, () => activate(i))));
+    if (win) {
+      const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting && win.offsetParent) activate(items.indexOf(e.target)); }), { rootMargin: '-40% 0px -55% 0px' });
+      items.forEach(li => io.observe(li));
+    }
+  });
 
   /* ways to take part: on screens with a mouse, the photograph of the hovered row follows the pointer */
   const ways = $('[data-ways]');
@@ -448,12 +455,17 @@
     addEventListener('keydown', e => { if (e.key === 'Escape') closeFilm(); });
   }
 
-  /* course dates: mark past ones, highlight the next upcoming */
+  /* course dates: mark the ones that are over (past), the one under way (now) and the next one to come (next) */
   const today = new Date(); today.setHours(0, 0, 0, 0);
+  const asDate = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); }; // a day in the visitor's own time zone
   let nextMarked = false;
   $$('[data-start]').forEach(el => {
-    if (new Date(el.dataset.start) < today) el.classList.add('past');
+    if (asDate(el.dataset.end || el.dataset.start) < today) el.classList.add('past');
+    else if (asDate(el.dataset.start) <= today) el.classList.add('now');
     else if (!nextMarked) { el.classList.add('next'); nextMarked = true; }
+  });
+  $$('.dates.upcoming').forEach(list => { // nothing left to show: say so instead of an empty box
+    if ($$('li', list).every(li => li.matches('.past, .now'))) { list.hidden = true; $('.dates-empty', list.parentElement).hidden = false; }
   });
 
   /* enquiry forms: validate, then send to the ashram's server when the site has an API address (meta api-base),

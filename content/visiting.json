@@ -1,0 +1,401 @@
+{
+  "about": "Everything on the Visiting Anāmay Ashram page (visiting.html in English, visiting-hi.html in Hindi). Change the numbers and the English and Hindi text here, then build the site again. How to: docs/visiting-content.md. The course dates are in course-dates.csv and the contact details in site.json.",
+
+  "amounts": {
+    "shared": 900,
+    "single": [1200, 1500, 1700, 2000],
+    "double": [2700, 3000],
+    "extraPerson": 700,
+    "panchakarma": 3500,
+    "weekFee": 5000,
+    "missedWeekExtra": 1300
+  },
+  "stay": { "minDays": 4, "minNights": 3 },
+  "week": {
+    "starts": { "day": "sunday", "time": "16:00" },
+    "ends": { "day": "saturday", "time": "22:00" }
+  },
+
+  "weekdays": {
+    "sunday": { "en": "Sunday", "hi": "रविवार" },
+    "monday": { "en": "Monday", "hi": "सोमवार" },
+    "tuesday": { "en": "Tuesday", "hi": "मंगलवार" },
+    "wednesday": { "en": "Wednesday", "hi": "बुधवार" },
+    "thursday": { "en": "Thursday", "hi": "गुरुवार" },
+    "friday": { "en": "Friday", "hi": "शुक्रवार" },
+    "saturday": { "en": "Saturday", "hi": "शनिवार" }
+  },
+
+  "labels": {
+    "home": { "en": "Home", "hi": "मुख्य पृष्ठ" },
+    "language": { "en": "Language", "hi": "भाषा" },
+    "or": { "en": "or", "hi": "या" },
+    "perDay": { "en": "per day", "hi": "प्रति दिन" },
+    "periods": {
+      "morning": { "en": "Morning", "hi": "सुबह" },
+      "afternoon": { "en": "Afternoon", "hi": "दोपहर" },
+      "evening": { "en": "Evening", "hi": "शाम" }
+    },
+    "dates": {
+      "next": { "en": "Next course", "hi": "अगला कार्यक्रम" },
+      "now": { "en": "Under way now", "hi": "अभी चल रहा है" },
+      "done": { "en": "Completed", "hi": "संपन्न" },
+      "showEarlier": { "en": "Show earlier dates ({n})", "hi": "पिछली तिथियाँ दिखाएँ ({n})" },
+      "hideEarlier": { "en": "Hide earlier dates", "hi": "पिछली तिथियाँ छिपाएँ" },
+      "none": { "en": "No coming dates are listed just now. Please write to us.", "hi": "अभी कोई आगामी तिथि सूचीबद्ध नहीं है। कृपया हमें लिखें।" }
+    }
+  },
+
+  "page": {
+    "title": { "en": "Visiting Anāmay Ashram", "hi": "अनामय आश्रम में आगमन" },
+    "siteName": { "en": "Anāmay Ashram", "hi": "अनामय आश्रम" },
+    "description": {
+      "en": "How to stay at Anāmay Ashram in Kausani: guest stay and room charges, optional Panchakarma, the compulsory 1-week programme before volunteering, the daily schedule, course dates and how to enquire.",
+      "hi": "अनामय आश्रम, कौसानी में रहने की जानकारी: अतिथि प्रवास और कक्ष शुल्क, वैकल्पिक पंचकर्म, स्वयंसेवा से पहले का अनिवार्य 1-सप्ताह कार्यक्रम, दैनिक कार्यक्रम, तिथियाँ और संपर्क।"
+    },
+    "crumb": { "en": "Stay · Visiting", "hi": "ठहरना · आगमन" },
+    "lead": {
+      "en": "There are two ways to stay at Anāmay Ashram: as a Guest or as a Volunteer.",
+      "hi": "अनामय आश्रम में रहने के दो विकल्प हैं: अतिथि (Guest) के रूप में या स्वयंसेवक (Volunteer) के रूप में।"
+    },
+    "heroAlt": {
+      "en": "The guest house of Anāmay Ashram among the trees of Kausani",
+      "hi": "कौसानी के वृक्षों के बीच अनामय आश्रम का अतिथि-गृह"
+    },
+    "cta": { "en": "Enquire About Your Stay", "hi": "अपने प्रवास के बारे में पूछें" },
+    "ctaDates": { "en": "Course dates", "hi": "कार्यक्रम तिथियाँ" }
+  },
+
+  "ways": {
+    "chapter": { "en": "Ways to stay", "hi": "विकल्प" },
+    "eyebrow": { "en": "Two ways to stay", "hi": "रहने के दो विकल्प" },
+    "title": { "en": "As a Guest or as a Volunteer", "hi": "अतिथि के रूप में या स्वयंसेवक के रूप में" },
+    "items": [
+      {
+        "href": "#guest",
+        "icon": "home",
+        "title": { "en": "Guest Stay", "hi": "अतिथि प्रवास" },
+        "text": {
+          "en": "Minimum stay is {minDays} days / {minNights} nights, required to learn Transcendental Meditation (TM).",
+          "hi": "भावातीत ध्यान (TM) सीखने के लिए न्यूनतम प्रवास {minDays} दिन / {minNights} रात आवश्यक है।"
+        },
+        "link": { "en": "Room charges", "hi": "कक्ष शुल्क" }
+      },
+      {
+        "href": "#volunteer",
+        "icon": "hands",
+        "title": { "en": "Volunteer Stay", "hi": "स्वयंसेवक प्रवास" },
+        "text": {
+          "en": "Volunteering is possible only after successfully completing a compulsory 1-week intensive programme.",
+          "hi": "स्वयंसेवा करने के लिए पहले 1-सप्ताह का अनिवार्य गहन कार्यक्रम सफलतापूर्वक पूरा करना आवश्यक है।"
+        },
+        "link": { "en": "The 1-week programme", "hi": "1-सप्ताह का कार्यक्रम" }
+      }
+    ]
+  },
+
+  "guest": {
+    "chapter": { "en": "Guests", "hi": "अतिथि" },
+    "eyebrow": { "en": "Accommodation", "hi": "आवास" },
+    "title": { "en": "Guest Stay", "hi": "अतिथि प्रवास" },
+    "minStay": {
+      "label": { "en": "Minimum stay", "hi": "न्यूनतम प्रवास" },
+      "value": { "en": "{minDays} days / {minNights} nights", "hi": "{minDays} दिन / {minNights} रात" },
+      "text": { "en": "Required to learn Transcendental Meditation (TM).", "hi": "भावातीत ध्यान (TM) सीखने के लिए आवश्यक।" }
+    },
+    "ratesTitle": { "en": "Room charges per day", "hi": "प्रति दिन कक्ष शुल्क" },
+    "included": {
+      "label": { "en": "Every room charge includes", "hi": "हर कक्ष शुल्क में सम्मिलित" },
+      "items": [
+        { "icon": "home", "text": { "en": "Stay", "hi": "आवास" } },
+        { "icon": "leaf", "text": { "en": "Meals", "hi": "भोजन" } },
+        { "icon": "yoga", "text": { "en": "Yoga", "hi": "योग" } },
+        { "icon": "bindu", "text": { "en": "TM", "hi": "टीएम" } },
+        { "icon": "book", "text": { "en": "Courses", "hi": "कक्षाएँ" } }
+      ]
+    },
+    "rooms": [
+      { "name": { "en": "Shared accommodation", "hi": "साझा कक्ष" }, "amount": "shared" },
+      {
+        "name": { "en": "Single room", "hi": "एकल कक्ष" },
+        "amount": "single",
+        "note": { "en": "Four room options", "hi": "चार कक्ष विकल्प" }
+      },
+      {
+        "name": { "en": "Bigger double room", "hi": "बड़े डबल कक्ष" },
+        "amount": "double",
+        "note": {
+          "en": "For 1–2 persons. A third person: {extraPerson} extra.",
+          "hi": "1–2 व्यक्ति के लिए। तीसरे व्यक्ति हेतु {extraPerson} अतिरिक्त।"
+        }
+      },
+      { "name": { "en": "Extra person", "hi": "अतिरिक्त व्यक्ति" }, "amount": "extraPerson" }
+    ],
+    "photo": {
+      "image": "room-view",
+      "alt": { "en": "The Himalaya seen through the window of a guest room", "hi": "अतिथि कक्ष की खिड़की से दिखता हिमालय" }
+    }
+  },
+
+  "panchakarma": {
+    "chapter": { "en": "Panchakarma", "hi": "पंचकर्म" },
+    "eyebrow": { "en": "Optional", "hi": "वैकल्पिक" },
+    "title": { "en": "Panchakarma", "hi": "पंचकर्म" },
+    "perDay": { "min": 4, "max": 5 },
+    "lead": {
+      "en": "About {treatmentsMin} to {treatmentsMax} treatments a day, depending on your needs and your Vaidya's prescription.",
+      "hi": "प्रतिदिन लगभग {treatmentsMin}–{treatmentsMax} उपचार, आपकी आवश्यकता और वैद्य के निर्देश के अनुसार।"
+    },
+    "prescribed": {
+      "en": "All treatments are prescribed by our in-house Vaidyas.",
+      "hi": "सभी उपचार आश्रम के वैद्य द्वारा निर्धारित किए जाते हैं।"
+    },
+    "caution": {
+      "en": "You will not receive every treatment listed here, and not every treatment suits everyone. Your Vaidya decides what is right for you.",
+      "hi": "यहाँ सूचीबद्ध सभी उपचार आपको नहीं दिए जाएँगे, और हर उपचार सभी के लिए उपयुक्त नहीं होता। आपके लिए क्या उचित है, यह आपके वैद्य तय करते हैं।"
+    },
+    "photos": [
+      {
+        "image": "ext-oil-massage",
+        "alt": { "en": "A therapist giving an Ayurvedic oil massage", "hi": "आयुर्वेदिक तेल-मालिश करता हुआ चिकित्सक" }
+      },
+      {
+        "image": "panchakarma",
+        "alt": { "en": "Shirodhara: a steady stream of warm oil over the forehead", "hi": "शिरोधारा: माथे पर गुनगुने तेल की निरंतर धारा" }
+      },
+      {
+        "image": "ayurveda-herbs",
+        "alt": { "en": "Herbs used in the ashram's own Ayurvedic preparations", "hi": "आश्रम की अपनी आयुर्वेदिक औषधियों में प्रयुक्त जड़ी-बूटियाँ" }
+      }
+    ],
+    "groups": [
+      {
+        "title": { "en": "Soothing and supporting treatments", "hi": "शांति और पोषण देने वाले उपचार" },
+        "treatments": [
+          {
+            "name": { "en": "Abhyanga", "hi": "अभ्यंग" },
+            "text": {
+              "en": "Warm herbal-oil massage of the whole body, which nourishes the tissues and calms Vāta.",
+              "hi": "पूरे शरीर की गुनगुने औषधीय तेल से मालिश, जो ऊतकों को पोषण देती और वात को शांत करती है।"
+            }
+          },
+          {
+            "name": { "en": "Shirodhara", "hi": "शिरोधारा" },
+            "text": {
+              "en": "A steady stream of warm oil poured over the forehead, deeply settling for mind and nervous system.",
+              "hi": "माथे पर गुनगुने तेल की निरंतर धारा, जो मन और तंत्रिका तंत्र को गहराई से शांत करती है।"
+            }
+          },
+          {
+            "name": { "en": "Shiropichu", "hi": "शिरोपिचु" },
+            "text": {
+              "en": "A pad soaked in warm medicated oil is kept on the crown of the head.",
+              "hi": "सिर के ऊपरी भाग पर गुनगुने औषधीय तेल में भीगा फाहा रखा जाता है।"
+            }
+          },
+          {
+            "name": { "en": "Shirovasti", "hi": "शिरोवस्ती" },
+            "text": {
+              "en": "Warm medicated oil is held for a while in a cap fitted around the head.",
+              "hi": "सिर के चारों ओर बाँधी गई टोपी में गुनगुना औषधीय तेल कुछ समय तक रखा जाता है।"
+            }
+          },
+          {
+            "name": { "en": "Swedana", "hi": "स्वेदन" },
+            "text": {
+              "en": "Gentle herbal steam that brings on sweating and loosens the tissues.",
+              "hi": "हल्की औषधीय भाप, जिससे पसीना आता है और ऊतक ढीले होते हैं।"
+            }
+          },
+          {
+            "name": { "en": "Local pain treatments", "hi": "स्थानीय दर्द उपचार" },
+            "text": {
+              "en": "Treatments applied to the painful area, chosen by the Vaidya for the individual.",
+              "hi": "दर्द वाले स्थान पर किए जाने वाले उपचार, जिन्हें वैद्य व्यक्ति के अनुसार चुनते हैं।"
+            }
+          }
+        ]
+      },
+      {
+        "title": { "en": "The main detox therapies", "hi": "मुख्य शोधन (डिटॉक्स) उपचार" },
+        "treatments": [
+          {
+            "name": { "en": "Virechana", "hi": "विरेचन" },
+            "text": {
+              "en": "Therapeutic purgation: a guided cleansing of the digestive tract, classically for excess Pitta.",
+              "hi": "चिकित्सकीय विरेचन: पाचन तंत्र की निर्देशित सफाई, शास्त्रों में विशेषकर पित्त की अधिकता के लिए।"
+            }
+          },
+          {
+            "name": { "en": "Vasti", "hi": "बस्ति" },
+            "text": {
+              "en": "Medicated enema, one of the principal Panchakarma procedures, especially for balancing Vāta.",
+              "hi": "औषधीय बस्ति (एनिमा), पंचकर्म की प्रमुख क्रियाओं में से एक, विशेषकर वात के संतुलन के लिए।"
+            }
+          },
+          {
+            "name": { "en": "Vamana", "hi": "वमन" },
+            "text": {
+              "en": "Therapeutic emesis: a guided cleansing of the upper digestive tract, classically for excess Kapha.",
+              "hi": "चिकित्सकीय वमन: ऊपरी पाचन मार्ग की निर्देशित सफाई, शास्त्रों में विशेषकर कफ की अधिकता के लिए।"
+            }
+          },
+          {
+            "name": { "en": "Nasya", "hi": "नस्य" },
+            "text": {
+              "en": "Medicated oil or herbal drops given through the nose, classically for the head and neck.",
+              "hi": "नाक के माध्यम से दिए जाने वाले औषधीय तेल या जड़ी-बूटी की बूँदें, शास्त्रों में सिर और गर्दन के लिए।"
+            }
+          },
+          {
+            "name": { "en": "Raktamokshan", "hi": "रक्तमोक्षण" },
+            "text": {
+              "en": "A classical therapy of letting a small amount of blood, used only for specific conditions and only when the Vaidya prescribes it.",
+              "hi": "रक्त की थोड़ी मात्रा निकालने की शास्त्रीय चिकित्सा, केवल विशेष स्थितियों में और केवल वैद्य के निर्देश पर।"
+            }
+          }
+        ]
+      }
+    ],
+    "more": {
+      "href": "panchakarma.html",
+      "text": { "en": "More about Panchakarma", "hi": "पंचकर्म के बारे में और जानकारी (अंग्रेज़ी में)" }
+    }
+  },
+
+  "volunteer": {
+    "chapter": { "en": "Volunteers", "hi": "स्वयंसेवक" },
+    "eyebrow": { "en": "After the 1-week programme only", "hi": "केवल 1-सप्ताह कार्यक्रम के बाद" },
+    "title": { "en": "Volunteer Stay", "hi": "स्वयंसेवक प्रवास" },
+    "lead": {
+      "en": "Volunteering is possible only after successfully completing a compulsory 1-week intensive programme.",
+      "hi": "स्वयंसेवा करने के लिए पहले 1-सप्ताह का अनिवार्य गहन कार्यक्रम सफलतापूर्वक पूरा करना आवश्यक है।"
+    },
+    "path": [
+      { "en": "The compulsory 1-week intensive programme", "hi": "1-सप्ताह का अनिवार्य गहन कार्यक्रम" },
+      { "en": "Volunteering at the ashram", "hi": "आश्रम में स्वयंसेवा" }
+    ],
+    "factsTitle": { "en": "The 1-week programme", "hi": "1-सप्ताह का कार्यक्रम" },
+    "facts": [
+      {
+        "label": { "en": "Programme fee", "hi": "कार्यक्रम शुल्क" },
+        "value": "{weekFee}",
+        "note": { "en": "all inclusive", "hi": "सभी सुविधाएँ सम्मिलित" }
+      },
+      { "label": { "en": "Starts", "hi": "प्रारंभ" }, "value": "{weekStart}" },
+      { "label": { "en": "Ends", "hi": "समापन" }, "value": "{weekEnd}" },
+      {
+        "label": { "en": "Attendance", "hi": "उपस्थिति" },
+        "value": { "en": "Mandatory", "hi": "अनिवार्य" },
+        "note": { "en": "all classes; attendance is taken", "hi": "सभी कक्षाओं में" }
+      }
+    ],
+    "policy": {
+      "title": { "en": "If you miss any class", "hi": "किसी भी कक्षा में अनुपस्थित रहने पर" },
+      "lead": { "en": "Attendance at all classes is compulsory.", "hi": "सभी कक्षाओं में उपस्थिति अनिवार्य है।" },
+      "items": [
+        { "en": "The special programme fee will not apply.", "hi": "विशेष कार्यक्रम शुल्क लागू नहीं होगा।" },
+        { "en": "Accommodation is charged at {shared} per day.", "hi": "आवास {shared} प्रतिदिन के हिसाब से लिया जाएगा।" },
+        { "en": "An additional {missedWeekExtra} applies for the week.", "hi": "सप्ताह के लिए {missedWeekExtra} अतिरिक्त देना होगा।" },
+        { "en": "You will not be permitted to volunteer.", "hi": "स्वयंसेवा की अनुमति नहीं मिलेगी।" }
+      ]
+    },
+    "more": {
+      "href": "volunteer.html",
+      "text": { "en": "More about volunteering at the ashram", "hi": "आश्रम में स्वयंसेवा के बारे में और जानकारी (अंग्रेज़ी में)" }
+    }
+  },
+
+  "schedule": {
+    "chapter": { "en": "Schedule", "hi": "कार्यक्रम" },
+    "eyebrow": { "en": "During the 1-week programme", "hi": "1-सप्ताह कार्यक्रम के दौरान" },
+    "title": { "en": "Daily Schedule", "hi": "दैनिक कार्यक्रम" },
+    "items": [
+      {
+        "from": "07:00",
+        "to": "08:30",
+        "title": { "en": "Yoga & Transcendental Meditation", "hi": "योग एवं भावातीत ध्यान" }
+      },
+      {
+        "from": "09:30",
+        "to": "12:00",
+        "title": { "en": "Maharishi Vedic Science", "hi": "महर्षि वैदिक विज्ञान" },
+        "note": { "en": "Hindi with English translation", "hi": "हिंदी में, अंग्रेज़ी अनुवाद सहित" }
+      },
+      {
+        "from": "13:30",
+        "to": "16:00",
+        "title": { "en": "Introduction to Āyurveda", "hi": "आयुर्वेद परिचय" }
+      },
+      {
+        "from": "16:15",
+        "to": "17:15",
+        "title": { "en": "Jyotish (4 days) & Vāstu (2 days)", "hi": "ज्योतिष (4 दिन) एवं वास्तु (2 दिन)" }
+      },
+      {
+        "from": "17:15",
+        "to": "18:45",
+        "title": { "en": "Yoga & Transcendental Meditation", "hi": "योग एवं भावातीत ध्यान" }
+      },
+      {
+        "from": "19:45",
+        "to": "22:00",
+        "title": { "en": "Evening classes", "hi": "संध्या कक्षाएँ" },
+        "note": { "en": "Health, society and modern lifestyle issues", "hi": "स्वास्थ्य, समाज एवं आधुनिक जीवनशैली विषयों पर चर्चा" }
+      }
+    ]
+  },
+
+  "dates": {
+    "chapter": { "en": "Dates", "hi": "तिथियाँ" },
+    "eyebrow": { "en": "Programme calendar", "hi": "कार्यक्रम कैलेंडर" },
+    "title": { "en": "1-Week Course Dates ({years})", "hi": "1-सप्ताह कार्यक्रम तिथियाँ ({years})" },
+    "notice": {
+      "en": "Please inform us in advance to confirm room availability.",
+      "hi": "कृपया आने से पहले कक्ष उपलब्धता की पुष्टि हेतु संपर्क करें।"
+    }
+  },
+
+  "enquire": {
+    "chapter": { "en": "Enquire", "hi": "संपर्क" },
+    "eyebrow": { "en": "Get in touch", "hi": "संपर्क करें" },
+    "title": { "en": "Enquire About Your Stay", "hi": "अपने प्रवास के बारे में पूछें" },
+    "lead": {
+      "en": "Ask about rooms, dates or anything else. We reply personally.",
+      "hi": "कक्ष, तिथियों या किसी भी अन्य बात के बारे में पूछें। हम स्वयं उत्तर देते हैं।"
+    },
+    "emailLabel": { "en": "Email", "hi": "ईमेल" },
+    "phoneLabel": { "en": "Phone / WhatsApp", "hi": "फ़ोन / WhatsApp" },
+    "notice": {
+      "en": "Sending an enquiry does not reserve a room. Please wait for our confirmation before you travel, as space is limited.",
+      "hi": "पूछताछ भेजने से कक्ष आरक्षित नहीं होता। कृपया यात्रा से पहले हमारी पुष्टि की प्रतीक्षा करें, क्योंकि स्थान सीमित है।"
+    },
+    "closing": { "en": "Jai Gurudev", "hi": "जय गुरुदेव" },
+    "form": {
+      "title": { "en": "Write your enquiry", "hi": "अपनी पूछताछ लिखें" },
+      "intro": {
+        "en": "Fill in what you know. Your message is prepared below, and you can change it before you send it.",
+        "hi": "जो जानते हैं वह भरें। आपका संदेश नीचे तैयार होता है, और भेजने से पहले आप उसे बदल सकते हैं।"
+      },
+      "type": {
+        "label": { "en": "Type of stay", "hi": "प्रवास का प्रकार" },
+        "options": [
+          { "en": "Guest stay", "hi": "अतिथि प्रवास" },
+          { "en": "Guest stay with Panchakarma", "hi": "पंचकर्म सहित अतिथि प्रवास" },
+          { "en": "1-week programme (before volunteering)", "hi": "1-सप्ताह कार्यक्रम (स्वयंसेवा से पहले)" }
+        ]
+      },
+      "arrival": { "label": { "en": "Tentative arrival date", "hi": "संभावित आगमन तिथि" } },
+      "people": { "label": { "en": "Number of people", "hi": "व्यक्तियों की संख्या" } },
+      "room": {
+        "label": { "en": "Room preference", "hi": "कक्ष की पसंद" },
+        "none": { "en": "No preference", "hi": "कोई विशेष पसंद नहीं" }
+      },
+      "message": { "en": "Your message (you can edit it before sending)", "hi": "आपका संदेश (भेजने से पहले बदल सकते हैं)" },
+      "reset": { "en": "Rebuild the message from the fields", "hi": "संदेश फिर से बनाएँ" },
+      "whatsapp": { "en": "Send on WhatsApp", "hi": "WhatsApp पर भेजें" },
+      "email": { "en": "Send by email", "hi": "ईमेल से भेजें" },
+      "emailSubject": { "en": "Enquiry about a stay at Anāmay Ashram", "hi": "अनामय आश्रम में ठहरने के बारे में पूछताछ" }
+    }
+  }
+}

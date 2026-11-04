@@ -11,6 +11,20 @@
     "phones": ["+91 98102 07429", "+91 75993 67331", "+91 99172 48154"],
     "clinicPhones": ["+91 98708 07214", "+91 98102 07429"],
     "hours": "Every day, 9:30 am – 6:30 pm",
+    "whatsappMessages": {
+      "general": {
+        "en": "Namaste! I would like to know more about Anāmay Ashram.",
+        "hi": "नमस्ते! मुझे अनामय आश्रम के बारे में जानकारी चाहिए।"
+      },
+      "stay": {
+        "en": "Namaste! I would like to enquire about a stay at Anāmay Ashram.\n\n{details}\n\nPlease let me know if rooms are available. Thank you.",
+        "hi": "नमस्ते! मुझे अनामय आश्रम में ठहरने के बारे में जानकारी चाहिए।\n\n{details}\n\nकृपया बताएँ कि कक्ष उपलब्ध हैं या नहीं। धन्यवाद।"
+      },
+      "application": {
+        "en": "Namaste! I would like to apply for the 1-week programme at Anāmay Ashram.\n\nName:\nDate of birth:\nTime of birth:\nPlace of birth:\nFull address:\nEmail:\nPreferred dates:\n\nThank you.",
+        "hi": "नमस्ते! मुझे अनामय आश्रम के 1-सप्ताह के कार्यक्रम के लिए आवेदन करना है।\n\nनाम:\nजन्म तिथि:\nजन्म का समय:\nजन्म स्थान:\nपूरा पता:\nईमेल:\nपसंदीदा तिथियाँ:\n\nधन्यवाद।"
+      }
+    },
     "address": {
       "street": "Kausani Estate, District Bageshwar",
       "region": "Uttarakhand",
