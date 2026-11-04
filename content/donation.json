@@ -1,0 +1,9 @@
+{
+  "mode": "button",
+  "legacyUrl": "https://anamayashram.org/donation/",
+  "razorpay": {
+    "paymentButtonId": "pl_JAo3R2PjQsqjx7"
+  },
+  "minAmount": 100,
+  "currencySymbol": "₹"
+}

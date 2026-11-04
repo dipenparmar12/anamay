@@ -1,6 +1,30 @@
 // Builds the static site: wraps every src/pages/*.html fragment in the shared layout and expands {{tokens}}.
 // usage (from the website folder): node src/build.mjs
+// Settings live in ../content (site.json, donation.json, *.csv). Values that differ per deployment can be set with
+// the environment variables SITE_URL, API_BASE_URL, DONATION_MODE and GA4_ID, or in an uncommitted website/.env file.
 import fs from 'fs'; import path from 'path';
+
+if (fs.existsSync('.env')) process.loadEnvFile('.env');
+const env = process.env;
+const readJson = f => JSON.parse(fs.readFileSync(f, 'utf8').replace(/^\uFEFF/, ''));
+// CSV (RFC 4180: quoted fields may hold commas and line breaks); the delimiter is a comma, or a semicolon as some Excel locales save it
+function readCsv(file) {
+  const text = fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, '');
+  const first = text.split(/\r?\n/, 1)[0], delimiter = first.split(';').length > first.split(',').length ? ';' : ',';
+  const rows = []; let row = [], cell = '', quoted = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (quoted) { if (c !== '"') cell += c; else if (text[i + 1] === '"') { cell += '"'; i++; } else quoted = false; }
+    else if (c === '"') quoted = true;
+    else if (c === delimiter) { row.push(cell); cell = ''; }
+    else if (c === '\n' || c === '\r') { if (c === '\r' && text[i + 1] === '\n') i++; row.push(cell); rows.push(row); row = []; cell = ''; }
+    else cell += c;
+  }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  const [head, ...body] = rows, keys = head.map(h => h.trim().toLowerCase());
+  return body.map((r, i) => ({ line: i + 2, ...Object.fromEntries(keys.map((k, j) => [k, (r[j] ?? '').trim()])) })).filter(r => keys.some(k => r[k]));
+}
+const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 const CONTENT = path.resolve('../content/pages');
 const credits = JSON.parse(fs.readFileSync('src/credits.json', 'utf8'));
@@ -9,16 +33,24 @@ const videos = Object.fromEntries(JSON.parse(fs.readFileSync('../content/videos.
 // photographs from the Anāmay Vedic Retreat website, grouped by set (see src/retreat.json)
 const retreat = JSON.parse(fs.readFileSync('src/retreat.json', 'utf8'));
 
-const SITE = {
-  name: 'Anāmay Ashram', email: 'anamayashram@gmail.com', whatsapp: '919917248154',
-  retreatEmail: 'anamayvedicretreat@gmail.com',
-  phones: ['+91 98102 07429', '+91 75993 67331', '+91 99172 48154'],
-  address: 'Anāmay Vedic Ashram, Kausani Estate, District Bageshwar, Uttarakhand 263620, India',
-  facebook: 'https://www.facebook.com/anamayvedicashram/', instagram: 'https://www.instagram.com/anamayashram/',
-  retreatFacebook: 'https://www.facebook.com/pages/Anamay-Vedic-Resort/146831818790054',
-  youtube: 'https://www.youtube.com/channel/UCcxnAEWJmbQxaA0FXpYI8vA',
-  donate: 'https://anamayashram.org/donation/',
-};
+const SITE = readJson('../content/site.json');
+const DONATION = readJson('../content/donation.json');
+SITE.url = (env.SITE_URL || SITE.url || '').replace(/\/+$/, '');
+SITE.api.base = (env.API_BASE_URL || SITE.api.base || '').replace(/\/+$/, '');
+SITE.analytics.ga4 = env.GA4_ID || SITE.analytics.ga4 || '';
+DONATION.mode = env.DONATION_MODE || DONATION.mode;
+if (!['legacy', 'button', 'native'].includes(DONATION.mode)) throw new Error(`donation mode "${DONATION.mode}" is not legacy, button or native`);
+if (DONATION.mode === 'native' && !SITE.api.base) throw new Error('DONATION_MODE=native needs the API address (api.base in content/site.json or API_BASE_URL)');
+if (DONATION.mode === 'button' && !DONATION.razorpay?.paymentButtonId) throw new Error('DONATION_MODE=button needs razorpay.paymentButtonId in content/donation.json');
+if (SITE.analytics.ga4 && !/^G-[A-Z0-9]+$/.test(SITE.analytics.ga4)) throw new Error(`analytics.ga4 "${SITE.analytics.ga4}" is not a GA4 measurement ID (G-XXXXXXXXXX)`);
+const A = SITE.contact.address;
+const addressHtml = (country = true) => `${esc(A.street)},<br>${esc(A.region)} ${esc(A.postalCode)}${country ? ', ' + esc(A.country) : ''}`;
+const telHref = p => p.replace(/[^\d+]/g, '');
+const phoneLink = p => `<a href="tel:${telHref(p)}">${esc(p)}</a>`;
+const phoneLinks = list => list.map(phoneLink).join('<br>');
+const orList = items => (items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} or ${items.at(-1)}`);
+// {{site:contact.email}}: any value of site.json by its path
+const setting = p => { const v = p.split('.').reduce((o, k) => (o == null ? o : o[k]), SITE); if (v == null || typeof v === 'object') throw new Error(`unknown site setting "${p}"`); return v; };
 
 const NAV = [
   { label: 'About', items: [
@@ -48,7 +80,10 @@ const NAV = [
     ['rooms.html', 'Rooms & Suites', 'Eighteen rooms built by Vāstu'],
     ['visit.html', 'Visit & Travel', 'How to reach Kausani, and how to write to us'],
   ] },
-  { href: 'contribute.html', label: 'Contribute' },
+  { label: 'Contribute', items: [
+    ['donate.html', 'Donate', 'Support the Vedic pandits and the Goshala'],
+    ['contribute.html', 'Ways to contribute', 'Learn TM, offer seva or donate'],
+  ] },
 ];
 
 /* ---------- small inline SVG icon set (24px line icons) ---------- */
@@ -142,15 +177,7 @@ function md(slug) {
 
 /* ---------- reusable blocks ---------- */
 const videoCard = id => `<figure class="video-card"><button class="yt" data-id="${id}" data-title="${(videos[id] || '').replace(/"/g, '&quot;')}" aria-label="Play video: ${(videos[id] || '').replace(/"/g, '&quot;')}"><img src="assets/img/video/${id}.jpg" alt="" loading="lazy"><span class="play">${icon('play')}</span></button><figcaption>${videos[id] || ''}</figcaption></figure>`;
-const VIDEO_GROUPS = {
-  ashram: ['Xk6SwyLn8Fw', 'nP_lb0YjA1c', 'I-ofLsL7D1I', 'U-Z_E7br980', 'Z6mgWj-UH1A', 'HxVXeANxsds'],
-  vedic: ['xsw2vdhuano', 'B65WXdR1qIc', '7ix6Xkf4M0M', 'pNkAGlWVIt8', 'CvJnRhw4zDo'],
-  recitation: ['SyvbJv38088', 'WNRvTLTnXIA', 'DfUyKjOdG9k'],
-  founder: ['AnbB1qRbric', '_zCujII8iqs', '8CpxrfQnxIU', 'k2F4z6y3liU', 'WpvWMFGC-VY'],
-  meditation: ['RK1kbJiisLk', '8CpxrfQnxIU'],
-  retreat: ['nP_lb0YjA1c', 'AEs7XcbLifw', 'Oc6q0t-mta8'],
-  arrival: ['Xk6SwyLn8Fw'],
-};
+const VIDEO_GROUPS = readJson('../content/video-groups.json'); // which films each page shows
 // {{gallery}} / {{strip}} show the ashram photographs; {{gallery:rooms}} / {{strip:stay}} a set from src/retreat.json
 const photoSet = (key, n) => (/^\d+$/.test(key || '') || !key ? gallery.slice(0, key ? +key : n) : retreat[key]);
 const galleryGrid = (key, set = photoSet(key, gallery.length)) => `<div class="gallery" data-stagger>${set.map(g => `<a href="${g.full}" data-lightbox="${key || 'photos'}" data-caption="${g.caption}"><img src="${g.thumb}" alt="${g.caption}" width="${g.w}" height="${g.h}" loading="lazy"><span>${g.caption}</span></a>`).join('')}</div>`;
@@ -158,20 +185,24 @@ const galleryGrid = (key, set = photoSet(key, gallery.length)) => `<div class="g
 const strip = (key, set = photoSet(key, 12)) => `<div class="strip" data-strip data-lenis-prevent-horizontal>${set.map((g, i) => `<a class="strip-item" href="${g.full}" data-lightbox="strip-${key || 'photos'}" data-caption="${g.caption}" style="--ar:${g.w}/${g.h}"><img src="${g.thumb}" alt="${g.caption}" width="${g.w}" height="${g.h}" loading="lazy" draggable="false"><span><i>${String(i + 1).padStart(2, '0')}</i>${g.caption}</span></a>`).join('')}</div>`;
 const creditsTable = () => `<table class="credits-table"><thead><tr><th>Image</th><th>Subject</th><th>Author</th><th>Licence</th></tr></thead><tbody>${Object.entries(credits).map(([k, c]) => `<tr><td><img src="${c.file}" alt="" loading="lazy"></td><td>${c.caption}</td><td>${c.author}</td><td><a href="${c.page}" target="_blank" rel="noopener">${c.license}</a></td></tr>`).join('')}</tbody></table>`;
 
-function contactForm(subject = 'Enquiry from the website', interest = '', to = SITE.email) {
-  const opts = ['Visiting / staying at the ashram', 'A stay at the Anāmay Vedic Retreat', 'Panchakarma or Ayurveda consultation', 'Kshar Sutra treatment', 'Meditation or yoga course', '1-week TM course / volunteering', 'Vedic Vidyapeeth', 'Jyotish consultation', 'Donation or support', 'Something else'];
-  return `<form class="form" data-enquiry="${to}" data-subject="${subject}" novalidate>
-  <div class="field"><input id="f-name" name="name" data-label="Name" placeholder=" " required autocomplete="name"><label for="f-name">Your name</label><span class="error">Please tell us your name.</span></div>
-  <div class="field"><input id="f-phone" name="phone" data-label="Mobile" placeholder=" " type="tel" autocomplete="tel" pattern="[0-9 +()-]{7,}"><label for="f-phone">Mobile number</label><span class="error">Please check the number.</span></div>
-  <div class="field"><input id="f-email" name="email" data-label="Email" placeholder=" " type="email" required autocomplete="email"><label for="f-email">Email</label><span class="error">Please enter a valid email.</span></div>
-  <div class="field"><select id="f-interest" name="interest" data-label="Interested in">${opts.map(o => `<option${o === interest ? ' selected' : ''}>${o}</option>`).join('')}</select><label for="f-interest">Interested in</label></div>
+// {{contact-form:subject|interest|channel}}; the channel (ashram or retreat) decides which address receives the message
+function contactForm(subject = 'Enquiry from the website', interest = '', channel = 'ashram') {
+  const to = channel === 'retreat' ? SITE.contact.retreatEmail : SITE.contact.email;
+  const viaApi = !!SITE.api.base;
+  return `<form class="form" data-enquiry="${to}" data-channel="${channel}" data-subject="${esc(subject)}" novalidate>
+  <div class="field"><input id="f-name" name="name" data-label="Name" placeholder=" " required maxlength="100" autocomplete="name"><label for="f-name">Your name</label><span class="error">Please tell us your name.</span></div>
+  <div class="field"><input id="f-phone" name="phone" data-label="Mobile" placeholder=" " type="tel" maxlength="30" autocomplete="tel" pattern="[0-9 +\\(\\)\\-]{7,}"><label for="f-phone">Mobile number</label><span class="error">Please check the number.</span></div>
+  <div class="field"><input id="f-email" name="email" data-label="Email" placeholder=" " type="email" required maxlength="150" autocomplete="email"><label for="f-email">Email</label><span class="error">Please enter a valid email.</span></div>
+  <div class="field"><select id="f-interest" name="interest" data-label="Interested in">${SITE.forms.interests.map(o => `<option${o === interest ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select><label for="f-interest">Interested in</label></div>
   <div class="field"><input id="f-age" name="age" data-label="Age" placeholder=" " type="number" min="5" max="110"><label for="f-age">Age</label></div>
   <div class="field"><input id="f-date" name="arrival" data-label="Tentative arrival" placeholder=" " type="date"><label for="f-date">Tentative arrival date</label></div>
-  <div class="field full"><textarea id="f-msg" name="message" data-label="Message" placeholder=" " required></textarea><label for="f-msg">Your message</label><span class="error">Please write a short message.</span></div>
-  <div class="full form-actions"><button class="btn" type="submit">Send by email <span class="arrow">→</span></button><button class="btn ghost" type="button" data-whatsapp="${SITE.whatsapp}">${icon('whatsapp')} Send on WhatsApp</button></div>
-  <p class="form-note full">Your message opens in your own email or WhatsApp app, addressed to the ashram. Please wait for a confirmation before travelling — space is limited.</p>
+  <div class="field full"><textarea id="f-msg" name="message" data-label="Message" placeholder=" " required minlength="10" maxlength="5000"></textarea><label for="f-msg">Your message</label><span class="error">Please write a short message.</span></div>
+  <div class="hp" aria-hidden="true"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
+  <p class="form-alert full" role="alert" hidden></p>
+  <div class="full form-actions"><button class="btn" type="submit">${viaApi ? 'Send message' : 'Send by email'} <span class="arrow">→</span></button><button class="btn ghost" type="button" data-whatsapp="${SITE.contact.whatsapp}">${icon('whatsapp')} Send on WhatsApp</button></div>
+  <p class="form-note full">${viaApi ? 'Your message goes straight to the ashram. We reply by email or phone. Please wait for a confirmation before travelling — space is limited.' : 'Your message opens in your own email or WhatsApp app, addressed to the ashram. Please wait for a confirmation before travelling — space is limited.'}</p>
 </form>
-<div class="form-success" role="status"><span class="sanskrit">धन्यवादः</span><h3>Thank you</h3><p class="muted">Your message is ready in your email or WhatsApp app — just press send. We reply as soon as we can.</p></div>`;
+<div class="form-success" role="status"><span class="sanskrit">धन्यवादः</span><h3>Thank you</h3><p class="muted">${viaApi ? 'Your message has reached us. We reply as soon as we can.' : 'Your message is ready in your email or WhatsApp app — just press send. We reply as soon as we can.'}</p></div>`;
 }
 
 /* ---------- layout ---------- */
@@ -199,7 +230,7 @@ function menu(current) {
   <div class="menu-inner wrap">
     <nav class="menu-nav" aria-label="Main menu"><a class="menu-home" href="index.html"${cur('index.html')}>Home</a>${groups}</nav>
     <div class="menu-aside"><p class="sanskrit">पदं गच्छन्त्यनामयम्</p><a class="btn" href="visit.html">Visit &amp; Contact <span class="arrow">→</span></a>
-      <ul><li><a href="https://wa.me/${SITE.whatsapp}" target="_blank" rel="noopener">${icon('whatsapp')} WhatsApp</a></li><li><a href="mailto:${SITE.email}">${icon('mail')} ${SITE.email}</a></li><li><a href="tel:${SITE.phones[0].replace(/\s/g, '')}">${icon('phone')} ${SITE.phones[0]}</a></li></ul></div>
+      <ul><li><a href="https://wa.me/${SITE.contact.whatsapp}" target="_blank" rel="noopener">${icon('whatsapp')} WhatsApp</a></li><li><a href="mailto:${SITE.contact.email}">${icon('mail')} ${SITE.contact.email}</a></li><li><a href="tel:${telHref(SITE.contact.phones[0])}">${icon('phone')} ${SITE.contact.phones[0]}</a></li></ul></div>
   </div>
 </div>`;
 }
@@ -212,27 +243,26 @@ function footer() {
 <div class="wrap"><div class="footer-top">
   <div><a class="brand" href="index.html">${emblem()}<span class="brand-text"><b>Anāmay Ashram</b><small>Shree Anamay Nyas · est. 2006</small></span></a>
     <p class="footer-shloka">पदं गच्छन्त्यनामयम्</p><p>Arrive at Anāmaya — the state free from all suffering. A Vedic ashram and Gurukul in the Himalayas at Kausani, Uttarakhand.</p>
-    <div class="socials"><a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Facebook">${icon('facebook')}</a><a href="${SITE.instagram}" target="_blank" rel="noopener" aria-label="Instagram">${icon('instagram')}</a><a href="${SITE.youtube}" target="_blank" rel="noopener" aria-label="YouTube">${icon('youtube')}</a><a href="https://wa.me/${SITE.whatsapp}" target="_blank" rel="noopener" aria-label="WhatsApp">${icon('whatsapp')}</a></div></div>
+    <div class="socials"><a href="${SITE.social.facebook}" target="_blank" rel="noopener" aria-label="Facebook">${icon('facebook')}</a><a href="${SITE.social.instagram}" target="_blank" rel="noopener" aria-label="Instagram">${icon('instagram')}</a><a href="${SITE.social.youtube}" target="_blank" rel="noopener" aria-label="YouTube">${icon('youtube')}</a><a href="https://wa.me/${SITE.contact.whatsapp}" target="_blank" rel="noopener" aria-label="WhatsApp">${icon('whatsapp')}</a></div></div>
   ${links('Knowledge', [['vedas.html', 'The Vedas'], ['vidyapeeth.html', 'Vedic Vidyapeeth'], ['yagya-jyotish.html', 'Yagya & Jyotish'], ['meditation.html', 'Meditation'], ['yoga.html', 'Yoga']])}
   ${links('Healing & Life', [['ayurveda.html', 'Āyurveda'], ['panchakarma.html', 'Panchakarma'], ['kshar-sutra.html', 'Kshar Sutra'], ['sattvic-life.html', 'Sattvic Life'], ['volunteer.html', 'Volunteer']])}
-  ${links('Stay', [['retreat.html', 'Anāmay Vedic Retreat'], ['rooms.html', 'Rooms & Suites'], ['visit.html', 'Visit & Travel'], ['contribute.html', 'Contribute']])}
-  <div><h4>Reach us</h4><ul><li>Kausani Estate, District Bageshwar,<br>Uttarakhand 263620</li>${SITE.phones.map(p => `<li><a href="tel:${p.replace(/\s/g, '')}">${p}</a></li>`).join('')}<li><a href="mailto:${SITE.email}">${SITE.email}</a></li><li>Every day, 9:30 am – 6:30 pm</li></ul></div>
+  ${links('Stay', [['retreat.html', 'Anāmay Vedic Retreat'], ['rooms.html', 'Rooms & Suites'], ['visit.html', 'Visit & Travel'], ['donate.html', 'Donate'], ['contribute.html', 'Ways to contribute']])}
+  <div><h4>Reach us</h4><ul><li>${addressHtml(false)}</li>${SITE.contact.phones.map(p => `<li><a href="tel:${telHref(p)}">${p}</a></li>`).join('')}<li><a href="mailto:${SITE.contact.email}">${SITE.contact.email}</a></li><li>${esc(SITE.contact.hours)}</li></ul></div>
 </div>
-<div class="footer-bottom"><span>© <span data-year>2026</span> Shree Anamay Nyas. All rights reserved.</span><nav><a href="policies.html">Privacy &amp; policies</a><a href="retreat.html">Anāmay Vedic Retreat</a></nav></div></div></footer>
-<a class="whatsapp-float" href="https://wa.me/${SITE.whatsapp}" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">${icon('whatsapp')}</a>
+<div class="footer-bottom"><span>© <span data-year>${new Date().getFullYear()}</span> ${esc(SITE.legalName)}. All rights reserved.</span><nav><a href="policies.html">Privacy &amp; policies</a><a href="retreat.html">Anāmay Vedic Retreat</a></nav></div></div></footer>
+<a class="whatsapp-float" href="https://wa.me/${SITE.contact.whatsapp}" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">${icon('whatsapp')}</a>
 <button class="to-top" type="button" aria-label="Back to top" tabindex="-1">${icon('up')}</button>
 <div class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" data-lenis-prevent><span class="lb-count"></span><figure><img alt=""><figcaption></figcaption></figure><button class="close" aria-label="Close">×</button><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button></div>
 <div class="vmodal" role="dialog" aria-modal="true" aria-label="Film player" data-lenis-prevent>
   <div class="vm-frame"><div class="vm-player"><div class="vm-state" role="status"><span class="vm-spin"></span><p>Loading the film…</p></div></div>
-    <div class="vm-meta"><p class="vm-title"></p><a class="vm-out" href="${SITE.youtube}" target="_blank" rel="noopener">Watch on YouTube ↗</a></div></div>
+    <div class="vm-meta"><p class="vm-title"></p><a class="vm-out" href="${SITE.social.youtube}" target="_blank" rel="noopener">Watch on YouTube ↗</a></div></div>
   <button class="vm-close" aria-label="Close the film">×</button>
 </div>`;
 }
 // {{course-dates}}: the 1-week course dates, read from content/course-dates.csv (start,end as YYYY-MM-DD or DD-MM-YYYY)
 function courseDates() {
   const file = 'content/course-dates.csv';
-  const rows = fs.readFileSync('../' + file, 'utf8').replace(/^﻿/, '').split(/\r?\n/).slice(1)
-    .map((line, i) => ({ cells: line.split(/[,;]/).map(c => c.trim()), n: i + 2 })).filter(r => r.cells.some(Boolean));
+  const rows = readCsv('../' + file);
   const parse = (s, n) => {
     const iso = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/), dmy = s.match(/^(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})$/);
     const [y, mo, d] = iso ? iso.slice(1) : dmy ? [dmy[3], dmy[2], dmy[1]] : [];
@@ -240,7 +270,7 @@ function courseDates() {
     if (!(iso || dmy) || date.getUTCMonth() !== mo - 1) throw new Error(`${file} line ${n}: "${s}" is not a date (write it like 2027-03-15)`);
     return date;
   };
-  const list = rows.map(({ cells: [a, z], n }) => ({ from: parse(a, n), to: parse(z || a, n), n })).sort((p, q) => p.from - q.from);
+  const list = rows.map(r => ({ from: parse(r.start, r.line), to: parse(r.end || r.start, r.line), n: r.line })).sort((p, q) => p.from - q.from);
   list.forEach(c => { if (c.to < c.from) throw new Error(`${file} line ${c.n}: the end date is before the start date`); });
   const day = (d, year) => `${d.getUTCDate()} ${'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ')[d.getUTCMonth()]}${year ? ' ' + d.getUTCFullYear() : ''}`;
   const years = [...new Set(list.map(c => c.from.getUTCFullYear()))], withYear = years.length > 1 ? 1 : 0; // years only when the list spans several
@@ -248,6 +278,36 @@ function courseDates() {
     : +from === +to ? day(from, withYear) : `${from.getUTCDate()}–${day(to, withYear)}`;
   return `<span class="eyebrow">${years.length === 1 ? years[0] + ' course dates' : 'Course dates'}</span>
         <ul class="dates">${list.map(c => `<li data-start="${c.from.toISOString().slice(0, 10)}">${label(c)}</li>`).join('')}</ul>`;
+}
+// {{magazine}}: the issues of the quarterly magazine, from content/magazine.csv (issue number, then the address of the English and Hindi PDF)
+function magazine() {
+  const file = 'content/magazine.csv';
+  return readCsv('../' + file).map(r => {
+    const links = [['english', 'English'], ['hindi', 'हिन्दी']].filter(([k]) => r[k]).map(([k, label]) => {
+      if (!/^https?:\/\//.test(r[k])) throw new Error(`${file} line ${r.line}: "${r[k]}" is not a web address (start it with https://)`);
+      return `<a href="${esc(r[k])}" target="_blank" rel="noopener">${label}</a>`;
+    });
+    return `<div class="issue">${mandala()}<div><small>Issue ${esc(r.issue)}</small><h3>Anāmay Ashram</h3></div><div class="langs">${links.join('')}</div></div>`;
+  }).join('\n      ');
+}
+// {{daily-schedule}}: the day at the ashram, from content/daily-schedule.csv (time as 24-hour HH:MM places it on the sun dial)
+function dailySchedule() {
+  const file = 'content/daily-schedule.csv';
+  return readCsv('../' + file).map(r => {
+    const t = r.time.match(/^(\d{1,2}):(\d{2})$/);
+    if (!t || +t[1] > 23 || +t[2] > 59) throw new Error(`${file} line ${r.line}: "${r.time}" is not a time (write it as 24-hour HH:MM, for example 07:30)`);
+    const hour = +t[1] + +t[2] / 60;
+    const label = r.label || `${(+t[1] + 11) % 12 + 1}:${t[2]}`; // 17:00 reads as 5:00
+    return { hour, html: `<li data-h="${+hour.toFixed(2)}"><time>${esc(label)}</time><div><b>${esc(r.title)}</b><span>${esc(r.description)}</span></div></li>` };
+  }).sort((a, b) => a.hour - b.hour).map(r => r.html).join('\n        ');
+}
+// {{donate-widget}}: the way to give, as set in content/donation.json (legacy link, the Razorpay payment button, or our own form)
+function donateWidget() {
+  const note = `Payments are handled by Razorpay, the same secure service as on our earlier website. Any amount from ${DONATION.currencySymbol}${DONATION.minAmount}.`;
+  const fallback = `<p class="donate-fallback" hidden>The payment form could not be loaded. Please check your connection, or <a href="${DONATION.legacyUrl}" target="_blank" rel="noopener">donate on our original donation page</a>.</p>`;
+  if (DONATION.mode === 'legacy') return `<div class="donate-box"><a class="btn" href="${DONATION.legacyUrl}" target="_blank" rel="noopener">Donate online <span class="arrow">→</span></a><p class="form-note">${note}</p></div>`;
+  if (DONATION.mode === 'button') return `<div class="donate-box"><div class="donate-embed" data-razorpay-button="${esc(DONATION.razorpay.paymentButtonId)}"><p class="donate-loading" role="status">Loading the secure payment form…</p></div>${fallback}<p class="form-note">${note}</p><noscript><p class="form-note"><a href="${DONATION.legacyUrl}" target="_blank" rel="noopener">Donate on our original donation page</a> (needs JavaScript here).</p></noscript></div>`;
+  return `<div class="donate-box"><div class="donate-native" data-donate-api="${esc(SITE.api.base)}"><p class="donate-loading" role="status">Loading the secure donation form…</p></div>${fallback}<noscript><p class="form-note"><a href="${DONATION.legacyUrl}" target="_blank" rel="noopener">Donate on our original donation page</a> (needs JavaScript here).</p></noscript></div>`;
 }
 // inner pages open on a temple doorway: text on the parchment, the photograph framed in an arch
 function pageHero(m) {
@@ -259,12 +319,22 @@ function pageHero(m) {
       ${m.sanskrit ? `<span class="sanskrit">${m.sanskrit}</span>` : ''}
       <h1 class="reveal">${m.heading || m.title}</h1>
       ${m.lead ? `<p class="lead">${m.lead}</p>` : ''}
+      ${m.cta ? `<p class="ph-cta">${[m.cta].flat().map(c => `<a class="btn${c.ghost ? ' ghost' : ''}" href="${c.href}">${c.text} <span class="arrow">↓</span></a>`).join('')}</p>` : ''}
+      ${m.contactStrip ? `<ul class="ph-contact"><li>${icon('phone')}<span>${phoneLinks(SITE.contact.phones).replace(/<br>/g, '<i>·</i>')}</span></li><li>${icon('mail')}<a href="mailto:${SITE.contact.email}">${SITE.contact.email}</a></li><li>${icon('clock')}<span>${esc(SITE.contact.hours)}</span></li></ul>` : ''}
       <span class="ph-cue" aria-hidden="true"></span>
     </div>
     <figure class="ph-media"><div class="arch"><img data-parallax="0.05" src="assets/img/${m.hero}.webp" alt="${m.heroAlt || ''}"${m.heroPos ? ` style="object-position:${m.heroPos}"` : ''} fetchpriority="high"></div></figure>
   </div>
 </section>`;
 }
+const pageUrl = f => `${SITE.url}/${f === 'index.html' ? '' : f}`;
+// search engines and link previews: who we are, as structured data (home page only)
+const organizationJson = () => `<script type="application/ld+json">${JSON.stringify({
+  '@context': 'https://schema.org', '@type': 'Organization', name: SITE.legalName, alternateName: SITE.name, url: SITE.url + '/', foundingDate: String(SITE.established),
+  email: SITE.contact.email, telephone: SITE.contact.phones[0],
+  address: { '@type': 'PostalAddress', streetAddress: A.street, addressRegion: A.region, postalCode: A.postalCode, addressCountry: A.countryCode },
+  sameAs: [SITE.social.facebook, SITE.social.instagram, SITE.social.youtube],
+}).replace(/</g, '\\u003c')}</script>\n`;
 function layout(m, body, file) {
   const title = file === 'index.html' ? `${SITE.name} · Vedic Ashram & Gurukul in the Himalayas, Kausani` : `${m.title} · ${SITE.name}`;
   return `<!doctype html>
@@ -276,13 +346,14 @@ function layout(m, body, file) {
 <title>${title}</title>
 <meta name="description" content="${m.description || ''}">
 <meta name="theme-color" content="#1b2140">
-<meta property="og:title" content="${title}"><meta property="og:description" content="${m.description || ''}"><meta property="og:type" content="website">
-<meta property="og:image" content="assets/img/${m.hero || 'hero-moon'}.webp">
+${SITE.url ? `<link rel="canonical" href="${pageUrl(file)}">\n<meta property="og:url" content="${pageUrl(file)}">\n` : ''}<meta property="og:title" content="${title}"><meta property="og:description" content="${m.description || ''}"><meta property="og:type" content="website"><meta property="og:site_name" content="${esc(SITE.name)}">
+<meta property="og:image" content="${SITE.url ? SITE.url + '/' : ''}assets/img/${m.hero || 'hero-moon'}.webp">
+${SITE.api.base ? `<meta name="api-base" content="${esc(SITE.api.base)}">\n` : ''}
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/CormorantGaramond-500-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/css/style.css">
-<script>(function (c) { c.add('js'); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) c.add('motion'); if ('onpagereveal' in window) c.add('vt'); })(document.documentElement.classList)</script>
+${SITE.analytics.ga4 ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${SITE.analytics.ga4}"></script>\n<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${SITE.analytics.ga4}')</script>\n` : ''}${file === 'index.html' && SITE.url ? organizationJson() : ''}<script>(function (c) { c.add('js'); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) c.add('motion'); if ('onpagereveal' in window) c.add('vt'); })(document.documentElement.classList)</script>
 </head>
 <body class="${m.bodyClass || ''}">
 <a class="skip" href="#main">Skip to content</a>
@@ -294,7 +365,7 @@ ${body}
 ${footer()}
 ${VENDOR.map(f => `<script src="assets/vendor/${f}" defer></script>`).join('\n')}
 <script src="assets/js/main.js" defer></script>
-</body>
+${m.script ? `<script src="assets/js/${m.script}.js" defer></script>\n` : ''}</body>
 </html>
 `;
 }
@@ -313,10 +384,17 @@ function expand(s) {
     .replace(/\{\{strip(?::([\w-]+))?\}\}/g, (_, k) => strip(k))
     .replace(/\{\{dial-ridges\}\}/g, dialRidges)
     // {{contact-form:subject|interest|siteKeyOfAddress}}
-    .replace(/\{\{contact-form(?::([^|}]*))?(?:\|([^|}]*))?(?:\|([^}]*))?\}\}/g, (_, subj, interest, to) => contactForm(subj || undefined, interest || '', to ? SITE[to] : undefined))
+    .replace(/\{\{contact-form(?::([^|}]*))?(?:\|([^|}]*))?(?:\|([^}]*))?\}\}/g, (_, subj, interest, channel) => contactForm(subj || undefined, interest || '', channel || undefined))
     .replace(/\{\{credits-table\}\}/g, creditsTable)
     .replace(/\{\{course-dates\}\}/g, courseDates)
-    .replace(/\{\{site:(\w+)\}\}/g, (_, k) => SITE[k]);
+    .replace(/\{\{magazine\}\}/g, magazine)
+    .replace(/\{\{daily-schedule\}\}/g, dailySchedule)
+    .replace(/\{\{donate-widget\}\}/g, donateWidget)
+    .replace(/\{\{address(?::(short))?\}\}/g, (_, short) => addressHtml(!short))
+    .replace(/\{\{phones(?::(inline))?\}\}/g, (_, inline) => (inline ? orList(SITE.contact.phones.map(phoneLink)) : phoneLinks(SITE.contact.phones)))
+    .replace(/\{\{clinic-phones\}\}/g, () => SITE.contact.clinicPhones.map(phoneLink).join(' · '))
+    .replace(/\{\{tel:([\w.]+)\}\}/g, (_, p) => telHref(setting(p)))
+    .replace(/\{\{site:([\w.]+)\}\}/g, (_, p) => setting(p));
 }
 
 /* ---------- build ---------- */
@@ -328,13 +406,27 @@ for (const f of VENDOR) {
   if (fs.existsSync(from)) fs.copyFileSync(from, path.join('assets/vendor', f));
 }
 fs.writeFileSync('assets/img/favicon.svg', emblem().replace('class="emblem" ', 'xmlns="http://www.w3.org/2000/svg" ').replace('stroke="currentColor"', 'stroke="#c2652a"').replace('fill="currentColor"', 'fill="#c2652a"'));
-let count = 0;
-for (const f of fs.readdirSync('src/pages').filter(f => f.endsWith('.html'))) {
+const pages = fs.readdirSync('src/pages').filter(f => f.endsWith('.html'));
+for (const f of pages) {
   const src = fs.readFileSync(path.join('src/pages', f), 'utf8');
   const metaMatch = src.match(/^<!--([\s\S]*?)-->/);
   const meta = metaMatch ? JSON.parse(metaMatch[1]) : {};
   const body = expand(src.slice(metaMatch ? metaMatch[0].length : 0));
   fs.writeFileSync(f, layout({ ...meta, hero: meta.hero }, expand(body), f));
-  count++;
 }
-console.log('built', count, 'pages');
+// the old WordPress addresses (content/redirects.csv): small pages that send visitors and search engines to the new page.
+// Built only when LEGACY_REDIRECTS is on (the deployment sets it), so a local build leaves no extra folders behind.
+if (/^(1|true|yes)$/i.test(env.LEGACY_REDIRECTS || '')) {
+  for (const r of readCsv('../content/redirects.csv')) {
+    const dir = r.from.replace(/^\/+|\/+$/g, '');
+    if (!dir || dir.split('/').includes('..') || !pages.includes(r.to.split('#')[0])) throw new Error(`content/redirects.csv line ${r.line}: "${r.from}" or "${r.to}" is not usable (from is an old address like /about-us/, to is a page like about.html)`);
+    const target = '../'.repeat(dir.split('/').length) + r.to;
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(`${dir}/index.html`, `<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><title>This page has moved · ${esc(SITE.name)}</title><meta name="robots" content="noindex">\n${SITE.url ? `<link rel="canonical" href="${SITE.url}/${r.to}">\n` : ''}<meta http-equiv="refresh" content="0; url=${target}"></head>\n<body><p>This page has moved to <a href="${target}">${esc(r.to)}</a>.</p></body></html>\n`);
+  }
+}
+// search engines: robots.txt always, a sitemap once the public address of the site is known
+fs.writeFileSync('robots.txt', `User-agent: *\nAllow: /\n${SITE.url ? `\nSitemap: ${SITE.url}/sitemap.xml\n` : ''}`);
+if (SITE.url) fs.writeFileSync('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(f => `  <url><loc>${pageUrl(f)}</loc></url>`).join('\n')}\n</urlset>\n`);
+else fs.rmSync('sitemap.xml', { force: true });
+console.log('built', pages.length, 'pages');

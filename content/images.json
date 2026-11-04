@@ -1,0 +1,359 @@
+{
+ "_note": "Photographs from the offline copy of the old site that website/src/images.mjs turns into web-ready WebP files. \"source\" is relative to the uploads folder (IMAGE_SOURCE_DIR).",
+ "photos": {
+  "hero-moon": {
+   "source": "2022/03/Full_Moon-copy-edit.jpg",
+   "width": 2400
+  },
+  "himalaya-peaks": {
+   "source": "2022/03/IMG_0205-scaled.jpeg",
+   "width": 2400
+  },
+  "valley-clouds": {
+   "source": "2022/04/IMG_3772.jpg",
+   "width": 1800
+  },
+  "ashram-forest": {
+   "source": "2022/05/IMG_2705-scaled.jpg",
+   "width": 2000
+  },
+  "guesthouse": {
+   "source": "2022/05/GH-Clinik-frm-NE-scaled.jpg",
+   "width": 1800
+  },
+  "room-view": {
+   "source": "2022/05/ground-floor-w-sitting-and-view.jpg",
+   "width": 1400
+  },
+  "students-hillside": {
+   "source": "2022/03/DSC02399-copy-scaled.jpg",
+   "width": 2000
+  },
+  "students-group": {
+   "source": "2022/03/DSC02443-copy-scaled.jpg",
+   "width": 1600
+  },
+  "students-garden": {
+   "source": "2022/03/DSC02612-copy-scaled.jpg",
+   "width": 1600
+  },
+  "students-yellow": {
+   "source": "2022/03/DSC02654-copy-scaled.jpg",
+   "width": 1600
+  },
+  "students-orange": {
+   "source": "2022/03/DSC00407.jpg",
+   "width": 1600
+  },
+  "veda-recitation": {
+   "source": "2019/03/P10206821.jpg",
+   "width": 1200
+  },
+  "yagya": {
+   "source": "2019/03/DSCI0266-1024x768-1.jpg",
+   "width": 1200
+  },
+  "yagya-fire": {
+   "source": "2022/05/circa-2004.1.jpg",
+   "width": 1600
+  },
+  "akshaya-tritiya": {
+   "source": "2022/05/akshyatritya.jpg",
+   "width": 1400
+  },
+  "jyotish": {
+   "source": "2022/03/DSC01712-1024x684-1.jpg",
+   "width": 1200
+  },
+  "yoga-mountain": {
+   "source": "2019/03/111.jpg",
+   "width": 1400
+  },
+  "yoga-mayurasana": {
+   "source": "2022/05/Maurasana-together.jpeg",
+   "width": 1200
+  },
+  "yoga-winter": {
+   "source": "2022/05/DSC03143.jpg",
+   "width": 1400
+  },
+  "meditation-navaratri": {
+   "source": "2022/03/with-students-Navaratri-2019-copy-1.jpeg",
+   "width": 1200
+  },
+  "meditation-hall": {
+   "source": "2022/04/6.jpg",
+   "width": 1400
+  },
+  "ayurveda-herbs": {
+   "source": "2022/03/flat-lay-natural-medicinal-spices-herbs-1-scaled.jpg",
+   "width": 2000
+  },
+  "panchakarma": {
+   "source": "2022/03/111-1.png",
+   "width": 1400
+  },
+  "vaidya": {
+   "source": "2022/04/vi.jpg",
+   "width": 900
+  },
+  "kshar-diagram": {
+   "source": "2022/04/treatment.jpg",
+   "width": 800
+  },
+  "farm-volunteers": {
+   "source": "2022/04/SAM_2114-1-scaled.jpg",
+   "width": 1800
+  },
+  "polyhouse-inside": {
+   "source": "2022/05/polyhouse-inside.jpg",
+   "width": 1400
+  },
+  "polyhouse-front": {
+   "source": "2022/05/Polyhouse-big-south-front.jpg",
+   "width": 1400
+  },
+  "calf-boy": {
+   "source": "2022/05/DSC00752-copy.jpg",
+   "width": 1400
+  },
+  "cows": {
+   "source": "2022/05/DSC00542.jpg",
+   "width": 1400
+  },
+  "sattvic-cows": {
+   "source": "2022/03/IMG_0550.jpg",
+   "width": 1200
+  },
+  "founder-lake": {
+   "source": "2022/03/WhatsApp-Image-2022-03-27-at-11.51.42-AM.jpeg",
+   "width": 1200
+  },
+  "founder-holi": {
+   "source": "2022/05/Ashutosh-scaled.jpg",
+   "width": 1400
+  },
+  "founder-1981": {
+   "source": "2022/05/delhi_urs2-scaled.jpg",
+   "width": 1400
+  },
+  "founder-1984": {
+   "source": "2022/05/delhi_housing1-scaled.jpg",
+   "width": 1400
+  },
+  "founder-teaching": {
+   "source": "2022/03/dsc01175.jpg",
+   "width": 900
+  },
+  "volunteers-group": {
+   "source": "2022/03/12417914_997166736996393_4957642093534599554_n-768x676-1.jpg",
+   "width": 800
+  },
+  "volunteer-garden": {
+   "source": "2022/04/IMG_4076.jpg",
+   "width": 1200
+  },
+  "vidyapeeth-2003": {
+   "source": "2022/04/123.jpg",
+   "width": 1200
+  },
+  "vidyapeeth-first-students": {
+   "source": "2022/04/123-1.jpg",
+   "width": 1200
+  },
+  "vidyapeeth-tents": {
+   "source": "2022/04/1.jpg",
+   "width": 1200
+  },
+  "vidyapeeth-2": {
+   "source": "2022/04/2.jpg",
+   "width": 1200
+  },
+  "vidyapeeth-3": {
+   "source": "2022/04/3.jpg",
+   "width": 1200
+  },
+  "school-bagawan": {
+   "source": "2019/03/1-1.jpg",
+   "width": 1000
+  },
+  "school-shrinagar": {
+   "source": "2019/03/2-1.jpg",
+   "width": 1000
+  },
+  "school-garhwal": {
+   "source": "2022/05/2017-Garhwal-School.jpg",
+   "width": 1400
+  },
+  "assembly-2008": {
+   "source": "2022/03/assembly-jan-2008.jpg",
+   "width": 1200
+  },
+  "trustee-lohani": {
+   "source": "2019/03/2.png",
+   "width": 600
+  },
+  "trustee-joshi": {
+   "source": "2019/03/1.jpg",
+   "width": 600
+  },
+  "trustee-chhimwal": {
+   "source": "2019/03/3.jpg",
+   "width": 600
+  }
+ },
+ "gallery": [
+  {
+   "source": "2022/05/IMG_2705-scaled.jpg",
+   "caption": "The ashram from the north-east"
+  },
+  {
+   "source": "2022/05/WhatsApp-Image-2022-05-04-at-2.32.17-PM.jpeg",
+   "caption": "Shiva"
+  },
+  {
+   "source": "2022/05/ground-floor-w-sitting-and-view.jpg",
+   "caption": "View from the house"
+  },
+  {
+   "source": "2022/05/Polyhouse-big-south-front.jpg",
+   "caption": "The big polyhouse, south front"
+  },
+  {
+   "source": "2022/05/polyhouse-inside.jpg",
+   "caption": "Inside the polyhouse"
+  },
+  {
+   "source": "2022/05/lakshmi-born-scaled.jpg",
+   "caption": "Lakshmi is born"
+  },
+  {
+   "source": "2022/05/WhatsApp-Image-2022-05-04-at-2.32.11-PM.jpeg",
+   "caption": "Dining hall"
+  },
+  {
+   "source": "2022/05/Maurasana-together.jpeg",
+   "caption": "Mayurasana"
+  },
+  {
+   "source": "2022/05/DSC00752-copy.jpg",
+   "caption": "We love cows"
+  },
+  {
+   "source": "2022/05/DSC03143.jpg",
+   "caption": "Winter yoga"
+  },
+  {
+   "source": "2022/05/DSC01591-scaled.jpg",
+   "caption": "Smiles"
+  },
+  {
+   "source": "2022/05/DSC00542.jpg",
+   "caption": "Do you love cows?"
+  },
+  {
+   "source": "2022/05/getting-blessings.jpeg",
+   "caption": "Blessings"
+  },
+  {
+   "source": "2022/05/DSC02645-copy-scaled.jpg",
+   "caption": "Jai Guru Dev"
+  },
+  {
+   "source": "2022/05/Gaumukh-2017.jpeg",
+   "caption": "Gaumukh trip, 2017"
+  },
+  {
+   "source": "2022/05/DSC01277.jpg",
+   "caption": "On our way to spread shanti"
+  },
+  {
+   "source": "2022/05/delhi_housing1-scaled.jpg",
+   "caption": "Humble beginning, circa 1984, Delhi"
+  },
+  {
+   "source": "2022/05/delhi_urs2-scaled.jpg",
+   "caption": "Swami Ji's birthday, Delhi 1981"
+  },
+  {
+   "source": "2022/05/2017-Garhwal-School.jpg",
+   "caption": "Garhwal school visit, 2017"
+  },
+  {
+   "source": "2022/05/2017-garwal-schol.jpg",
+   "caption": "Garhwal school visit, 2017"
+  },
+  {
+   "source": "2022/05/circa-2004.1.jpg",
+   "caption": "Yagya"
+  },
+  {
+   "source": "2022/05/Ashutosh-scaled.jpg",
+   "caption": "Holi hai"
+  },
+  {
+   "source": "2022/05/CIMG0802.jpg",
+   "caption": "Vedic students"
+  },
+  {
+   "source": "2022/05/circa-2004.jpg",
+   "caption": "Circa 2004"
+  },
+  {
+   "source": "2022/05/2017-Lalit-Mohit-atmanand-gaumukh.jpeg",
+   "caption": "Gangotri"
+  },
+  {
+   "source": "2022/05/2014.jpg",
+   "caption": "You know. Right?"
+  },
+  {
+   "source": "2022/05/akshyatritya.jpg",
+   "caption": "Akshaya Tritiya, 2017"
+  },
+  {
+   "source": "2022/04/IMG_E6428.jpg",
+   "caption": "Ganpati Bappa"
+  },
+  {
+   "source": "2022/04/Jayram-teaching.jpg",
+   "caption": "Ongoing class"
+  },
+  {
+   "source": "2022/04/IMG_3772.jpg",
+   "caption": "Clouds over the valley"
+  },
+  {
+   "source": "2022/04/IMG_20190816_145952.jpg",
+   "caption": "Monsoon green"
+  },
+  {
+   "source": "2022/04/IMG_3860.jpg",
+   "caption": "Students of the Vidyapeeth"
+  },
+  {
+   "source": "2022/04/IMG_3841.jpg",
+   "caption": "Himalayan birdlife"
+  },
+  {
+   "source": "2022/04/IMG_3938.jpg",
+   "caption": "A visitor from the forest"
+  },
+  {
+   "source": "2022/04/IMG_4021.jpg",
+   "caption": "Harvest"
+  },
+  {
+   "source": "2022/04/IMGP1615.jpg",
+   "caption": "Seva in the garden"
+  },
+  {
+   "source": "2022/03/DSC02443-copy-scaled.jpg",
+   "caption": "Vedic students"
+  },
+  {
+   "source": "2022/03/assembly-jan-2008.jpg",
+   "caption": "Assembly, January 2008"
+  }
+ ]
+}

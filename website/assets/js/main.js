@@ -441,10 +441,13 @@
     else if (!nextMarked) { el.classList.add('next'); nextMarked = true; }
   });
 
-  /* enquiry forms: validate, then hand over to e-mail or WhatsApp (no server needed) */
+  /* enquiry forms: validate, then send to the ashram's server when the site has an API address (meta api-base),
+     or hand over to the visitor's e-mail or WhatsApp app (no server needed) */
+  const apiBase = $('meta[name="api-base"]')?.content || '';
   $$('form[data-enquiry]').forEach(form => {
     const to = form.dataset.enquiry;
     const fields = $$('input, textarea, select', form).filter(f => f.name);
+    const alertBox = $('.form-alert', form), send = $('button[type="submit"]', form);
     const check = f => { const bad = !f.checkValidity(); f.closest('.field')?.classList.toggle('invalid', bad); return !bad; };
     fields.forEach(f => f.addEventListener('blur', () => check(f)));
     const compose = () => {
@@ -458,8 +461,29 @@
     };
     const valid = () => fields.map(check).every(Boolean);
     const done = () => { const ok = form.parentElement.querySelector('.form-success'); if (ok) { form.hidden = true; ok.classList.add('show'); } };
+    const fallback = `You can also write to <a href="mailto:${to}">${to}</a> or use the WhatsApp button.`;
+    const fail = text => { alertBox.innerHTML = `${text} ${fallback}`; alertBox.hidden = false; };
+    const sendToServer = async () => {
+      const payload = Object.fromEntries(fields.map(f => [f.name, f.value.trim()]));
+      Object.assign(payload, { channel: form.dataset.channel || 'ashram', subject: form.dataset.subject || 'Enquiry from the website', elapsed: Math.round(performance.now()) }); // time since the page opened: a script that posts at once is not a visitor
+      const label = send.firstChild.textContent;
+      alertBox.hidden = true; send.disabled = true; send.firstChild.textContent = 'Sending… ';
+      try {
+        const res = await fetch(`${apiBase}/contact`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok) return done();
+        if (res.status === 422 && data.errors) { // the server's reasons are shown beside the fields
+          fields.forEach(f => { const box = f.closest('.field'), msg = data.errors[f.name]; box?.classList.toggle('invalid', !!msg); if (msg && $('.error', box)) $('.error', box).textContent = msg; });
+          return $('.invalid input, .invalid textarea', form)?.focus();
+        }
+        fail(res.status === 429 ? 'Too many messages in a short time, please try again in a few minutes.' : 'Your message could not be sent just now.');
+      } catch (err) {
+        fail(navigator.onLine ? 'Your message could not be sent just now.' : 'You seem to be offline, so your message has not been sent.');
+      } finally { send.disabled = false; send.firstChild.textContent = label; }
+    };
     form.addEventListener('submit', e => {
       e.preventDefault(); if (!valid()) { $('.invalid input, .invalid textarea', form)?.focus(); return; }
+      if (apiBase) return sendToServer();
       const subject = form.dataset.subject || 'Enquiry from the website';
       location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(compose())}`;
       done();

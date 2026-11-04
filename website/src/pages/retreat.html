@@ -64,7 +64,7 @@
     <div class="reveal faq-side">
       <span class="eyebrow">Questions guests ask</span>
       <h2>Before you come</h2>
-      <p class="muted">Anything else? Write to us or call Ashutosh ji on <a href="tel:+919917248154">99172 48154</a>, <a href="tel:+917599367331">75993 67331</a> or <a href="tel:+919810207429">98102 07429</a>.</p>
+      <p class="muted">Anything else? Write to us or call Ashutosh ji on {{phones:inline}}.</p>
       <figure class="figure">{{img:retreat/food-01|A sattvic lunch from the ashram kitchen}}<figcaption>Lunch: rice, dal, vegetables, yoghurt and roti.</figcaption></figure>
     </div>
     <div class="faq" data-stagger>
@@ -98,16 +98,16 @@
       <span class="eyebrow">Anāmay Vedic Retreat</span>
       <h2>Plan your stay</h2>
       <ul class="contact-list">
-        <li>{{icon:pin}}<div><small>Address</small>Anāmay Vedic Ashram, Kausani Estate,<br>District Bageshwar, Uttarakhand, India</div></li>
-        <li>{{icon:phone}}<div><small>Phone</small><a href="tel:+919810207429">+91 98102 07429</a><br><a href="tel:+917599367331">+91 75993 67331</a><br><a href="tel:+919917248154">+91 99172 48154</a></div></li>
-        <li>{{icon:mail}}<div><small>Email</small><a href="mailto:{{site:retreatEmail}}">{{site:retreatEmail}}</a></div></li>
-        <li>{{icon:facebook}}<div><small>Facebook</small><a href="{{site:retreatFacebook}}" target="_blank" rel="noopener">Anāmay Vedic Retreat</a></div></li>
+        <li>{{icon:pin}}<div><small>Address</small>Anāmay Vedic Ashram,<br>{{address}}</div></li>
+        <li>{{icon:phone}}<div><small>Phone</small>{{phones}}</div></li>
+        <li>{{icon:mail}}<div><small>Email</small><a href="mailto:{{site:contact.retreatEmail}}">{{site:contact.retreatEmail}}</a></div></li>
+        <li>{{icon:facebook}}<div><small>Facebook</small><a href="{{site:social.retreatFacebook}}" target="_blank" rel="noopener">Anāmay Vedic Retreat</a></div></li>
       </ul>
     </div>
     <div class="form-wrap">
       <span class="eyebrow">Enquiry</span>
       <h2>Write to the Retreat</h2>
-      {{contact-form:Retreat enquiry from the website|A stay at the Anāmay Vedic Retreat|retreatEmail}}
+      {{contact-form:Retreat enquiry from the website|A stay at the Anāmay Vedic Retreat|retreat}}
     </div>
   </div>
 </section>

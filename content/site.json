@@ -1,0 +1,48 @@
+{
+  "name": "Anāmay Ashram",
+  "legalName": "Shree Anamay Nyas",
+  "established": 2006,
+  "url": "",
+  "contact": {
+    "email": "anamayashram@gmail.com",
+    "retreatEmail": "anamayvedicretreat@gmail.com",
+    "whatsapp": "919917248154",
+    "whatsappLabel": "+91 99172 48154",
+    "phones": ["+91 98102 07429", "+91 75993 67331", "+91 99172 48154"],
+    "clinicPhones": ["+91 98708 07214", "+91 98102 07429"],
+    "hours": "Every day, 9:30 am – 6:30 pm",
+    "address": {
+      "street": "Kausani Estate, District Bageshwar",
+      "region": "Uttarakhand",
+      "postalCode": "263620",
+      "country": "India",
+      "countryCode": "IN"
+    }
+  },
+  "social": {
+    "facebook": "https://www.facebook.com/anamayvedicashram/",
+    "instagram": "https://www.instagram.com/anamayashram/",
+    "youtube": "https://www.youtube.com/channel/UCcxnAEWJmbQxaA0FXpYI8vA",
+    "retreatFacebook": "https://www.facebook.com/pages/Anamay-Vedic-Resort/146831818790054"
+  },
+  "forms": {
+    "interests": [
+      "Visiting / staying at the ashram",
+      "A stay at the Anāmay Vedic Retreat",
+      "Panchakarma or Ayurveda consultation",
+      "Kshar Sutra treatment",
+      "Meditation or yoga course",
+      "1-week TM course / volunteering",
+      "Vedic Vidyapeeth",
+      "Jyotish consultation",
+      "Donation or support",
+      "Something else"
+    ]
+  },
+  "api": {
+    "base": ""
+  },
+  "analytics": {
+    "ga4": ""
+  }
+}

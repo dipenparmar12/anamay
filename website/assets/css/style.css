@@ -1041,3 +1041,58 @@ html:not(.motion) .pan-media img { width: 100%; object-fit: cover; }
 .yt::before { content: "Offline · plays when connected"; position: absolute; left: 12px; bottom: 12px; z-index: 2; padding: 7px 12px; border-radius: 999px; background: rgba(20, 22, 38, .78); color: var(--on-dark); font: 500 11px/1 var(--font-body); letter-spacing: .12em; text-transform: uppercase; opacity: 0; transition: opacity .3s; pointer-events: none; }
 .offline .yt::before { opacity: 1; }
 .offline .yt .play { opacity: .55; }
+
+/* enquiry form: the trap field for bots stays out of sight and out of reach; messages from the server appear above the buttons */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form-alert { margin: 0; padding: 14px 18px; border-left: 3px solid #b3412b; background: rgba(179, 65, 43, .08); font-size: 15px; }
+.form-alert a { color: inherit; }
+
+/* donation: the way to give comes first, the reasons beside it */
+.ph-cta { margin: 26px 0 0; }
+.give-grid { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(36px, 6vw, 96px); align-items: start; }
+.give-card { position: sticky; top: 110px; padding: clamp(26px, 3.4vw, 44px); border: 1px solid var(--gold); border-radius: var(--radius); background: #fbf7ef; box-shadow: var(--shadow); }
+.give-card h2 { margin-bottom: 22px; }
+.give-card .sources { margin-top: 26px; }
+.give-why .lead { margin-bottom: 30px; }
+.give-list { list-style: none; margin: 0 0 30px; padding: 0; display: grid; gap: 22px; }
+.give-list li { display: grid; grid-template-columns: 34px 1fr; gap: 16px; align-items: start; }
+.give-list .ico { width: 30px; height: 30px; color: var(--saffron); margin-top: 3px; }
+.give-list b { display: block; font: 500 21px/1.3 var(--font-display); }
+.give-list span { color: var(--muted); font-size: 16px; }
+.give-photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; max-width: 920px; margin-inline: auto; }
+.give-photos img { aspect-ratio: 4 / 3; object-fit: cover; }
+.give-photos figcaption { font-size: 16px; }
+.card.feature { border-color: var(--gold); background: var(--paper); box-shadow: var(--shadow); }
+@media (max-width: 900px) { .give-grid { grid-template-columns: 1fr; } .give-card { position: static; } }
+
+.donate-box { display: grid; gap: 18px; }
+.donate-embed { min-height: 56px; display: flex; align-items: center; }
+.donate-embed form { margin: 0; }
+.donate-loading { margin: 0; color: var(--muted); font-style: italic; }
+.donate-fallback { margin: 0; padding: 14px 18px; border-left: 3px solid var(--saffron); background: rgba(194, 101, 42, .08); font-size: 15px; }
+.donate-fallback a { color: inherit; }
+.donate-form { gap: 22px 24px; }
+.donate-amount { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: 16px; }
+.donate-amount legend { padding: 0; margin-bottom: 4px; font: 500 12px/1.4 var(--font-body); letter-spacing: .18em; text-transform: uppercase; color: var(--saffron); }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip { padding: 12px 20px; min-height: 44px; border: 1px solid var(--gold); border-radius: 999px; background: transparent; color: var(--ink); font: 500 16px/1 var(--font-body); cursor: pointer; transition: background .3s, color .3s, border-color .3s; }
+.chip:hover { border-color: var(--saffron); }
+.chip[aria-pressed="true"] { background: var(--saffron-deep); border-color: var(--saffron-deep); color: var(--paper); }
+.donate-state { padding: 22px 24px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+.donate-state h3 { margin: 0 0 8px; }
+.donate-state p { margin: 0 0 14px; color: var(--muted); }
+.donate-state .btn { margin-top: 4px; }
+.donate-state.success { border-color: var(--saffron); }
+.donate-state.failed { border-color: #b3412b; }
+@media (max-width: 640px) { .donate-form { grid-template-columns: 1fr; } }
+.donate-embed .razorpay-payment-button { display: inline-block; transform: scale(1.25); transform-origin: left center; margin-block: 6px; }
+
+/* contact page: the ways to reach the ashram sit under the title, before anything else */
+.ph-contact { list-style: none; margin: 30px 0 0; padding: 0; display: grid; gap: 12px; font-size: 17px; }
+.ph-contact li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: start; }
+.ph-contact .ico { width: 20px; height: 20px; color: var(--saffron); margin-top: 4px; }
+.ph-contact a { text-decoration: none; }
+.ph-contact a:hover { color: var(--saffron-deep); }
+.ph-contact i { font-style: normal; color: var(--gold); margin-inline: 8px; }
+.ph-cta { display: flex; flex-wrap: wrap; gap: 14px; }
+.ph-contact a[href^="tel:"] { white-space: nowrap; }
