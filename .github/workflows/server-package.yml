@@ -1,0 +1,26 @@
+name: Package the API for upload
+
+# Run by hand (Actions tab > Package the API for upload > Run workflow). It produces a zip with the PHP
+# dependencies included, for web hosts without SSH or Composer. Unzip it on the host and add the .env file.
+on:
+  workflow_dispatch:
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: curl, json, mbstring, openssl
+          tools: composer
+      - run: composer install --no-dev --optimize-autoloader --no-interaction --no-progress
+      - run: zip -r ../anamay-api.zip . -x "tests/*" -x "storage/ledger/*" -x ".env"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: anamay-api
+          path: anamay-api.zip

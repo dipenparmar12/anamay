@@ -1,0 +1,26 @@
+{
+  "name": "anamay/server",
+  "description": "Contact form and donation API for the Anāmay Ashram website",
+  "type": "project",
+  "license": "proprietary",
+  "require": {
+    "php": ">=8.1",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "ext-mbstring": "*",
+    "ext-openssl": "*",
+    "phpmailer/phpmailer": "^6.9",
+    "razorpay/razorpay": "^2.9",
+    "vlucas/phpdotenv": "^5.6"
+  },
+  "autoload": {
+    "psr-4": { "Anamay\\": "src/" }
+  },
+  "scripts": {
+    "test": "php tests/run.php"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
+}

@@ -1,0 +1,26 @@
+name: Test the contact and donation API
+
+on:
+  push:
+    paths: [server/**, .github/workflows/server-tests.yml]
+  pull_request:
+    paths: [server/**, .github/workflows/server-tests.yml]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.1', '8.3', '8.4']
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, json, mbstring, openssl
+          tools: composer
+      - run: composer install --no-interaction --no-progress
+      - run: composer test

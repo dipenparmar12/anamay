@@ -1,0 +1,9 @@
+# Used only when the web server's document root is this whole folder instead of public/ (public/ is safer).
+# Keeps code, settings and data out of reach and sends the rest to public/.
+<FilesMatch "^(\.env.*|composer\.(json|lock))$">
+    Require all denied
+</FilesMatch>
+RewriteEngine On
+RewriteRule ^(src|vendor|config|storage|tests|bin)(/|$) - [F,L]
+RewriteCond %{REQUEST_URI} !/public/
+RewriteRule ^(.*)$ public/$1 [L]

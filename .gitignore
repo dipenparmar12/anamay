@@ -6,3 +6,15 @@ node_modules/
 *.webm
 offline-site/wp-content/uploads/**/*.pdf
 website/assets/magazine/
+
+# Settings and data that must never be committed (see docs/configuration.md)
+.env
+.env.*
+!.env.example
+server/vendor/
+server/storage/*
+!server/storage/.gitkeep
+!server/storage/.htaccess
+
+# Built for the deployment only
+website/sitemap.xml
