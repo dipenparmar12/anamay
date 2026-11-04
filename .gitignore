@@ -1,0 +1,8 @@
+node_modules/
+
+# Large files that are served from the official site instead of being stored here
+*.mp4
+*.mov
+*.webm
+offline-site/wp-content/uploads/**/*.pdf
+website/assets/magazine/
