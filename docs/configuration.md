@@ -14,10 +14,12 @@ No secret is ever needed to build or publish the website, and none is ever writt
 
 | File | Holds | Notes |
 |---|---|---|
-| `site.json` | Organisation name, e-mail addresses, phone numbers, WhatsApp number, opening hours, address, social links, the list of "interested in" choices of the enquiry form, the API address, the analytics ID | Used in the header menu, footer, contact pages and the structured data. Pages refer to it with tokens such as `{{site:contact.email}}`, `{{phones}}`, `{{address}}`; an unknown name stops the build and says which |
+| `site.json` | Organisation name, e-mail addresses, phone numbers, WhatsApp number and the messages WhatsApp buttons start with, opening hours, address, social links, the list of "interested in" choices of the enquiry form, the API address, the analytics ID | Used in the header menu, footer, contact pages and the structured data. Pages refer to it with tokens such as `{{site:contact.email}}`, `{{phones}}`, `{{address}}`; an unknown name stops the build and says which |
 | `donation.json` | How donations are taken (`mode`), the old donation page, the Razorpay payment button id, the smallest amount shown | See [donations](legacy-donation-workflow.md) |
-| `course-dates.csv` | The dates of the 1-week course | `start,end` per line; past dates strike through, the next is highlighted |
-| `daily-schedule.csv` | The day at the ashram on the home page | `time` (24-hour `HH:MM`, places the sun on the dial), optional `label`, `title`, `description` |
+| `visiting.json` | Everything on the Visiting page, in English and Hindi: room charges, Panchakarma and programme fees, minimum stay, programme times, the attendance policy, the daily schedule, the treatments, the enquiry form | Prices are numbers kept in one block; sentences are `en`/`hi` pairs that refer to them as `{shared}`. See [visiting-content.md](visiting-content.md) |
+| `course-dates.csv` | The dates of the 1-week course, for the Visiting page and the Volunteer page | `start,end` per line, in any order. Keep past dates: the page marks them, folds them away and highlights the next one by itself |
+| `daily-schedule.csv` | The day at the ashram on the home page | `time` (24-hour `HH:MM`; before noon is the morning, from 17:00 the evening), optional `label` shown instead of the time, `title`, `description` |
+| `volunteer-day.csv` | A volunteer's day on the Volunteer page | The same columns as `daily-schedule.csv` |
 | `magazine.csv` | The issues of the quarterly magazine on the Journal page | `issue,english,hindi`: the web addresses of the PDFs (kept on anamayashram.org, not in this repository). Leave a language empty if an issue has only one |
 | `videos.json`, `video-groups.json` | The YouTube films and which page shows which | A film is added to `videos.json` (id, title) and to a group. Its thumbnail is a picture saved as `website/assets/img/video/<id>.jpg` (YouTube offers one at `https://i.ytimg.com/vi/<id>/hqdefault.jpg`); the link check reports a missing one |
 | `images.json` | The photographs and gallery captions that `npm run images` turns into web files | `IMAGE_SOURCE_DIR` says where the originals are |
