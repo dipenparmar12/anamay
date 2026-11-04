@@ -61,16 +61,19 @@
     matchMedia('(min-width: 1081px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
   }
 
-  /* home: the Himalaya hero. The photograph settles, the name rises from behind the hills, and as the
-     page scrolls the layers move at different speeds so the hills carry the reader into the next section. */
+  /* home: the Himalaya hero. Its entrance is CSS (see .hero-hima in style.css) and runs on other elements than
+     the scroll scenes below, so the two never write the same property: as the page scrolls the layers move at
+     different speeds and the hills carry the reader into the next section. */
   const hh = $('.hero-hima');
+  if (hh) {
+    const img = $('.hh-img', hh);
+    const shown = () => img.classList.add('ready');
+    if (img.complete) shown(); else { img.addEventListener('load', shown, { once: true }); img.addEventListener('error', shown, { once: true }); }
+  }
   if (hh && motion) {
     const img = $('.hh-img', hh), word = $('.hh-word', hh), content = $('.hh-content', hh), mist = $('.hh-mist', hh);
-    gsap.from(img, { scale: 1.14, duration: 3.2, ease: 'power2.out' });
-    gsap.from(word, { yPercent: 70, opacity: 0, duration: 2.2, ease: 'expo.out', delay: 0.35 });
-    gsap.from([$('.hh-kicker', hh), $('.lead', hh), $('.hero-actions', hh)], { opacity: 0, y: 24, duration: 1.4, ease: 'power3.out', stagger: 0.12, delay: 0.6 });
     const st = { trigger: hh, start: 'top top', end: 'bottom top', scrub: true };
-    gsap.to(img, { yPercent: 14, scale: 1.08, ease: 'none', scrollTrigger: st });
+    gsap.to(img, { yPercent: 11, ease: 'none', scrollTrigger: st });
     gsap.to(mist, { xPercent: 12, yPercent: 8, ease: 'none', scrollTrigger: st });
     gsap.to(content, { y: -90, opacity: 0.15, ease: 'none', scrollTrigger: st });
     gsap.to(word, { yPercent: -45, ease: 'none', scrollTrigger: st });
@@ -81,19 +84,21 @@
   }
 
   /* headings are split into lines so they can rise line by line (CSS does the motion) */
-  if (motion && window.SplitText) {
+  if (motion && window.SplitText) (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
     $$('main h2, .page-hero h1, .hero-hima h1').forEach(h => {
       if (!h.closest('.reveal')) h.classList.add('reveal');
       SplitText.create(h, { type: 'lines', mask: 'lines', linesClass: 'ln', autoSplit: true, onSplit: s => s.lines.forEach((l, i) => l.style.setProperty('--li', i)) });
       // page titles are on screen from the start: reveal them on load rather than waiting for the observer
       if (h.closest('.hero-hima, .page-hero')) requestAnimationFrame(() => requestAnimationFrame(() => h.classList.add('in')));
     });
-  }
+  });
 
   /* reveal on scroll, with optional stagger for children of [data-stagger] */
   $$('[data-stagger]').forEach(group => [...group.children].forEach((c, i) => { c.classList.add('reveal'); c.style.setProperty('--d', (i % 6) * 0.09 + 's'); }));
   const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-  $$('.reveal, .reveal-img').forEach(el => io.observe(el));
+  // page titles are revealed by the split above, once the fonts are in; the observer would show them unsplit
+  const titles = motion && window.SplitText ? '.hero-hima h1, .page-hero h1' : '';
+  $$('.reveal, .reveal-img').filter(el => !(titles && el.matches(titles))).forEach(el => io.observe(el));
 
   /* count-up numbers */
   const countIO = new IntersectionObserver(entries => entries.forEach(e => {

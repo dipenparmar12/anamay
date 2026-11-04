@@ -236,7 +236,7 @@ function pageHero(m) {
     <div class="ph-text">
       ${m.crumb ? `<p class="crumbs"><a href="index.html">Home</a><span>${m.crumb}</span></p>` : ''}
       ${m.sanskrit ? `<span class="sanskrit">${m.sanskrit}</span>` : ''}
-      <h1>${m.heading || m.title}</h1>
+      <h1 class="reveal">${m.heading || m.title}</h1>
       ${m.lead ? `<p class="lead">${m.lead}</p>` : ''}
       <span class="ph-cue" aria-hidden="true"></span>
     </div>

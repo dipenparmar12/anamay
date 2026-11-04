@@ -218,8 +218,20 @@ strong { font-weight: 500; }
   overflow: hidden; isolation: isolate; color: var(--on-dark); background: var(--indigo);
   padding-top: clamp(110px, 16svh, 200px); justify-content: flex-end;
 }
-.hh-media { position: absolute; inset: 0; z-index: -3; overflow: hidden; }
-.hh-img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; }
+.hh-media { position: absolute; inset: 0; z-index: -3; overflow: hidden; background: var(--indigo); }
+/* the photograph is larger than its frame so the scroll and pointer drift never uncover an edge */
+.hh-img { position: absolute; left: -2%; top: -13%; width: 104%; height: 113%; object-fit: cover; object-position: 50% 28%; will-change: transform; }
+/* entrances are CSS, on elements the scroll scenes do not move, so they cannot fight those tweens */
+.motion .hh-media { animation: hh-settle 3.2s var(--ease) both; }
+.motion .hh-img { opacity: 0; transition: opacity 1.2s var(--ease); }
+.motion .hh-img.ready { opacity: 1; }
+.motion .hh-word span { display: inline-block; animation: hh-rise 2.2s .35s var(--ease) both; }
+.motion .hh-kicker, .motion .hero-hima .lead, .motion .hero-hima .hero-actions { animation: hh-up 1.4s var(--ease) both; animation-delay: .6s; }
+.motion .hero-hima .lead { animation-delay: .72s; }
+.motion .hero-hima .hero-actions { animation-delay: .84s; }
+@keyframes hh-settle { from { scale: 1.14; } }
+@keyframes hh-rise { from { translate: 0 70%; opacity: 0; } }
+@keyframes hh-up { from { translate: 0 24px; opacity: 0; } }
 .hh-shade {
   position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
@@ -240,7 +252,7 @@ strong { font-weight: 500; }
 .hero-hima h1 em { color: var(--turmeric); }
 .hero-hima .lead { color: rgba(243, 233, 214, .9); max-width: 58ch; text-shadow: 0 1px 14px rgba(10, 12, 28, .6); margin-bottom: 30px; }
 .hh-word {
-  position: relative; z-index: 0; margin: 28px 0 clamp(14px, 2.2vw, 34px); text-align: center; white-space: nowrap; pointer-events: none;
+  position: relative; z-index: 0; margin: 28px 0 clamp(14px, 2.2vw, 34px); text-align: center; white-space: nowrap; pointer-events: none; will-change: transform;
   font: 500 min(15vw, 26svh)/.8 var(--font-display); letter-spacing: -.035em; color: var(--paper);
 }
 .hero-hima .hero-ridges { z-index: 1; }
