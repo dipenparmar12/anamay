@@ -228,6 +228,27 @@ function footer() {
   <button class="vm-close" aria-label="Close the film">×</button>
 </div>`;
 }
+// {{course-dates}}: the 1-week course dates, read from content/course-dates.csv (start,end as YYYY-MM-DD or DD-MM-YYYY)
+function courseDates() {
+  const file = 'content/course-dates.csv';
+  const rows = fs.readFileSync('../' + file, 'utf8').replace(/^﻿/, '').split(/\r?\n/).slice(1)
+    .map((line, i) => ({ cells: line.split(/[,;]/).map(c => c.trim()), n: i + 2 })).filter(r => r.cells.some(Boolean));
+  const parse = (s, n) => {
+    const iso = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/), dmy = s.match(/^(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})$/);
+    const [y, mo, d] = iso ? iso.slice(1) : dmy ? [dmy[3], dmy[2], dmy[1]] : [];
+    const date = new Date(Date.UTC(+y, mo - 1, +d));
+    if (!(iso || dmy) || date.getUTCMonth() !== mo - 1) throw new Error(`${file} line ${n}: "${s}" is not a date (write it like 2027-03-15)`);
+    return date;
+  };
+  const list = rows.map(({ cells: [a, z], n }) => ({ from: parse(a, n), to: parse(z || a, n), n })).sort((p, q) => p.from - q.from);
+  list.forEach(c => { if (c.to < c.from) throw new Error(`${file} line ${c.n}: the end date is before the start date`); });
+  const day = (d, year) => `${d.getUTCDate()} ${'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ')[d.getUTCMonth()]}${year ? ' ' + d.getUTCFullYear() : ''}`;
+  const years = [...new Set(list.map(c => c.from.getUTCFullYear()))], withYear = years.length > 1 ? 1 : 0; // years only when the list spans several
+  const label = ({ from, to }) => from.getUTCMonth() !== to.getUTCMonth() || from.getUTCFullYear() !== to.getUTCFullYear() ? `${day(from, withYear)} – ${day(to, withYear)}`
+    : +from === +to ? day(from, withYear) : `${from.getUTCDate()}–${day(to, withYear)}`;
+  return `<span class="eyebrow">${years.length === 1 ? years[0] + ' course dates' : 'Course dates'}</span>
+        <ul class="dates">${list.map(c => `<li data-start="${c.from.toISOString().slice(0, 10)}">${label(c)}</li>`).join('')}</ul>`;
+}
 // inner pages open on a temple doorway: text on the parchment, the photograph framed in an arch
 function pageHero(m) {
   return `<section class="page-hero">
@@ -294,6 +315,7 @@ function expand(s) {
     // {{contact-form:subject|interest|siteKeyOfAddress}}
     .replace(/\{\{contact-form(?::([^|}]*))?(?:\|([^|}]*))?(?:\|([^}]*))?\}\}/g, (_, subj, interest, to) => contactForm(subj || undefined, interest || '', to ? SITE[to] : undefined))
     .replace(/\{\{credits-table\}\}/g, creditsTable)
+    .replace(/\{\{course-dates\}\}/g, courseDates)
     .replace(/\{\{site:(\w+)\}\}/g, (_, k) => SITE[k]);
 }
 
