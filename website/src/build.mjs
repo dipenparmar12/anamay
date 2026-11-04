@@ -239,7 +239,7 @@ function emblem() {
 }
 function footer() {
   const links = (title, items) => `<div><h4>${title}</h4><ul>${items.map(([h, t]) => `<li><a href="${h}">${t}</a></li>`).join('')}</ul></div>`;
-  return `<footer class="site-footer on-dark">${mandala('hero-mandala mandala-spin')}
+  return `<footer class="site-footer on-dark">${mandala('hero-mandala')}
 <div class="wrap"><div class="footer-top">
   <div><a class="brand" href="index.html">${emblem()}<span class="brand-text"><b>Anāmay Ashram</b><small>Shree Anamay Nyas · est. 2006</small></span></a>
     <p class="footer-shloka">पदं गच्छन्त्यनामयम्</p><p>Arrive at Anāmaya — the state free from all suffering. A Vedic ashram and Gurukul in the Himalayas at Kausani, Uttarakhand.</p>
@@ -320,7 +320,7 @@ function pageHero(m) {
       <h1 class="reveal">${m.heading || m.title}</h1>
       ${m.lead ? `<p class="lead">${m.lead}</p>` : ''}
       ${m.cta ? `<p class="ph-cta">${[m.cta].flat().map(c => `<a class="btn${c.ghost ? ' ghost' : ''}" href="${c.href}">${c.text} <span class="arrow">↓</span></a>`).join('')}</p>` : ''}
-      ${m.contactStrip ? `<ul class="ph-contact"><li>${icon('phone')}<span>${phoneLinks(SITE.contact.phones).replace(/<br>/g, '<i>·</i>')}</span></li><li>${icon('mail')}<a href="mailto:${SITE.contact.email}">${SITE.contact.email}</a></li><li>${icon('clock')}<span>${esc(SITE.contact.hours)}</span></li></ul>` : ''}
+      ${m.contactStrip ? `<ul class="ph-contact"><li>${icon('phone')}<span>${phoneLinks(SITE.contact.phones).replace(/<br>/g, ' <i>·</i> ')}</span></li><li>${icon('mail')}<a href="mailto:${SITE.contact.email}">${SITE.contact.email}</a></li><li>${icon('clock')}<span>${esc(SITE.contact.hours)}</span></li></ul>` : ''}
       <span class="ph-cue" aria-hidden="true"></span>
     </div>
     <figure class="ph-media"><div class="arch"><img data-parallax="0.05" src="assets/img/${m.hero}.webp" alt="${m.heroAlt || ''}"${m.heroPos ? ` style="object-position:${m.heroPos}"` : ''} fetchpriority="high"></div></figure>

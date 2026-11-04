@@ -30,7 +30,7 @@
   const header = $('.site-header');
   const lightUnder = () => { const el = document.elementsFromPoint(innerWidth / 2, header.offsetHeight / 2).find(n => !header.contains(n)); return !!(el && el.closest('[data-nav="light"]')); };
   new ResizeObserver(() => root.style.setProperty('--hdr', header.offsetHeight + 'px')).observe(header, { box: 'border-box' }); // the section pill sits just under it
-  let lastY = scrollY;
+  let lastY = scrollY, fabTimer;
   const onScroll = () => {
     const y = scrollY, d = y - lastY;
     header.classList.toggle('solid', y > 40);
@@ -38,6 +38,9 @@
     if (Math.abs(d) > 4) {
       header.classList.toggle('hide', d > 0 && y > 240 && !document.body.classList.contains('nav-open') && !header.matches(':focus-within'));
       document.body.classList.toggle('bar-away', header.classList.contains('hide'));
+      // the round buttons step aside while the page is being scrolled down, so they never cover what is being read
+      document.body.classList.toggle('fab-away', d > 0 && y > 500);
+      clearTimeout(fabTimer); fabTimer = setTimeout(() => document.body.classList.remove('fab-away'), 900);
       lastY = y;
     }
     document.body.classList.toggle('float-on', y > 500);
@@ -73,29 +76,31 @@
   if (hh && motion) {
     const img = $('.hh-img', hh), word = $('.hh-word', hh), content = $('.hh-content', hh), mist = $('.hh-mist', hh);
     const st = { trigger: hh, start: 'top top', end: 'bottom top', scrub: true };
-    gsap.to(img, { yPercent: 11, ease: 'none', scrollTrigger: st });
+    gsap.to(img, { yPercent: 7, ease: 'none', scrollTrigger: st });
     gsap.to(mist, { xPercent: 12, yPercent: 8, ease: 'none', scrollTrigger: st });
-    gsap.to(content, { y: -90, opacity: 0.15, ease: 'none', scrollTrigger: st });
-    gsap.to(word, { yPercent: -45, ease: 'none', scrollTrigger: st });
+    gsap.to(content, { y: -50, opacity: 0.4, ease: 'none', scrollTrigger: st });
+    gsap.to(word, { yPercent: -28, ease: 'none', scrollTrigger: st });
     if (finePointer) {
       const ix = gsap.quickTo(img, 'xPercent', { duration: 1.6, ease: 'power3' }), mx = gsap.quickTo(mist, 'x', { duration: 2, ease: 'power3' });
-      hh.addEventListener('pointermove', e => { const nx = e.clientX / innerWidth - 0.5; ix(nx * -1.6); mx(nx * 40); });
+      hh.addEventListener('pointermove', e => { const nx = e.clientX / innerWidth - 0.5; ix(nx * -0.8); mx(nx * 24); });
     }
   }
 
   /* headings are split into lines so they can rise line by line (CSS does the motion) */
   if (motion && window.SplitText) (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
     $$('main h2, .page-hero h1, .hero-hima h1').forEach(h => {
-      if (!h.closest('.reveal')) h.classList.add('reveal');
+      const own = !h.closest('.reveal');
+      if (own) h.classList.add('reveal');
       SplitText.create(h, { type: 'lines', mask: 'lines', linesClass: 'ln', autoSplit: true, onSplit: s => s.lines.forEach((l, i) => l.style.setProperty('--li', i)) });
       // page titles are on screen from the start: reveal them on load rather than waiting for the observer
       if (h.closest('.hero-hima, .page-hero')) requestAnimationFrame(() => requestAnimationFrame(() => h.classList.add('in')));
+      else if (own) io.observe(h); // a heading that is its own reveal is watched like the rest, now that it has the class
     });
   });
 
   /* reveal on scroll, with optional stagger for children of [data-stagger] */
   $$('[data-stagger]').forEach(group => [...group.children].forEach((c, i) => { c.classList.add('reveal'); c.style.setProperty('--d', (i % 6) * 0.09 + 's'); }));
-  const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
   // page titles are revealed by the split above, once the fonts are in; the observer would show them unsplit
   const titles = motion && window.SplitText ? '.hero-hima h1, .page-hero h1' : '';
   $$('.reveal, .reveal-img').filter(el => !(titles && el.matches(titles))).forEach(el => io.observe(el));
@@ -129,10 +134,18 @@
     });
   });
 
-  /* three paths: the HUD (group, description, counter, thread) follows whichever panel is in view */
+  /* three paths: the paths are stacked by group for everyone; on wide screens with motion they become a pinned
+     horizontal walk, and the HUD (group, description, counter, thread) follows whichever panel is in view */
   const paths = $('.walk');
   if (paths) {
-    const scroller = $('.walk-scroller', paths), track = $('.walk-track', paths), panels = $$('.path-panel', paths), hud = $('.walk-hud', paths);
+    const track = $('.walk-track', paths), panels = $$('.path-panel', paths), hud = $('.walk-hud', paths);
+    // the HUD names the three groups; its words come from the group headings, so they are written only once
+    $$('.wg-head', paths).forEach((h, i) => {
+      const li = document.createElement('li'), num = document.createElement('span'), p = document.createElement('p');
+      li.dataset.g = p.dataset.g = String(i); num.textContent = $('.wg-num', h).textContent;
+      li.append(num, $('h3', h).textContent); p.textContent = $('p', h).textContent;
+      $('.hud-groups', hud).append(li); $('.hud-desc', hud).append(p);
+    });
     const groups = $$('.hud-groups li', hud), descs = $$('.hud-desc p', hud), count = $('.hud-count b', hud);
     let last = -1;
     const hudAt = p => {
@@ -141,23 +154,19 @@
       let i = 0; panels.forEach((el, j) => { if (el.getBoundingClientRect().left < innerWidth * 0.5) i = j; });
       if (p > 0.98) i = panels.length - 1;
       if (i === last) return; last = i;
-      const g = panels[i].dataset.group;
+      const g = panels[i].closest('.walk-group').dataset.g;
       count.textContent = String(i + 1).padStart(2, '0');
       groups.forEach(li => li.classList.toggle('on', li.dataset.g === g));
       descs.forEach(d => d.classList.toggle('on', d.dataset.g === g));
     };
     hudAt(0);
-    scroller.addEventListener('scroll', () => {
-      if (paths.classList.contains('pinned')) return;
-      const max = scroller.scrollWidth - scroller.clientWidth; hudAt(max > 0 ? scroller.scrollLeft / max : 0);
-    }, { passive: true });
-    if (motion) gsap.matchMedia().add('(min-width: 900px) and (min-height: 560px)', () => {
+    if (motion) gsap.matchMedia().add('(min-width: 1100px) and (min-height: 560px)', () => {
       paths.classList.add('pinned');
       // the panels move sideways, which lazy loading does not notice in time: fetch them as the section approaches
       ScrollTrigger.create({ trigger: paths, start: 'top 200%', once: true, onEnter: () => $$('img', paths).forEach(i => { i.loading = 'eager'; }) });
       const dist = () => Math.max(0, track.scrollWidth - innerWidth);
       const tween = gsap.to(track, { x: () => -dist(), ease: 'none', onUpdate() { hudAt(this.progress()); }, scrollTrigger: { trigger: paths, pin: true, start: 'top top', end: () => '+=' + dist(), scrub: 0.7, invalidateOnRefresh: true } });
-      panels.forEach(p => gsap.fromTo($('img', p), { xPercent: -6 }, { xPercent: 6, ease: 'none', scrollTrigger: { trigger: p, containerAnimation: tween, start: 'left right', end: 'right left', scrub: true } }));
+      panels.forEach(p => gsap.fromTo($('img', p), { xPercent: -3 }, { xPercent: 3, ease: 'none', scrollTrigger: { trigger: p, containerAnimation: tween, start: 'left right', end: 'right left', scrub: true } }));
       // keyboard users: bring a focused panel into view
       const onFocus = e => {
         const p = e.target.closest('.path-panel'), st = tween.scrollTrigger; if (!p || !dist()) return;
@@ -223,8 +232,28 @@
     $('.vs-next', sl).addEventListener('click', () => go(cur() + 1));
   });
 
-  /* film strips: drag with the mouse (touch and trackpads scroll natively) */
+  /* film strips: arrows, a progress bar and a count make it plain that there is more; the mouse can drag,
+     touch and trackpads scroll natively */
   $$('[data-strip]').forEach(s => {
+    const items = $$('.strip-item', s), pad = n => String(n).padStart(2, '0');
+    const ctrl = document.createElement('div');
+    ctrl.className = 'strip-controls';
+    ctrl.innerHTML = '<button type="button" class="sc-prev" aria-label="Previous photographs">←</button><button type="button" class="sc-next" aria-label="Next photographs">→</button><span class="sc-bar" aria-hidden="true"><i></i></span><span class="sc-count" aria-hidden="true"></span>';
+    s.after(ctrl);
+    s.tabIndex = 0; s.setAttribute('role', 'region'); s.setAttribute('aria-label', 'Photographs, scroll sideways');
+    const bar = $('.sc-bar i', ctrl), cnt = $('.sc-count', ctrl), prev = $('.sc-prev', ctrl), next = $('.sc-next', ctrl);
+    const sync = () => {
+      const max = s.scrollWidth - s.clientWidth;
+      ctrl.hidden = max < 4;
+      const w = Math.min(100, s.clientWidth / s.scrollWidth * 100), p = max > 0 ? s.scrollLeft / max : 0;
+      bar.style.width = w + '%'; bar.style.left = p * (100 - w) + '%';
+      const first = items.findIndex(a => a.offsetLeft + a.offsetWidth > s.scrollLeft + s.clientWidth * 0.12);
+      cnt.textContent = `${pad(Math.max(0, first) + 1)} / ${pad(items.length)}`;
+      prev.disabled = s.scrollLeft < 4; next.disabled = s.scrollLeft > max - 4;
+    };
+    const step = dir => s.scrollBy({ left: dir * s.clientWidth * 0.8, behavior: reduce ? 'auto' : 'smooth' });
+    prev.addEventListener('click', () => step(-1)); next.addEventListener('click', () => step(1));
+    s.addEventListener('scroll', sync, { passive: true }); addEventListener('resize', sync); addEventListener('load', sync); sync();
     let down = false, moved = false, sx = 0, sl = 0;
     s.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse' || e.button) return; down = true; moved = false; sx = e.clientX; sl = s.scrollLeft; });
     addEventListener('pointermove', e => {
@@ -335,34 +364,20 @@
 
   /* scroll scenes */
   if (motion) {
-    /* inner pages: the photograph settles into its doorway, the large Sanskrit word drifts */
+    /* inner pages: the photograph settles into its frame and the text eases up a little as the page is read */
     const ph = $('.page-hero');
     if (ph) {
-      gsap.from($('.ph-media .arch', ph), { clipPath: 'inset(100% 0 0 0)', duration: 1.8, ease: 'expo.out', delay: 0.1 });
-      const glyph = $('.ph-glyph', ph);
-      if (glyph) {
-        gsap.from(glyph, { opacity: 0, x: 80, duration: 2.2, ease: 'expo.out' });
-        gsap.to(glyph, { xPercent: -16, ease: 'none', scrollTrigger: { trigger: ph, start: 'top top', end: 'bottom top', scrub: 1 } });
-      }
-      gsap.to($('.ph-text', ph), { y: 70, ease: 'none', scrollTrigger: { trigger: ph, start: 'top top', end: 'bottom top', scrub: true } });
+      gsap.from($('.ph-media .arch', ph), { clipPath: 'inset(8% 0 0 0)', opacity: 0, duration: 1.4, ease: 'power2.out', delay: 0.1 });
+      gsap.to($('.ph-text', ph), { y: 30, ease: 'none', scrollTrigger: { trigger: ph, start: 'top top', end: 'bottom top', scrub: true } });
     }
 
-    /* dark sections open like a doorway as they arrive */
-    $$('.section.on-dark').forEach(sec => {
-      sec.classList.add('door-in');
-      gsap.fromTo(sec, { '--mw': '46%', '--mh': '100%' }, { '--mw': '420%', '--mh': '220%', ease: 'power3.in', scrollTrigger: { trigger: sec, start: 'top bottom', end: 'top 20%', scrub: true } });
-    });
+    /* the strip of verses drifts gently with the scroll */
+    $$('.shloka-track').forEach(t => gsap.fromTo(t, { xPercent: 0 }, { xPercent: -12, ease: 'none', scrollTrigger: { trigger: t.parentElement, start: 'top bottom', end: 'bottom top', scrub: 1 } }));
 
-    /* mandalas turn with the reader, not on their own */
-    $$('.mandala-spin').forEach(m => gsap.to(m, { rotation: 120, ease: 'none', scrollTrigger: { trigger: m.parentElement, start: 'top bottom', end: 'bottom top', scrub: 1.5 } }));
-
-    /* the strip of verses drifts with the scroll */
-    $$('.shloka-track').forEach(t => gsap.fromTo(t, { xPercent: 0 }, { xPercent: -25, ease: 'none', scrollTrigger: { trigger: t.parentElement, start: 'top bottom', end: 'bottom top', scrub: 1 } }));
-
-    /* a statement that fills in word by word as it is read */
+    /* a statement that fills in word by word as it is read (never fainter than easy reading) */
     if (window.SplitText) $$('[data-words]').forEach(p => {
       const s = SplitText.create(p, { type: 'words', wordsClass: 'w' });
-      gsap.fromTo(s.words, { opacity: 0.14 }, { opacity: 1, stagger: 0.08, ease: 'none', scrollTrigger: { trigger: p, start: 'top 85%', end: 'bottom 50%', scrub: true } });
+      gsap.fromTo(s.words, { opacity: 0.4 }, { opacity: 1, stagger: 0.08, ease: 'none', scrollTrigger: { trigger: p, start: 'top 85%', end: 'bottom 50%', scrub: true } });
     });
 
     /* Kausani: the panorama pans across as the band passes */
