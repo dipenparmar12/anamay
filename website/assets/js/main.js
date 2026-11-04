@@ -29,6 +29,7 @@
      At the very top it takes light colours when it sits over a photograph marked data-nav="light". */
   const header = $('.site-header');
   const lightUnder = () => { const el = document.elementsFromPoint(innerWidth / 2, header.offsetHeight / 2).find(n => !header.contains(n)); return !!(el && el.closest('[data-nav="light"]')); };
+  new ResizeObserver(() => root.style.setProperty('--hdr', header.offsetHeight + 'px')).observe(header, { box: 'border-box' }); // the section pill sits just under it
   let lastY = scrollY;
   const onScroll = () => {
     const y = scrollY, d = y - lastY;
@@ -36,6 +37,7 @@
     header.classList.toggle('light', y <= 40 && lightUnder());
     if (Math.abs(d) > 4) {
       header.classList.toggle('hide', d > 0 && y > 240 && !document.body.classList.contains('nav-open') && !header.matches(':focus-within'));
+      document.body.classList.toggle('bar-away', header.classList.contains('hide'));
       lastY = y;
     }
     document.body.classList.toggle('float-on', y > 500);
@@ -268,37 +270,62 @@
     });
   }
 
-  /* the thread: page progress, with a knot for each chapter of the page */
+  /* the thread: page progress as a hairline at the top; a quiet pill of the page's own sections stays within reach
+     (the primary menu is untouched). IntersectionObserver tells which section is being read. */
   const chapters = $$('main > section, main > .pin-spacer > section').filter(s => !s.matches('.hero-hima, .page-hero'))
-    .map(s => ({ s, label: (s.dataset.chapter || $('.eyebrow', s)?.textContent || $('h2', s)?.textContent || '').split('·')[0].trim().slice(0, 32) }))
+    .map(s => ({ s, label: (s.dataset.chapter || $('.eyebrow', s)?.textContent || $('h2', s)?.textContent || '').split('·')[0].trim().replace(/^(.{1,26})(s.*)?$/s, (m, a, rest) => rest ? a + '…' : a) }))
     .filter(c => c.label);
-  if (chapters.length || document.querySelector('main')) {
+  const thread = document.createElement('div');
+  thread.className = 'sutra'; thread.setAttribute('aria-hidden', 'true'); thread.innerHTML = '<span class="sutra-line"><i></i></span>';
+  document.body.append(thread);
+  let ticking = false;
+  addEventListener('scroll', () => {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(() => { ticking = false; const H = root.scrollHeight - innerHeight; thread.style.setProperty('--p', (H > 0 ? Math.min(1, scrollY / H) : 0).toFixed(4)); });
+  }, { passive: true });
+
+  // one sentinel the height of the first screen: out of view means the visitor has started reading
+  const sentinel = document.createElement('div');
+  sentinel.className = 'top-sentinel'; sentinel.setAttribute('aria-hidden', 'true');
+  document.body.prepend(sentinel);
+  const toTop = $('.to-top');
+  new IntersectionObserver(([e]) => {
+    const away = !e.isIntersecting;
+    document.body.classList.toggle('read-on', away);
+    if (toTop) toTop.tabIndex = away ? 0 : -1;
+  }).observe(sentinel);
+  if (toTop) toTop.addEventListener('click', () => { goTo(0); history.replaceState(null, '', location.pathname + location.search); });
+
+  // a page needs at least three sections to deserve a section navigator
+  if (chapters.length >= 3) {
     const nav = document.createElement('nav');
-    nav.className = 'sutra'; nav.setAttribute('aria-label', 'Sections of this page');
-    nav.innerHTML = `<span class="sutra-line"><i></i></span><ol>${chapters.map((c, i) => { c.s.id = c.s.id || 'part-' + (i + 1); return `<li><a href="#${c.s.id}"><span class="knot"></span><span class="lbl">${c.label}</span></a></li>`; }).join('')}</ol>`;
+    nav.className = 'secnav'; nav.setAttribute('aria-label', 'Sections of this page');
+    nav.innerHTML = `<ol>${chapters.map((c, i) => { c.s.id = c.s.id || 'part-' + (i + 1); return `<li><a href="#${c.s.id}">${c.label}</a></li>`; }).join('')}</ol>`;
     document.body.append(nav);
-    const lis = $$('li', nav);
-    let current = -2, flash, ticking = false;
-    const place = () => {
-      const H = Math.max(1, root.scrollHeight - innerHeight);
-      chapters.forEach((c, i) => lis[i].style.setProperty('--y', (Math.min(1, Math.max(0, (c.s.getBoundingClientRect().top + scrollY - innerHeight * 0.5) / H)) * 100).toFixed(2) + '%'));
+    const list = $('ol', nav), links = $$('a', nav);
+    let active = -1;
+    const mark = i => {
+      if (i === active) return; active = i;
+      links.forEach((a, j) => { a.classList.toggle('on', j === i); j === i ? a.setAttribute('aria-current', 'location') : a.removeAttribute('aria-current'); });
+      if (i >= 0) list.scrollTo({ left: links[i].offsetLeft - (list.clientWidth - links[i].offsetWidth) / 2, behavior: reduce ? 'auto' : 'smooth' });
     };
-    const update = () => {
-      ticking = false;
-      const H = root.scrollHeight - innerHeight;
-      nav.style.setProperty('--p', (H > 0 ? Math.min(1, scrollY / H) : 0).toFixed(4));
-      nav.classList.toggle('show', scrollY > innerHeight * 0.4);
-      let i = -1; chapters.forEach((c, j) => { if (c.s.getBoundingClientRect().top < innerHeight * 0.5) i = j; });
-      if (i === current) return; current = i;
-      lis.forEach((li, j) => { li.classList.toggle('done', j < i); li.classList.toggle('active', j === i); });
-      nav.classList.toggle('dark', i >= 0 && chapters[i].s.matches('.on-dark, .pan-band'));
-      if (i >= 0) { nav.classList.add('flash'); clearTimeout(flash); flash = setTimeout(() => nav.classList.remove('flash'), 1800); }
-    };
-    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-    addEventListener('resize', place);
-    addEventListener('load', () => { place(); update(); });
-    if (motion) ScrollTrigger.addEventListener('refresh', place);
-    place(); update();
+    // the section crossing a thin band in the middle of the screen is the one being read; at the very bottom, the last one
+    const crossing = new Set(); let atEnd = false;
+    const pick = () => mark(atEnd ? chapters.length - 1 : crossing.size ? Math.max(...crossing) : -1);
+    const bandIO = new IntersectionObserver(es => { es.forEach(e => { const i = chapters.findIndex(c => c.s === e.target); e.isIntersecting ? crossing.add(i) : crossing.delete(i); }); pick(); }, { rootMargin: '-45% 0px -50% 0px' });
+    chapters.forEach(c => bandIO.observe(c.s));
+    const end = document.createElement('div');
+    end.className = 'end-sentinel'; end.setAttribute('aria-hidden', 'true');
+    document.body.append(end);
+    new IntersectionObserver(([e]) => { atEnd = e.isIntersecting; pick(); }).observe(end);
+    // jump with the same easing as the rest of the site, leaving room for the pill (and the menu bar when it is showing)
+    nav.addEventListener('click', e => {
+      const a = e.target.closest('a'); if (!a) return;
+      e.preventDefault(); e.stopPropagation(); // Lenis would otherwise scroll to the anchor itself
+      const t = $(a.getAttribute('href')); if (!t) return;
+      goTo(Math.max(0, t.getBoundingClientRect().top + scrollY - 76));
+      history.replaceState(null, '', a.getAttribute('href'));
+    });
   }
 
   /* scroll scenes */

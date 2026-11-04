@@ -760,27 +760,36 @@ strong { font-weight: 500; }
 .motion .reveal.in .ln { translate: none; }
 .motion .shloka-track { animation: none; }
 
-/* the thread: page progress with a knot for every chapter; a hairline at the top on smaller screens */
+/* the thread: page progress as a hairline at the top */
 .sutra { position: fixed; z-index: 61; left: 0; right: 0; top: 0; height: 2px; pointer-events: none; }
 .sutra-line { position: absolute; inset: 0; }
 .sutra-line i { position: absolute; inset: 0; background: linear-gradient(90deg, var(--gold), var(--saffron)); transform-origin: left; scale: var(--p, 0) 1; }
-.sutra ol { display: none; }
-@media (min-width: 1180px) {
-  .sutra { left: clamp(14px, 1.6vw, 30px); right: auto; top: 50%; translate: 0 -50%; height: min(60vh, 560px); width: 24px; z-index: 40; pointer-events: auto; opacity: 0; transition: opacity .8s; }
-  .sutra.show { opacity: 1; }
-  .sutra-line { left: 11px; right: auto; width: 1px; background: var(--line); }
-  .sutra-line i { background: linear-gradient(var(--gold), var(--saffron)); transform-origin: top; scale: 1 var(--p, 0); }
-  .sutra ol { display: block; list-style: none; margin: 0; padding: 0; }
-  .sutra li { position: absolute; left: 0; top: var(--y); translate: 0 -50%; }
-  .sutra a { display: flex; align-items: center; gap: 12px; text-decoration: none; padding: 4px 0; }
-  .sutra .knot { flex: none; width: 9px; height: 9px; margin-left: 7px; border-radius: 50%; background: var(--paper); border: 1px solid var(--gold); transition: background .4s, border-color .4s, scale .4s, box-shadow .4s; }
-  .sutra .lbl { font: 500 11px/1 var(--font-body); letter-spacing: .18em; text-transform: uppercase; color: var(--ink); white-space: nowrap; background: rgba(246, 239, 226, .92); padding: 6px 9px; border-radius: 4px; opacity: 0; translate: -6px 0; transition: opacity .4s, translate .5s var(--ease); }
-  .sutra li.done .knot { background: var(--gold); }
-  .sutra li.active .knot { scale: 1.5; background: var(--saffron); border-color: var(--saffron); box-shadow: 0 0 0 4px rgba(194, 101, 42, .16); }
-  .sutra a:hover .lbl, .sutra a:focus-visible .lbl, .sutra.flash li.active .lbl { opacity: 1; translate: none; }
-  .sutra.dark .sutra-line { background: rgba(217, 164, 65, .3); }
-  .sutra.dark .knot { background: var(--indigo); }
-}
+
+/* sections of this page: a quiet pill under the menu bar, shown once the visitor starts reading */
+.top-sentinel { position: absolute; top: 0; left: 0; width: 1px; height: 80vh; pointer-events: none; visibility: hidden; }
+.end-sentinel { height: 1px; margin-top: -1px; pointer-events: none; }
+.secnav { position: fixed; z-index: 45; top: calc(var(--hdr, 68px) + 8px); left: 50%; max-width: min(720px, calc(100vw - 24px)); translate: -50% -10px; opacity: 0; visibility: hidden; pointer-events: none; border: 1px solid var(--line); border-radius: 999px; background: rgba(246, 239, 226, .8); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); transition: opacity .5s var(--ease), translate .6s var(--ease), top .5s var(--ease), visibility 0s .5s; }
+.read-on .secnav { translate: -50% 0; opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
+.read-on.bar-away .secnav { top: 12px; }
+.nav-open .secnav { opacity: 0; visibility: hidden; pointer-events: none; }
+.secnav ol { display: flex; gap: 2px; margin: 0; padding: 4px; list-style: none; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; -webkit-mask: linear-gradient(90deg, transparent, #000 14px, #000 calc(100% - 14px), transparent); mask: linear-gradient(90deg, transparent, #000 14px, #000 calc(100% - 14px), transparent); }
+.secnav ol::-webkit-scrollbar { display: none; }
+.secnav a { display: block; flex: none; padding: 11px 14px; border-radius: 999px; color: var(--muted); text-decoration: none; white-space: nowrap; font: 500 11px/1 var(--font-body); letter-spacing: .16em; text-transform: uppercase; transition: color .3s, background .3s; }
+.secnav a:hover { color: var(--ink); }
+.secnav a.on { color: var(--paper); background: var(--saffron-deep); }
+.secnav a:focus-visible { outline: 2px solid var(--saffron); outline-offset: -2px; }
+@media (pointer: coarse) { .secnav a { padding-block: 14px; } }
+@media (max-width: 640px) { .secnav a { padding-inline: 12px; letter-spacing: .12em; } }
+
+/* back to top: a small sibling of the WhatsApp button, above it */
+.to-top { position: fixed; z-index: 40; right: 30px; bottom: 90px; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: rgba(246, 239, 226, .85); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); color: var(--ink); display: grid; place-items: center; cursor: pointer; opacity: 0; visibility: hidden; scale: .6; transition: opacity .5s, scale .6s var(--ease), background .3s, color .3s, visibility 0s .5s; }
+.to-top svg { width: 18px; height: 18px; }
+.to-top:hover, .to-top:focus-visible { background: var(--saffron-deep); color: var(--paper); border-color: var(--saffron-deep); }
+.read-on .to-top { opacity: 1; visibility: visible; scale: 1; transition-delay: 0s; }
+.nav-open .to-top { opacity: 0; visibility: hidden; }
+@media (pointer: coarse) { .to-top { width: 44px; height: 44px; right: 28px; } }
+
+@media (prefers-reduced-motion: reduce) { .secnav, .to-top { transition-duration: .01s; } }
 
 /* dark sections rise into view like a mountain */
 .motion .door-in {

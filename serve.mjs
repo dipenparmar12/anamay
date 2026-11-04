@@ -9,6 +9,6 @@ http.createServer((req, res) => {
   if (!p.startsWith(root)) { res.writeHead(403).end(); return; }
   if (fs.existsSync(p) && fs.statSync(p).isDirectory()) p = path.join(p, 'index.html');
   if (!fs.existsSync(p)) { res.writeHead(404, { 'Content-Type': 'text/plain' }).end('Not found'); return; }
-  res.writeHead(200, { 'Content-Type': types[path.extname(p).toLowerCase()] || 'application/octet-stream' });
+  res.writeHead(200, { 'Content-Type': types[path.extname(p).toLowerCase()] || 'application/octet-stream', 'Cache-Control': 'no-store' });
   fs.createReadStream(p).pipe(res);
 }).listen(port, () => console.log(`Serving ${root} at http://localhost:${port}`));
