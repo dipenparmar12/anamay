@@ -114,15 +114,11 @@ const dialRidges = () => `<svg class="dial-ridges" viewBox="0 0 1440 240" preser
 const lotusRule = () => `<div class="lotus-rule" aria-hidden="true"><svg viewBox="0 0 46 26" fill="none" stroke="currentColor" stroke-width="1"><path d="M23 24C19 20 17.5 15 23 3c5.5 12 4 17 0 21zM23 24c-4-1-9-4-11-11 6 0 9.5 4 11 11zM23 24c4-1 9-4 11-11-6 0-9.5 4-11 11zM23 24C17 25 9 23 3 18c7-2 14 1 20 6zM23 24c6 1 14-1 20-6-7-2-14 1-20 6z"/></svg></div>`;
 
 /* ---------- images ---------- */
-// {{img:name|alt|class}} — photos from the ashram; licensed photos also get a visible credit line
+// {{img:name|alt|class}} — attributions live on credits.html only, not under the images
 function img(name, alt = '', cls = '') {
   const c = credits[name];
   const tag = `<img src="assets/img/${name}.webp" alt="${alt || (c && c.caption) || ''}" loading="lazy" decoding="async"${cls ? ` class="${cls}"` : ''}>`;
   return tag;
-}
-function credit(name) {
-  const c = credits[name]; if (!c) return '';
-  return `<small class="credit">${c.caption} · Photo: ${c.author}, <a href="${c.page}" target="_blank" rel="noopener">${c.license}</a> via Wikimedia Commons</small>`;
 }
 
 /* ---------- article markdown (from the content inventory) ---------- */
@@ -222,7 +218,7 @@ function footer() {
   ${links('Stay', [['retreat.html', 'Anāmay Vedic Retreat'], ['rooms.html', 'Rooms & Suites'], ['visit.html', 'Visit & Travel'], ['contribute.html', 'Contribute']])}
   <div><h4>Reach us</h4><ul><li>Kausani Estate, District Bageshwar,<br>Uttarakhand 263620</li>${SITE.phones.map(p => `<li><a href="tel:${p.replace(/\s/g, '')}">${p}</a></li>`).join('')}<li><a href="mailto:${SITE.email}">${SITE.email}</a></li><li>Every day, 9:30 am – 6:30 pm</li></ul></div>
 </div>
-<div class="footer-bottom"><span>© <span data-year>2026</span> Shree Anamay Nyas. All rights reserved.</span><nav><a href="policies.html">Privacy &amp; policies</a><a href="credits.html">Image credits</a><a href="retreat.html">Anāmay Vedic Retreat</a></nav></div></div></footer>
+<div class="footer-bottom"><span>© <span data-year>2026</span> Shree Anamay Nyas. All rights reserved.</span><nav><a href="policies.html">Privacy &amp; policies</a><a href="retreat.html">Anāmay Vedic Retreat</a></nav></div></div></footer>
 <a class="whatsapp-float" href="https://wa.me/${SITE.whatsapp}" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">${icon('whatsapp')}</a>
 <button class="to-top" type="button" aria-label="Back to top" tabindex="-1">${icon('up')}</button>
 <div class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" data-lenis-prevent><span class="lb-count"></span><figure><img alt=""><figcaption></figcaption></figure><button class="close" aria-label="Close">×</button><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button></div>
@@ -244,7 +240,7 @@ function pageHero(m) {
       ${m.lead ? `<p class="lead">${m.lead}</p>` : ''}
       <span class="ph-cue" aria-hidden="true"></span>
     </div>
-    <figure class="ph-media"><div class="arch"><img data-parallax="0.05" src="assets/img/${m.hero}.webp" alt="" fetchpriority="high"></div>${m.heroCredit ? credit(m.hero) : ''}</figure>
+    <figure class="ph-media"><div class="arch"><img data-parallax="0.05" src="assets/img/${m.hero}.webp" alt="${m.heroAlt || ''}"${m.heroPos ? ` style="object-position:${m.heroPos}"` : ''} fetchpriority="high"></div></figure>
   </div>
 </section>`;
 }
@@ -290,7 +286,6 @@ function expand(s) {
     .replace(/\{\{lotus\}\}/g, lotusRule)
     .replace(/\{\{icon:(\w+)\}\}/g, (_, n) => icon(n))
     .replace(/\{\{img:([\w/-]+)(?:\|([^|}]*))?(?:\|([^}]*))?\}\}/g, (_, n, a, c) => img(n, a, c))
-    .replace(/\{\{credit:([\w-]+)\}\}/g, (_, n) => credit(n))
     .replace(/\{\{md:([^}]+)\}\}/g, (_, slug) => md(slug))
     .replace(/\{\{videos:(\w+)\}\}/g, (_, g) => `<div class="video-grid" data-stagger>${VIDEO_GROUPS[g].map(videoCard).join('')}</div>`)
     .replace(/\{\{gallery(?::([\w-]+))?\}\}/g, (_, k) => galleryGrid(k))
